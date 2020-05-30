@@ -1,0 +1,68 @@
+include images/profileIcon
+include mixins/topmenu
+include mixins/streamers
+include mixins/scheduled
+include mixins/featured_live
+include mixins/featured_scheduled
+
+-var lang = 'EST';
+
+if (!lang)
+	include eng/footer
+	include eng/login
+	include eng/live_streams
+	include eng/scheduled_streams
+	include eng/landing
+else if (lang == "EST")
+	include est/footer
+	include est/login
+	include est/live_streams
+	include est/scheduled_streams
+	include est/landing
+else if (lang == "ENG")
+	include eng/footer
+	include eng/login
+	include eng/live_streams
+	include eng/scheduled_streams
+	include eng/landing
+
+doctype html
+html
+	head
+		title Eeter.tv
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='stylesheet' href='/css/reset.css')
+		link(rel='stylesheet', href='/css/unreset.css')
+		link(rel='stylesheet' href='/css/main.css')
+		link(rel='stylesheet' href='/css/registration.css')
+		link(rel='stylesheet' href='/css/navigation.css')
+		link(rel='stylesheet' href='/css/streamPreviews.css')
+		link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css')
+		link(href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet")
+		link(href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i&display=swap" rel="stylesheet")
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js')
+		script(src='https://momentjs.com/downloads/moment.min.js')
+		link(rel='stylesheet' href='/css/responsive.css')
+		link(rel='stylesheet' href='/css/streaming.css')
+		link(rel='stylesheet' href='/css/content.css')
+		script.
+			!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
+			analytics.load("inmStx1qOaDZPXyU5EOLQfRu0tJConRK");
+			analytics.page();
+			}}();
+		block header
+
+	body
+		- var coreURL = 'dashboard';
+		+topmenu(user)
+		block heading
+		.container
+			block content
+			block scripts
+			script(src='/js/main.js')
+			script(src='/js/topbar__dropdown.js')
+		+footer
+
+
+
