@@ -3,10 +3,8 @@
     <AboutNav />
     <div class="footer_page">
       <div class="textTitle">Contact</div>
-
-      <div class="textTitle">E-mail</div>
       <div class="textSection">
-        <span class="textStyle">With all requests, ideas and suggestions, please write to us at 
+        <span class="about_text">With all requests, ideas and suggestions, please write to us at 
           <a
             href="mailto:hello@fitx.ninja"
           >hello@fitx.ninja</a>, on 
@@ -32,13 +30,17 @@ export default {
 
 <style scoped>
 
-.about_text {
+.about_text, a {
   margin-bottom: 15px;
   line-height: 23px;
 }
 
 p {
   color: white !important;
+}
+
+a {
+  color: #00ffe7 !important;
 }
 
 .textTitle {
@@ -97,7 +99,7 @@ p {
   border: 1px solid transparent;
 }
 .topNavigationLink__topBar {
-  color: #120088;
+  color: #00ffe7;
   font-weight: bold;
   padding: 10px 16px;
   display: inline-block;
@@ -140,5 +142,6 @@ p {
 }
 .active-about {
   background-color: #f7f7fb;
+  color: black !important;
 }
 </style>
