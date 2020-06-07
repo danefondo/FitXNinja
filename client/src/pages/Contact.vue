@@ -2,16 +2,16 @@
   <div class="footer_page_container">
     <AboutNav />
     <div class="footer_page">
-      <div class="textTitle">Kontakt</div>
+      <div class="textTitle">Contact</div>
 
       <div class="textTitle">E-mail</div>
       <div class="textSection">
-        <span class="textStyle">Kõikide soovide, ideede ja nõuannetega palun kirjuta meile
+        <span class="textStyle">With all requests, ideas and suggestions, please write to us at 
           <a
-            href="mailto:tere@eeter.tv"
-          >tere@eeter.tv</a>,
-          <a href="https://www.facebook.com/Eetertv-110182260667172" target="_blank">Facebookis</a>, või
-          <a href="instagram.com/eeter.tv/" target="_blank">Instagramis</a>.
+            href="mailto:hello@fitx.ninja"
+          >hello@fitx.ninja</a>, on 
+          <a href="https://www.facebook.com/FitXNinja" target="_blank">Facebook</a>, or 
+          <a href="https://www.instagram.com/fitxninja/" target="_blank">Instagram</a>.
         </span>
       </div>
     </div>

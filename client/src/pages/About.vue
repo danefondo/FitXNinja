@@ -2,130 +2,15 @@
   <div class="footer_page_container">
     <AboutNav />
     <div class="footer_page">
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Eeter.tv tagamaad.</span>
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Eeter.tv on kodumaine platvorm striimimiseks ja striimide avastamiseks.&nbsp;</span>
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <br />
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Miks me eksisteerime?</span>
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Meie eesmärk on kõigi isolatsioon produktiivsemaks teha. Eeter.tv sai alguse soovist aidata eriolukorra tõttu sissetulekuallika kaotanud inimesi. Sellele truuks jäädes oleme püüdnud ehitada platvormi, mis oleks ka vaatajatele kasulik. Teiste toetamine on tore ja üllas, ent usume, et kui lood maailma väärtust, näiteks hariva või meelt lahutava sisu näol, siis maailm reageerib. Vahel on see rahaliselt, teinekord metafoorilise käepigistuse ja sõbraliku julgustusega.</span>
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <br />
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Kuidas eeter toimib?</span>
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Looja alustab&nbsp;</span>
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:italic;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >striimimist </span>
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >&nbsp;</span>
-      <a href="http://youtube.com" style="text-decoration:none;">
-        <span
-          style="font-size:11pt;font-family:Arial;color:#1155cc;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:underline;-webkit-text-decoration-skip:none;text-decoration-skip-ink:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-        >YouTubes</span>
-      </a>
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >,&nbsp;</span>
-      <a href="http://facebook.com" style="text-decoration:none;">
-        <span
-          style="font-size:11pt;font-family:Arial;color:#1155cc;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:underline;-webkit-text-decoration-skip:none;text-decoration-skip-ink:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-        >Facebookis</span>
-      </a>
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >&nbsp;v&otilde;i&nbsp;</span>
-      <a href="http://twitch.tv" style="text-decoration:none;">
-        <span
-          style="font-size:11pt;font-family:Arial;color:#1155cc;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:underline;-webkit-text-decoration-skip:none;text-decoration-skip-ink:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-        >Twitchis</span>
-      </a>
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >&nbsp;ja seej&auml;rel jagab seda Eeter.tv veebis. Kuna me vaid koondame sisu, j&auml;&auml;b k&otilde;ik looja originaalplatvormile alles. Aga see, kas see ka seal kajastub, on looja enda valida. Varsti saab alustada striimimist ka otse l&auml;bi meie veebi ja lausa mitmesse sotsiaalmeediakanalisse korraga. &nbsp;</span>
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <br />
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Eeter.tv vs YouTube, Facebook &amp; Twitch?</span>
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Eeter.tv on avastamiseks. Kui eesm&auml;rk on kodumaine sisu, siis teistes portaalides pead sa teadma, mida otsima l&auml;hed. Koondades kokku vaid kodumaise sisu, suudab Eeter.tv sind pidevalt &uuml;llatada uute huvitavate ja inspireerivate kohalike loojatega. Samuti v&otilde;imaldame me andekatel loojatel ja nende teostel saada t&auml;helepanu, mida nad v&auml;&auml;rivad.&nbsp;</span>
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Aga selleni on veel aega.</span>
-    </p>
-    <p>
-      <br />
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Mine eetrisse.</span>
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Alusta striimimist ja v&otilde;ida s&uuml;dameid! &nbsp;</span>
-      <a
-        href="https://www.eeter.tv/golive"
-        style="text-decoration:none;"
-      >
-        <span
-          style="font-size:11pt;font-family:Arial;color:#1155cc;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:underline;-webkit-text-decoration-skip:none;text-decoration-skip-ink:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-        >EETRISSE!</span>
-      </a>
-    </p>
-    <p>
-      <br />
-    </p>
-    <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;">
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >Platvormi kasutamisel palun tutvu meie ka meie&nbsp;</span>
-      <a
-        href="https://www.eeter.tv/terms"
-        style="text-decoration:none;"
-      >
-        <span
-          style="font-size:11pt;font-family:Arial;color:#1155cc;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:underline;-webkit-text-decoration-skip:none;text-decoration-skip-ink:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-        >Kasutustingimustega</span>
-      </a>
-      <span
-        style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"
-      >.&nbsp;</span>
-    </p>
+      <p>The founders of FitX Ninja, Robert and Laima, took upon themselves a challenge to build a startup in 30 days to compete in TransferWise&rsquo;s 20Under20 program for young CEOs. The award sum is &pound;25,000 and the application deadline is 30th of June.</p>
+
+      <p>We gave ourselves 30 days to create, launch and market our startup called FitX Ninja. A platform to make the world of working out more social, fun and enjoyable. Our long-term goal is to create the most fitness beginner, enthusiast and trainer friendly platform.</p>
+
+      <p>To honor our name and vision, we also decided to challenge ourselves physically in those 30 days and taken upon an equivalently long Fitness Challenge to get into the best shape of our lives.</p>
+
+      <p>Follow us to join and support us in our journey! Will we make it?</p>
+
+      <p>30 days to build a startup you'll love. 30 days to do a fitness challenge.</p>
     </div>
   </div>
 </template>
@@ -142,13 +27,17 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
+
+p {
+  color: white !important;
+}
 .footer_page_container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    width: 100%;
-    font-family: "Trebuchet MS", sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  font-family: "Trebuchet MS", sans-serif;
 }
 .footer_page {
   padding: 30px 0px;

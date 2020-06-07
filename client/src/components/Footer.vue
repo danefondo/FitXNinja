@@ -4,18 +4,18 @@
       <router-link to="/about" class="footer_section">
         <div class="footer_about">{{$t("footer.about")}}</div>
       </router-link>
-      <router-link to="/privacy" class="footer_section">
+      <!-- <router-link to="/privacy" class="footer_section">
         <div class="footer_privacy">{{$t("footer.privacy")}}</div>
       </router-link>
       <router-link to="/terms" class="footer_section">
         <div class="footer_terms">{{$t("footer.terms")}}</div>
-      </router-link>
+      </router-link> -->
       <router-link to="/contact" class="footer_section">
         <div class="footer_contact">{{$t("footer.contact")}}</div>
       </router-link>
-      <router-link to="/feature-requests" class="footer_section">
+      <!-- <router-link to="/feature-requests" class="footer_section">
         <div class="footer_feature_request">{{$t("footer.feature-requests")}}</div>
-      </router-link>
+      </router-link> -->
       <!-- <router-link to="/philosophy">
         <img class="elonicon" src="../assets/images/elonicon.png" />
       </router-link> -->
@@ -35,17 +35,17 @@
           <router-link to="/contact" class="footer_section">
             <div class="footer_contact">{{$t("footer.contact")}}</div>
           </router-link>
-          <router-link to="/feature-requests" class="footer_section">
+          <!-- <router-link to="/feature-requests" class="footer_section">
             <div class="footer_feature_request">{{$t("footer.feature-requests")}}</div>
-          </router-link>
+          </router-link> -->
         </div>
         <div class="footer_sections_container">
-          <router-link to="/privacy" class="footer_section">
+          <!-- <router-link to="/privacy" class="footer_section">
             <div class="footer_privacy">{{$t("footer.privacy")}}</div>
           </router-link>
           <router-link to="/terms" class="footer_section">
             <div class="footer_terms">{{$t("footer.terms")}}</div>
-          </router-link>
+          </router-link> -->
         </div>
       </div>
       <div class="footer_bottom_container">
