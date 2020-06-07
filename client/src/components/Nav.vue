@@ -1,7 +1,9 @@
 <template>
   <div class="nav-container" :class="isAuthenticated ? 'authNav' : 'notAuthNav'">
     <div class="title-container">
+      <router-link to="/">
       <img class="fitxlogosmall" :src="ninjaImage" />
+      </router-link>
       <!-- <router-link class="title-btn" to="/">FitX Ninja</router-link> -->
     </div>
     <!-- <div class="navlinks-container"> -->

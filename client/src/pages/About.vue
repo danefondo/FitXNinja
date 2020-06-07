@@ -2,15 +2,23 @@
   <div class="footer_page_container">
     <AboutNav />
     <div class="footer_page">
-      <p>The founders of FitX Ninja, Robert and Laima, took upon themselves a challenge to build a startup in 30 days to compete in TransferWise&rsquo;s 20Under20 program for young CEOs. The award sum is &pound;25,000 and the application deadline is 30th of June.</p>
+      <p
+        class="about_text"
+      >The founders of FitX Ninja, Robert and Laima, took upon themselves a challenge to build a startup in 30 days to compete in TransferWise&rsquo;s 20Under20 program for young CEOs. The award sum is &pound;25,000 and the application deadline is 30th of June.</p>
 
-      <p>We gave ourselves 30 days to create, launch and market our startup called FitX Ninja. A platform to make the world of working out more social, fun and enjoyable. Our long-term goal is to create the most fitness beginner, enthusiast and trainer friendly platform.</p>
+      <p
+        class="about_text"
+      >We gave ourselves 30 days to create, launch and market our startup called FitX Ninja. A platform to make the world of working out more social, fun and enjoyable. Our long-term goal is to create the most fitness beginner, enthusiast and trainer friendly platform.</p>
 
-      <p>To honor our name and vision, we also decided to challenge ourselves physically in those 30 days and taken upon an equivalently long Fitness Challenge to get into the best shape of our lives.</p>
+      <p
+        class="about_text"
+      >To honor our name and vision, we also decided to challenge ourselves physically in those 30 days and taken upon an equivalently long Fitness Challenge to get into the best shape of our lives.</p>
 
-      <p>Follow us to join and support us in our journey! Will we make it?</p>
+      <p class="about_text">Follow us to join and support us in our journey! Will we make it?</p>
 
-      <p>30 days to build a startup you'll love. 30 days to do a fitness challenge.</p>
+      <p
+        class="about_text"
+      >30 days to build a startup you'll love. 30 days to do a fitness challenge.</p>
     </div>
   </div>
 </template>
@@ -28,6 +36,10 @@ export default {
 
 
 <style scoped>
+.about_text {
+  margin-bottom: 15px;
+  line-height: 23px;
+}
 
 p {
   color: white !important;

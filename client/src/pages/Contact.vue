@@ -30,11 +30,21 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
+
+.about_text {
+  margin-bottom: 15px;
+  line-height: 23px;
+}
+
+p {
+  color: white !important;
+}
+
 .textTitle {
   font-size: 11pt;
   font-family: Arial;
-  color: rgb(0, 0, 0);
+  color: white;
   background-color: transparent;
   font-weight: 700;
   font-style: normal;
@@ -47,7 +57,7 @@ export default {
 .textStyle {
   font-size: 11pt;
   font-family: Arial;
-  color: rgb(0, 0, 0);
+  color: white;
   background-color: transparent;
   font-style: normal;
   font-variant: normal;
