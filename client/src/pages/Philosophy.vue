@@ -120,5 +120,6 @@ export default {
 }
 .active-about {
   background-color: #f7f7fb;
+  color: black !important;
 }
 </style>

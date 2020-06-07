@@ -36,7 +36,6 @@ export default {
 </script>
 
 <style scoped>
-
 .nav-container {
   background-color: #111 !important;
 }
@@ -64,20 +63,21 @@ export default {
 }
 
 .frame {
- margin: 0 auto;
- display: flex;
- justify-content: center;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
 
-.frame{
+.frame {
   position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; 
+  width: 70%;
+  padding-bottom: 39.25%;
   height: 0;
+  margin-bottom: 50px;
 }
-.frame iframe{
+.frame iframe {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;

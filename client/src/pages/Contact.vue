@@ -35,7 +35,7 @@ export default {
   line-height: 23px;
 }
 
-p {
+p, span, div {
   color: white !important;
 }
 

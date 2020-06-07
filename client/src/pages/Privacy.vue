@@ -172,7 +172,7 @@ export default {
   border: 1px solid transparent;
 }
 .topNavigationLink__topBar {
-  color: #00ffe7;
+  color: ;
   font-weight: bold;
   padding: 10px 16px;
   display: inline-block;
@@ -215,5 +215,6 @@ export default {
 }
 .active-about {
   background-color: #f7f7fb;
+  color: black !important;
 }
 </style>
