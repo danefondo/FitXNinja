@@ -72,6 +72,7 @@ export default {
 .frame{
   position: relative;
   width: 100%;
+  padding-bottom: 56.25%; 
   height: 0;
 }
 .frame iframe{
