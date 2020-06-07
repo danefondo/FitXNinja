@@ -69,6 +69,19 @@ export default {
  justify-content: center;
 }
 
+.frame{
+  position: relative;
+  width: 100%;
+  height: 0;
+}
+.frame iframe{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .featured_streamer_description_container_discover span,
 .scheduled_stream_description span {
   background-color: transparent !important;

@@ -131,7 +131,7 @@ export default {
   border: 1px solid transparent;
 }
 .topNavigationLink__topBar {
-  color: #120088;
+  color: #00ffe7;
   font-weight: bold;
   padding: 10px 16px;
   display: inline-block;
