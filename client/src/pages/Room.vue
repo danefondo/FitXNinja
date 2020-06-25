@@ -61,10 +61,15 @@ export default {
         this.roomId = data.room._id;
         this.roomNotFound = false;
         let vonageScript = document.createElement("script");
+        // vonageScript.setAttribute(
+        //   "src",
+        //   `https://tokbox.com/embed/embed/ot-embed.js?embedId=e5fdef91-c258-46e2-b59f-d8e9a4624aa8&room=${this.room._id}&iframe=true`
+		// );
         vonageScript.setAttribute(
           "src",
-          `https://tokbox.com/embed/embed/ot-embed.js?embedId=e5fdef91-c258-46e2-b59f-d8e9a4624aa8&room=${this.room._id}&iframe=true`
-        );
+          `https://tokbox.com/embed/embed/ot-embed.js?embedId=9dec12a2-922b-4d1c-8c36-a96eea192176&room=${this.room._id}&iframe=true`
+		);
+		e5fdef91-c258-46e2-b59f-d8e9a4624aa8
         document.head.appendChild(vonageScript);
       } catch (error) {
         this.roomNotFound = true;
