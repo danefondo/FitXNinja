@@ -8,7 +8,7 @@
     <div class="streamMetaContainer">
       <div class="streamNameContainer">
         <router-link
-          :to="`/profile/${video._id}`"
+          :to="`/videos/${video._id}`"
           v-if="video.name"
           class="streamName"
         >{{video.name}}</router-link>
