@@ -14,7 +14,6 @@
 					.video-to-collection + Add to collection
 					.video-to-favorites + Like
 					.video-to-library + Add to library
-					//- ADMIN 
 				.video-action-group
 					.video-start-workout Start
 					.video-invite Invite friends
