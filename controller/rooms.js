@@ -12,13 +12,18 @@ const roomController = {
             let data = req.body;
 
             let room = new WorkoutRoom();
-            room.host_id = data.host_id;
-            room.video_id = data.video_id;
+            if (data.host_id) {
+                room.host_id = data.host_id;
+                room.current_participants.push(data.host_id);
+            }
+            if (data.video_id) {
+                room.video_id = data.video_id;
+            }
+            
             room.video_url = data.video_url;
             room.youtube_id = data.youtube_id;
             room.date_created = data.date_created;
-            room.current_participants.push(data.host_id);
-
+            
             await room.save();
 
             res.json({

@@ -93,9 +93,13 @@ export default {
     },
     ninjaImage() {
       return ninjaIcon;
-    }
+	},
   },
   methods: {
+	getYoutubeId(url) {
+  		url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+  		return url[2] !== undefined ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
+	},
     toggleDropdown() {
       this.isOpened = !this.isOpened;
     },
@@ -112,14 +116,17 @@ export default {
     },
     async startCustomWorkout() {
       try {
-        let roomData = {};
-        roomData.host_id = this.user._id;
-        roomData.video_id = this.video._id;
-        roomData.video_url = this.video.url;
-        roomData.youtube_id = this.video.video_id;
+		let roomData = {};
+		if (this.user && this.user._id) {
+			roomData.host_id = this.user._id;
+		}
+        roomData.video_url = this.custom_url;
+        roomData.youtube_id = this.getYoutubeId(this.custom_url);
         roomData.date_created = new Date();
         const result = await axios.post(`workoutRooms/createNewRoom`, roomData);
-        console.log("res", result);
+		console.log("res", result);
+		this.startWorkoutModal = false;
+		this.custom_url = '';
         this.$router.push(`/rooms/${result.data.room._id}`);
       } catch (error) {
         console.log("error", error);
