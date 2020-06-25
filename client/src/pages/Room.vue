@@ -41,7 +41,7 @@ import auth from "../config/auth";
 import NotFoundStream from "../components/NotFoundStream";
 
 export default {
-  name: "Video",
+  name: "Room",
   components: {
     NotFoundStream
   },
