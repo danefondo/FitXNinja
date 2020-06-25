@@ -19,9 +19,8 @@
 					.video-start-workout Start
 					.video-invite Invite friends
 					.video-return Return to video
-		#otEmbedContainer(style='width:340px; height:272px')
-		//- script(type='application/javascript', defer='', :src="conferenceSrc")
-		//- iframe(v-if="room" :src="conferenceSrc", width='340px', height='272px', scrolling='auto', allow='microphone; camera')
+		//- #otEmbedContainer(style='width:340px; height:272px')
+		iframe(v-if="room" :src="conferenceSrc", width='340px', height='272px', scrolling='auto', allow='microphone; camera')
 </template>
 
 <script>
@@ -60,16 +59,16 @@ export default {
         this.room = data.room;
         this.roomId = data.room._id;
         this.roomNotFound = false;
-        let vonageScript = document.createElement("script");
+        // let vonageScript = document.createElement("script");
         // vonageScript.setAttribute(
         //   "src",
         //   `https://tokbox.com/embed/embed/ot-embed.js?embedId=e5fdef91-c258-46e2-b59f-d8e9a4624aa8&room=${this.room._id}&iframe=true`
 		// );
-        vonageScript.setAttribute(
-          "src",
-          `https://tokbox.com/embed/embed/ot-embed.js?embedId=9dec12a2-922b-4d1c-8c36-a96eea192176&room=${this.room._id}&iframe=true`
-		);
-        document.head.appendChild(vonageScript);
+        // vonageScript.setAttribute(
+        //   "src",
+        //   `https://tokbox.com/embed/embed/ot-embed.js?embedId=9dec12a2-922b-4d1c-8c36-a96eea192176&room=${this.room._id}&iframe=true`
+		// );
+        // document.head.appendChild(vonageScript);
       } catch (error) {
         this.roomNotFound = true;
       }
@@ -80,7 +79,7 @@ export default {
       return `https://www.youtube-nocookie.com/embed/${this.room.youtube_id}?autoplay=0&amp;modestbranding=1&amp;showinfo=0&amp;rel=0&amp;theme=light&amp;color=white`;
     },
     conferenceSrc() {
-      return `https://tokbox.com/embed/embed/ot-embed.js?embedId=e5fdef91-c258-46e2-b59f-d8e9a4624aa8&room=${this.room._id}&iframe=true`;
+      return `https://tokbox.com/embed/embed/ot-embed.js?embedId=9dec12a2-922b-4d1c-8c36-a96eea192176&room=${this.room._id}&iframe=true`;
     }
   },
   watch: {
