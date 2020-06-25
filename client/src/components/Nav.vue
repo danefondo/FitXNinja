@@ -6,13 +6,13 @@
       </router-link>
       <!-- <router-link class="title-btn" to="/">FitX Ninja</router-link> -->
     </div>
-    <!-- <div class="navlinks-container"> -->
-      <!-- <router-link
+    <div class="navlinks-container">
+      <router-link
         class="topNavigationLink__topBar desktopSize"
         to="/scheduled"
-      >{{$t("nav.scheduled")}}</router-link> -->
-      <!-- <router-link class="topNavigationLink__topBar" to="/discover">Avasta</router-link> -->
-      <!-- <template v-if="isAuthenticated">
+      >{{$t("nav.scheduled")}}</router-link>
+      <router-link class="topNavigationLink__topBar" to="/discover">Avasta</router-link>
+      <template v-if="isAuthenticated">
         <div class="stream_buttons desktopSize">
           <router-link
             v-if="user.is_live && user.active_stream_id"
@@ -65,7 +65,7 @@
                 <li v-if="user.superadmin">
                   <router-link
                     class="entypo-archive NavLinkX"
-                    to="/superadmin"
+                    to="/master"
                   >{{$t("admin.superadmin")}}</router-link>
                   <a class="entypo-plus OptionLink" href="#"></a>
                 </li>
@@ -109,7 +109,7 @@
         class="go_live_button goOnAir"
         to="/golive"
       >{{ $t("nav.go-live") }}</router-link>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -199,11 +199,12 @@ export default {
 }
 
 .login-nav {
-  color: #130088;
+  color: #00ffe7;
   background-color: transparent;
 }
 
 .login-nav:hover {
+  color: black !important;
   background-color: #f5f5f5;
 }
 </style>

@@ -1,71 +1,52 @@
 <template>
-  <div class="stream all user" :id="user._id" v-if="activetab === 'users'">
+  <div class="stream all video" :id="video._id" v-if="activetab === 'videos'">
     <div class="streamPreviewContainer">
-      <img class="streamPreview" :src="getJoker" />
+      <img class="streamPreview" :src="thumbnail" />
       <div class="live"></div>
       <div class="viewerCount"></div>
     </div>
     <div class="streamMetaContainer">
       <div class="streamNameContainer">
         <router-link
-          :to="`/profile/${user._id}`"
-          v-if="user.firstname && user.lastname"
+          :to="`/profile/${video._id}`"
+          v-if="video.name"
           class="streamName"
-        >{{user.firstname + " " + user.lastname}}</router-link>
-        <router-link :to="`/profile/${user._id}`" v-else class="streamName">{{user.username}}</router-link>
+        >{{video.name}}</router-link>
+        <router-link :to="`/videos/${video._id}`" v-else class="streamName">{{video.name}}</router-link>
       </div>
       <div class="streamerEmailContainer">
-        <div class="streamerEmail">{{user.email}}</div>
+        <div class="streamerEmail" >{{video.teachers[0]}}</div>
       </div>
       <div class="stream-controller">
-        <div v-if="user.admin" class="is_live">{{$t("admin.is-admin")}}</div>
         <div
           v-if="user.admin"
-          @click="withdrawAdmin"
+          @click="editVideo"
           class="edit_stream"
-        >{{$t("admin.manage")}}</div>
-        <div v-else @click="makeAdmin" class="edit_stream">{{$t("admin.make-admin")}}</div>
+        >{{$t("master.edit")}}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import Joker from "../assets/images/joker.jpeg";
 
 export default {
-  name: "UserBar",
-  props: ["user", "activetab", "method"],
+  name: "VideoBar",
+  props: ["user", "activetab", "method", "video"],
   methods: {
-    makeAdmin: async function(event) {
-      try {
-        let userId = event.target.closest(".user").id;
-        await axios.post(`/admin/make-admin/${userId}`);
-        this.method();
-      } catch (error) {
-        console.log(error);
-        alert(error.response.data.errors);
-      }
-    },
-    withdrawAdmin: async function(event) {
-      try {
-        let userId = event.target.closest(".user").id;
-        await axios.post(`/admin/withdraw-admin/${userId}`);
-        this.method();
-      } catch (error) {
-        console.log(error);
-        alert(error.response.data.errors);
-      }
+    editVideo() {
+      this.$router.push(`/videos/${this.video._id}/edit?manage=1`);
     }
   },
   computed: {
     getJoker() {
-      if (this.user.profile_image_url) {
-        return this.user.profile_image_url;
-      }
       return Joker;
-    }
+    },
+    thumbnail() {
+      return `https://img.youtube.com/vi/${this.video.video_id}/hqdefault.jpg`;
+    },
   }
 };
 </script>

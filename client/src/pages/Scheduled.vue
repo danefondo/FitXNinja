@@ -1,7 +1,7 @@
 <template>
   <div class="contentArea">
-    <div v-if="!isAuthenticated" class="registration-block">
-      <img class="fitxlogo" src="../assets/images/fitxbiglogo.png" />
+    <div class="registration-block">
+      <img class="fitxlogo" src="../assets/images/fitxbigblacklogo.png" />
       <div class="frame">
         <iframe
           class="framevideo"

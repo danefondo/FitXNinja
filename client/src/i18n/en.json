@@ -233,7 +233,8 @@
         "previous": "Previous",
         "live": "Live",
         "users": "Users",
-        "statistics": "Statistics"
+        "statistics": "Statistics",
+        "topics": "Topics"
     },
     "reset-pass": {
         "reset-title": "Reset password",
@@ -272,6 +273,47 @@
         "public": "Public",
         "unlisted": "Unlisted"
     },
+    "newworkout": {
+        "give-name": "What's the name of the video?",
+        "name-holder": "Workout video name",
+        "give-desc": "Describe the workout video",
+        "desc-holder": "Write a description for the video",
+        "give-tags": "Add tags (max 3)",
+        "tags-holder": "Write a tag",
+        "give-video": "Add video link (YouTube, Facebook, Twitch)",
+        "later": "Schedule for later?",
+        "fill-in": "Please fill in stream details below to schedule a stream.",
+        "pick-date": "Pick date",
+        "pick-time": "Pick time",
+        "privacy": "Privacy",
+        "public": "Public",
+        "private": "Private",
+        "unlisted": "Unlisted",
+        "addworkout": "Add workout video",
+        "addingworkout": "Adding video",
+        "muscle-group": "Add muscle groups",
+        "workout-type": "Specify workout type",
+        "workout-goal": "Add workout goal / focus",
+        "workout-sport": "Sport",
+        "workout-level": "Level",
+        "workout-equipment": "Select equipment",
+        "workout-location": "Location",
+        "workout-sex": "Specify sex",
+        "workout-duration": "Duration",
+        "workout-music": "Music based workout?",
+        "workout-style": "Specify style",
+        "workout-other": "Other specifications (e.g. prenatal)",
+        "workout-teacher": "Add teacher(s)",
+        "workout-organization": "Specify organization(s)",
+        "expected-results": "Add expected results",
+        "video-url": "Add video URL",
+        "custom-thumbnail": "Upload custom thumbnail",
+        "link-placeholder": "e.g. https://www.youtube.com/watch?v=7k7DmdowKaQ",
+        "yes": "Yes",
+        "no": "No",
+        "music-title": "Has music?",
+        "songs": "List any songs"
+    },
     "editstream": {
         "save": "Save changes",
         "cancel": "Cancel",
@@ -293,6 +335,15 @@
         "end-stream-title": "End stream",
         "end-stream-notice": "Click 'End stream' if you want to end your stream. In case you want to delete your stream, you must first end your stream."
     },
+    "editvideo": {
+        "delete-title": "Delete your video",
+        "delete-desc": "Deleting your video will delete all data about the video from the database.",
+        "delete-video": "Delete video",
+        "delete-confirm-title": "Are you sure you want to delete your video?",
+        "delete-notice": "Remember, deleting your video is irreversible. The video's data will be permanently deleted.",
+        "confirm-delete": "Delete",
+        "cancel-delete": "Cancel"
+    },
     "restrict": {
         "head": "Want to go live?",
         "tagline": "Reach out to us or indicate your interest below, and we'll help you get live on Eeter.tv.",
@@ -302,7 +353,14 @@
         "make-admin": "Make admin",
         "remove-admin": "Withdraw admin powers",
         "is-admin": "Admin",
-        "superadmin-notice": "NB! Pay attention to make sure no one gains access to this page or account with access to this page.",
-        "superadmin": "Superadmin"
+        "admin-dashboard": "Master Dashboard",
+        "superadmin-notice": "NB! Pay attention to make sure no one gains access to this page or the account with access to this page.",
+        "superadmin": "Master",
+        "manage": "Manage page",
+        "topic-statistics": "Topic statistics"
+    },
+    "master": {
+        "videos": "Videos",
+        "edit": "Edit video"
     }
 }

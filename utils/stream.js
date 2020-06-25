@@ -57,5 +57,6 @@ const sendGoLiveMails = async (emailsOrIds, stream, link) => {
 module.exports = {
   getPlatform,
   getVideoId,
+  getYoutubeId,
   sendGoLiveMails
 };

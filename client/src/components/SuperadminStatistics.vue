@@ -2,7 +2,7 @@
   <div class="stream all statistics" v-if="activetab === 'statistics'">
     <div class="streamMetaContainer">
       <div class="streamerEmailContainer">
-        <div class="userStatistics">User statistics</div>
+        <div class="userStatistics">{{ $t("admin.topic-statistics") }}</div>
         <div class="streamerEmail">{{users.length}} registered users</div>
       </div>
     </div>

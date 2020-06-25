@@ -105,12 +105,16 @@ let accounts = require('./routes/accounts');
 let dashboard = require('./routes/dashboard');
 let profile = require('./routes/profile');
 let streams = require('./routes/streams');
+let rooms = require('./routes/workoutRooms');
+let videos = require('./routes/videos');
 let features = require('./routes/features');
 let admin = require('./routes/admin');
 app.use('/accounts', accounts);
 app.use('/dashboard', passport.authenticate('jwt', { session: false }), dashboard);
 app.use('/profile', profile);
 app.use('/streams', streams);
+app.use('/workoutRooms', rooms);
+app.use('/videos', videos);
 app.use('/features', features);
 app.use('/admin', admin);
 

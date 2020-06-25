@@ -20,7 +20,12 @@ import auth from "./config/auth";
 import VideoManager from "./pages/VideoManager";
 import FeatureRequests from "./pages/FeatureRequests";
 import AdminDashboard from "./pages/AdminDashboard";
+import MasterDashboard from "./pages/MasterDashboard";
 import Philosophy from "./pages/Philosophy";
+import NewWorkoutVideo from "./pages/NewWorkoutVideo";
+import Video from "./pages/Video";
+import EditVideo from "./pages/EditVideo";
+import Room from "./pages/Room";
 
 const routes = [
   { path: "/scheduled", component: Scheduled },
@@ -31,7 +36,23 @@ const routes = [
       requireAuthentication: true,
     },
   },
+  {
+    path: "/new-workout-video",
+    component: NewWorkoutVideo,
+    meta: {
+      requireAuthentication: true,
+    },
+  },
   { path: "/watch/:id", component: Watch },
+  { path: "/videos/:id", component: Video },
+  { path: "/workoutRooms/:id", component: Room },
+  {
+    path: "/videos/:id/edit",
+    component: EditVideo,
+    meta: {
+      requireAuthentication: true,
+    },
+  },
   {
     path: "/edit/:id",
     component: EditStream,
@@ -49,6 +70,13 @@ const routes = [
   {
     path: "/superadmin",
     component: AdminDashboard,
+    meta: {
+      superAuth: true,
+    },
+  },
+  {
+    path: "/master",
+    component: MasterDashboard,
     meta: {
       superAuth: true,
     },

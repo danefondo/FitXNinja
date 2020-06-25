@@ -1,10 +1,33 @@
 // const { validationResult } = require('express-validator');
 // let Stream = require('../models/stream');
 let User = require('../models/user');
+let WorkoutVideo = require('../models/workout');
 // const streamUtils = require('../utils/stream')
 // const moment = require('moment');
 // const mail = require('../utils/mail');  
 const adminController = {
+
+    async getAllVideos(req, res) {
+        try {
+
+            let videos = await WorkoutVideo.find({}).exec();
+            if (!videos) {
+                return res.status(404).json({
+                    errors: "Videos not found."
+                });
+            }
+
+            res.status(200).json({
+                videos: videos,
+            });
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                errors: "An unknown error occurred"
+            });
+        }
+    },
  
     async getAllUsers(req, res) {
         try {

@@ -9,4 +9,6 @@ router.post('/withdraw-admin/:userId', auth.ensureAuthenticated, adminController
 
 router.get('/superadmin', auth.ensureAuthenticated, adminController.getAllUsers);
 
+router.get('/getVideos', auth.ensureAuthenticated, adminController.getAllVideos);
+
 module.exports = router;
