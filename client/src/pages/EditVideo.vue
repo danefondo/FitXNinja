@@ -201,7 +201,7 @@ export default {
     },
     async getVideo() {
       try {
-        const { data } = await axios.get(`/videos/${this.$route.params.id}`);
+        const { data } = await axios.get(`/workoutVideos/${this.$route.params.id}`);
         this.video = data.video;
         let video = data.video;
         this.streamNotFound = false;
@@ -264,7 +264,7 @@ export default {
     },
     async deleteVideo() {
       try {
-        await axios.delete(`/videos/${this.video._id}/deleteVideo`);
+        await axios.delete(`/workoutVideos/${this.video._id}/deleteVideo`);
         window.location.href = "/master";
       } catch (error) {
         console.log("err", error);
