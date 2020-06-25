@@ -10,8 +10,8 @@
       <router-link
         class="topNavigationLink__topBar desktopSize"
         to="/scheduled"
-      >{{$t("nav.scheduled")}}</router-link>
-      <router-link class="topNavigationLink__topBar" to="/discover">Avasta</router-link>
+      >Discover</router-link>
+      <router-link class="topNavigationLink__topBar" to="/discover">Browse</router-link>
       <template v-if="isAuthenticated">
         <div class="stream_buttons desktopSize">
           <router-link
@@ -23,7 +23,7 @@
             v-if="!user.is_live"
             class="go_live_button goOnAir"
             to="/golive"
-          >{{ $t("nav.go-live") }}</router-link>
+          >Start a workout</router-link>
         </div>
         <div class="logout-container" :class="isAuthenticated ? 'authProfile' : 'notAuthProfile'">
           <div
@@ -36,7 +36,7 @@
               <div class="Photo">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
                   <path
-                    style="fill:#120088; text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Bitstream Vera Sans"
+                    style="fill:#00ffe7; text-indent:0;text-align:start;line-height:normal;text-transform:none;block-progression:tb;-inkscape-font-specification:Bitstream Vera Sans"
                     d="M 16 5 C 12.145852 5 9 8.1458513 9 12 C 9 14.408843 10.23116 16.55212 12.09375 17.8125 C 8.5266131 19.342333 6 22.881262 6 27 L 8 27 C 8 22.569334 11.569334 19 16 19 C 20.430666 19 24 22.569334 24 27 L 26 27 C 26 22.881262 23.473387 19.342333 19.90625 17.8125 C 21.76884 16.55212 23 14.408843 23 12 C 23 8.1458513 19.854148 5 16 5 z M 16 7 C 18.773268 7 21 9.2267317 21 12 C 21 14.773268 18.773268 17 16 17 C 13.226732 17 11 14.773268 11 12 C 11 9.2267317 13.226732 7 16 7 z"
                     color="#000"
                     overflow="visible"
@@ -52,7 +52,7 @@
                   <router-link
                     class="entypo-newspaper NavLinkX"
                     to="/golive"
-                  >{{ $t("nav.go-live") }}</router-link>
+                  >Start a workout</router-link>
                   <a class="entypo-plus OptionLink" href="#"></a>
                 </li>
                 <li>
@@ -171,6 +171,10 @@ export default {
 </script>
 
 <style>
+
+.Dropdown-profile:hover {
+  background-color: #272727;
+}
 
 .fitxlogosmall {
   width: 32px;

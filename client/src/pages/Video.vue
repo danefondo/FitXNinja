@@ -35,13 +35,13 @@
 			.video-actions
 				.video-action-group
 					.video-to-collection + Add to collection
-					.video-to-favorites + Like
+					.video-to-favorites + Add to favorites
 					.video-to-library + Add to library
-				.video-action-group(v-if='user && user.admin')
-					.video-edit(@click='editVideo') {{$t("watch.edit")}}
 				.video-action-group
 					.video-start-workout(@click='startWorkout') Start workout
 					.video-invite Invite friends
+				.video-action-group(v-if='user && user.admin')
+					.video-edit(@click='editVideo') {{$t("watch.edit")}}
 </template>
 
 <script>
@@ -132,7 +132,8 @@ export default {
   margin-left: 75px;
 }
 
-.video-start-workout {
+.video-start-workout,
+.video-edit {
   padding: 14px 10px;
   font-size: 28px;
   width: 270px;
@@ -144,6 +145,14 @@ export default {
 
 .video-start-workout:hover {
   background-color: #00ffe5a9;
+}
+
+.video-edit {
+	background-color: #eee;
+}
+
+.video-edit:hover {
+	background-color: #e4e4e4;
 }
 
 .video-details {
