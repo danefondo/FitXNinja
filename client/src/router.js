@@ -45,7 +45,7 @@ const routes = [
   },
   { path: "/watch/:id", component: Watch },
   { path: "/videos/:id", component: Video },
-  { path: "/workoutRooms/:id", component: Room },
+  { path: "/rooms/:id", component: Room },
   {
     path: "/videos/:id/edit",
     component: EditVideo,

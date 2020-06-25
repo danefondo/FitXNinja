@@ -105,7 +105,7 @@ export default {
   methods: {
     async getVideo() {
       try {
-        const { data } = await axios.get(`/videos/${this.$route.params.id}`);
+        const { data } = await axios.get(`/workoutVideos/${this.$route.params.id}`);
         this.video = data.video;
         this.streamNotFound = false;
       } catch (error) {
@@ -125,7 +125,7 @@ export default {
         roomData.date_created = new Date();
         const result = await axios.post(`workoutRooms/createNewRoom`, roomData);
         console.log("res", result);
-        this.$router.push(`/workoutRooms/${result.data.room._id}`);
+        this.$router.push(`/rooms/${result.data.room._id}`);
       } catch (error) {
         console.log("error", error);
       }
