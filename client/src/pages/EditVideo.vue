@@ -174,7 +174,7 @@ export default {
       location: [],
       workoutLocationOptions: [],
       duration: [],
-      workoutDurationOptions: [],
+      workoutDurationOptions: ["1 minute", "2 minutes", "3 minutes", "4 minutes", "5 minutes", "7 minutes", "9 minutes", "10 minutes", "15 minutes", "20 minutes", "25 minutes", "30 minutes", "35 minutes", "40 minutes", "45 minutes", "50 minutes", "55 minutes", "60 minutes", "80 minutes", "100 minutes", "120 minutes", "150 minutes", "180 minutes"],
       music: "false",
       songs: [],
       styles: [],
