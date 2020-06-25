@@ -1,51 +1,80 @@
-<template lang="pug">
-	NotFoundStream(v-if="streamNotFound")
-	.watch(v-else-if="video")
-		.video-name {{video.name}}
-		iframe.live_player(
-			width="850"
-			height="540"
-			:src="videoUrl"
-			frameborder="0"
-			allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-			allowfullscreen)
-		.video-description(v-html="video.description")
-		.video-teachers
-			.teacher(v-for="teacher in video.teachers") {{teacher}}
-		.video-organizations
-			.organization(v-for="organization in video.organizations") {{organization}}
-		.video-details
-			.video-detail(v-for="equipment in video.equipment") {{equipment}}
-			.video-detail(v-for="location in video.location") {{location}}
-			.video-detail(v-for="levels in video.levels") {{levels}}
-			.video-detail(v-for="sports in video.sports") {{sports}}
-			.video-detail(v-for="goal in video.goals") {{goal}}
-			.video-detail(v-for="sport in video.sports") {{sport}}
-			.video-detail(v-for="type in video.types") {{type}}
-			.video-detail(v-for="muscle in video.muscles") {{muscle}}
-			.video-detail(v-for="style in video.styles") {{style}}
-			.video-detail(v-for="specification in video.specifications") {{specification}}
-			.video-detail(v-for="style in video.styles") {{style}}
-			.video-detail-title Music
-			.video-detail(v-if="video.music == 'true'") Yes
-			.video-detail(v-if="video.music == 'false'") No
-			.video-detail-title(v-if="video.music == 'true'") Songs
-			.video-detail(v-if="video.music" v-for="song in video.songs") {{song}}
-			.video-detail {{video.liked_by.length}} Likes
-			.video-detail(v-if="video.duration" v-for="duration in video.duration") {{duration}}
-			//- views, currently working out with this, saves, creator, actual teacher linked w/organization and vice versa, DATE ADDED, DATE CREATED, EXPECTED RESULTS, IF SONGS THEN MUSIC == YES
-		.video-sidebar
-			.video-actions
-				.video-action-group
-					.video-to-collection + Add to collection
-					.video-to-favorites + Like
-					.video-to-library + Add to library
-					//- ADMIN 
-				.video-action-group(v-if="user && user.admin")
-					.video-edit(@click="editVideo") {{$t("watch.edit")}}
-				.video-action-group
-					.video-start-workout(@click="startWorkout") Start workout
-					.video-invite Invite friends
+<template>
+  <NotFoundStream v-if="streamNotFound" />
+  <div class="watch" v-else-if="video">
+    <div class="video-name">{{video.name}}</div>
+    <iframe
+      class="live_player"
+      width="850"
+      height="540"
+      :src="videoUrl"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen="allowfullscreen"
+    ></iframe>
+    <div class="video-description" v-html="video.description"></div>
+    <div class="video-teachers">
+      <div class="teacher" v-for="(teacher, index) in video.teachers" :key="index">{{teacher}}</div>
+    </div>
+    <div class="video-organizations">
+      <div
+        class="organization"
+        v-for="(organization, index) in video.organizations"
+        :key="index"
+      >{{organization}}</div>
+    </div>
+    <div class="video-details">
+      <div
+        class="video-detail"
+        v-for="(equipment, index) in video.equipment"
+        :key="index"
+      >{{equipment}}</div>
+      <div
+        class="video-detail"
+        v-for="(location, index) in video.location"
+        :key="index"
+      >{{location}}</div>
+      <div class="video-detail" v-for="(levels, index) in video.levels" :key="index">{{levels}}</div>
+      <div class="video-detail" v-for="(sports, index) in video.sports" :key="index">{{sports}}</div>
+      <div class="video-detail" v-for="(goal, index) in video.goals" :key="index">{{goal}}</div>
+      <div class="video-detail" v-for="(sport, index) in video.sports" :key="index">{{sport}}</div>
+      <div class="video-detail" v-for="(type, index) in video.types" :key="index">{{type}}</div>
+      <div class="video-detail" v-for="(muscle, index) in video.muscles" :key="index">{{muscle}}</div>
+      <div class="video-detail" v-for="(style, index) in video.styles" :key="index">{{style}}</div>
+      <div
+        class="video-detail"
+        v-for="(specification, index) in video.specifications"
+        :key="index"
+      >{{specification}}</div>
+      <div class="video-detail" v-for="(style, index) in video.styles" :key="index">{{style}}</div>
+      <div class="video-detail-title">Music</div>
+      <div class="video-detail" v-if="video.music == 'true'">Yes</div>
+      <div class="video-detail" v-if="video.music == 'false'">No</div>
+      <div class="video-detail-title" v-if="video.music == 'true'">Songs</div>
+      <div class="video-detail-group" v-if="video.music">
+        <div class="video-detail" v-for="(song, index) in video.songs" :key="index">{{song}}</div>
+      </div>
+      <div class="video-detail">{{video.liked_by.length}} Likes</div>
+      <div class="video-detail-group" v-if="video.duration">
+        <div class="video-detail" v-for="(duration, index) in video.duration" :key="index">{{duration}}</div>
+      </div>
+    </div>
+    <div class="video-sidebar">
+      <div class="video-actions">
+        <div class="video-action-group">
+          <div class="video-to-collection">+ Add to collection</div>
+          <div class="video-to-favorites">+ Like</div>
+          <div class="video-to-library">+ Add to library</div>
+        </div>
+        <div class="video-action-group" v-if="user && user.admin">
+          <div class="video-edit" @click="editVideo">{{$t("watch.edit")}}</div>
+        </div>
+        <div class="video-action-group">
+          <div class="video-start-workout" @click="startWorkout">Start workout</div>
+          <div class="video-invite">Invite friends</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -85,21 +114,21 @@ export default {
     },
     editVideo() {
       this.$router.push(`/videos/${this.video._id}/edit`);
-	},
+    },
     async startWorkout() {
-		try {
-			let roomData = {};
-			roomData.host_id = this.user._id;
-			roomData.video_id = this.video._id;
-			roomData.video_url = this.video.url;
-			roomData.youtube_id = this.video.video_id;
-			roomData.date_created = new Date();
-			const result = await axios.post(`workoutRooms/createNewRoom`, roomData);
-			console.log("res", result);
-			this.$router.push(`/workoutRooms/${result.data.room._id}`);
-		} catch(error) {
-			console.log("error", error);
-		}
+      try {
+        let roomData = {};
+        roomData.host_id = this.user._id;
+        roomData.video_id = this.video._id;
+        roomData.video_url = this.video.url;
+        roomData.youtube_id = this.video.video_id;
+        roomData.date_created = new Date();
+        const result = await axios.post(`workoutRooms/createNewRoom`, roomData);
+        console.log("res", result);
+        this.$router.push(`/workoutRooms/${result.data.room._id}`);
+      } catch (error) {
+        console.log("error", error);
+      }
     }
   },
   computed: {
