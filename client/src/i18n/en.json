@@ -137,7 +137,7 @@
         "pass-empty-fail": "Passwords can't be empty!",
         "pass-short-fail": "Password must be at least 8 characters long!",
         "delete-acc-title": "Delete your account",
-        "delete-acc-desc": "Deleting your account will permanently and irreversably delete all your streams, stream data and profile details and history. Deleting your account will cancel any memberships you have.",
+        "delete-acc-desc": "Deleting your account will permanently and irreversably delete all your data, profile details, relationships and history. Deleting your account will cancel any memberships you have.",
         "delete-acc-btn": "Delete accoount",
         "delete-acc-confirm-title": "Are you sure you want to delete your account?",
         "delete-acc-confirm-desc": "Your account will be permanently deleted and you will lose ownership and access to all your existing content.",
@@ -312,7 +312,9 @@
         "yes": "Yes",
         "no": "No",
         "music-title": "Has music?",
-        "songs": "List any songs"
+        "songs": "List any songs",
+        "start-custom": "Start a workout from your chosen YouTube video.",
+        "start-workout": "Start workout"
     },
     "editstream": {
         "save": "Save changes",
