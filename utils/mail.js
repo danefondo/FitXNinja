@@ -10,11 +10,11 @@ module.exports = {
 	sendVerificationMail(email, link) {
 		console.log(link, 'mail js file');
 		const data = {
-		  from: 'Eeter.tv <noreply@eeter.tv>',
+		  from: 'FitX Ninja <noreply@fitx.ninja>',
 		  to: email,
-		  subject: 'Kinnita oma meiliaadress',
+		  subject: 'Please verify your email address',
 		  html: '',
-		  text: `Palun kinnita oma kasutaja registreerimine vajutades allolevale nupule. ${link}`
+		  text: `Please verify your account by clicking on the link. ${link}`
 		};
 		mailgun.messages().send(data, function (error, body) {
 		  console.log(body);
@@ -24,11 +24,11 @@ module.exports = {
 	sendWelcomeEmail(email, link) {
 		console.log(link, 'mail js file');
 		const data = {
-		  from: 'Eeter.tv <noreply@eeter.tv>',
+		  from: 'FitX Ninja <noreply@fitx.ninja>',
 		  to: email,
-		  subject: 'Tere tulemast Eeter.tv kasutajaks!',
+		  subject: 'Welcome to FitX Ninja!',
 		  html: '',
-		  text: `Tere tulemast Eeter.tv kasutajaks! Meil on hea meel, et otsustasid meiega liituda. Oleme alles uus ja kasvav kommuun, mitõttu väärtustame sinu liitumist kohe eriti palju. Uuri ringi või tee oma etteaste kõikide teiste uudishimulike ees!`
+		  text: `Welcome to FitX Ninja! We're glad you've decided to join us. We're still new and just starting to flap our unicorn wings, which is why we especially value that you join us! Take a peak and stay tuned for new features will be popping up left and right! Enjoy your stay and enjoy fitness!`
 		};
 		mailgun.messages().send(data, function (error, body) {
 		  console.log(body);
@@ -80,11 +80,11 @@ module.exports = {
 	sendResetMail(email, link) {
 		console.log(link, 'mail js file');
 		const data = {
-		  from: 'Eeter.tv <noreply@eeter.tv>',
+		  from: 'FitX Ninja <noreply@fitx.ninja>',
 		  to: email,
-		  subject: 'Eeter.tv parooli lähtestamine',
+		  subject: 'Reset password for your FitX Ninja account',
 		  html: '',
-		  text: `Parooli lähtestamiseks vajuta sellele viitele ${link}. Viide aegub 30 minuti jooksul.`
+		  text: `To reset your password, click on this link ${link}. The link expires in 30 minutes.`
 		};
 		mailgun.messages().send(data, function (error, body) {
 		  console.log(body);
