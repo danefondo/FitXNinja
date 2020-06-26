@@ -15,7 +15,21 @@ const checkAuthenticated = (req, res, next) => {
   next();
 }
 
+const checkTempToken = (req, res, next) => {
+  const { authorization } = req.headers;
+  if (authorization && !authorization.includes('null')) {
+    const tempToken = req.headers.authorization.split('BearerTemp ')[1];
+    const decoded = jwt.verify(tempToken, process.env.SECRET)
+    if (decoded.tempHost) {
+      req.tempHost = decoded.tempHost;
+    }
+  }
+  next();
+}
+
+
 module.exports = {
     ensureAuthenticated,
     checkAuthenticated,
+    checkTempToken
 }

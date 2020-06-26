@@ -16,6 +16,13 @@ export const setAuth = (token, redirect = true) => {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`
 }
 
+export const setTempToken = (tempToken) => {
+    if (tempToken) {
+        localStorage.setItem("tempToken", tempToken);
+        axios.defaults.headers.common.Authorization = `BearerTemp ${tempToken}`
+    }
+}
+
 export const setGlobals = () => {
     axios.defaults.baseURL = BASE_PATH
     if (localStorage.getItem('token')) {

@@ -13,14 +13,10 @@
     <div class="video-sidebar">
       <div class="video-actions">
         <div class="video-action-group">
-          <div class="video-to-collection">+ Add to collection</div>
-          <div class="video-to-favorites">+ Like</div>
-          <div class="video-to-library">+ Add to library</div>
-        </div>
-        <div class="video-action-group">
           <div class="video-start-workout">Start</div>
           <div class="video-invite">Invite friends</div>
-          <div class="video-return">Return to video</div>
+          <div class="video-return" v-if="$route.query.localvideo">Return to video</div>
+          <div class="video-return">Change video</div>
         </div>
       </div>
     </div>
@@ -32,6 +28,7 @@
       scrolling="auto"
       allow="microphone; camera"
     ></iframe>
+    <button v-on:click="sendMessage('hello')">Send Message</button>
   </div>
 </template>
 
@@ -52,7 +49,11 @@ export default {
       roomId: null,
       roomNotFound: false,
       isAuthenticated: false,
-      user: {}
+      user: {},
+      tempHost: {},
+      hostPresent: false,
+      userIsHost: false,
+      connection: null
     };
   },
   mounted() {
@@ -61,6 +62,19 @@ export default {
       this.user = auth.isAuthenticated();
       this.isAuthenticated = true;
     }
+  },
+  created: function() {
+    console.log("Starting connection to WebSocket Server");
+    this.connection = new WebSocket("wss://echo.websocket.org");
+
+    this.connection.onmessage = function(event) {
+      console.log(event);
+    };
+
+    this.connection.onopen = function(event) {
+      console.log(event);
+      console.log("Successfully connected to the echo websocket server...");
+    };
   },
   methods: {
     async getRoom() {
@@ -71,14 +85,25 @@ export default {
         this.room = data.room;
         this.roomId = data.room._id;
         this.roomNotFound = false;
+        if (auth.checkTempToken()) {
+          this.tempHost = auth.checkTempToken();
+          if (this.tempHost._id == this.room.host_id) {
+			this.userIsHost = true;
+			this.userIsHost = true;
+          }
+        }
       } catch (error) {
         this.roomNotFound = true;
       }
+    },
+    sendMessage: function(message) {
+      console.log(this.connection);
+      this.connection.send(message);
     }
   },
   computed: {
     videoUrl() {
-      return `https://www.youtube-nocookie.com/embed/${this.room.youtube_id}?autoplay=0&amp;modestbranding=1&amp;showinfo=0&amp;rel=0&amp;theme=light&amp;color=white`;
+      return `https://www.youtube-nocookie.com/embed/${this.room.youtube_id}?autoplay=0&amp;modestbranding=1&amp;showinfo=0&amp;rel=0&amp;theme=light&amp;color=white&enablejsapi=1`;
     },
     conferenceSrc() {
       return `https://tokbox.com/embed/embed/ot-embed.js?embedId=9dec12a2-922b-4d1c-8c36-a96eea192176&room=${this.room._id}&iframe=true`;

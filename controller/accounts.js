@@ -96,6 +96,33 @@ const accountController = {
 		}
 	},
 
+	// async createTempHostUser(req, res) {
+
+	// 	const dateCreated = new Date();
+	// 	const associated_room_id = 5;
+	// 	const tokenExpires = Date.now() + 86400000;
+
+	// 	try {
+	// 		const verificationToken = await accountUtil.generateToken();
+	// 		console.log("veriftok: ", verificationToken);
+
+	// 		let hostUser = new tempHostUser({
+	// 			associated_room_id,
+	// 			verificationToken,
+	// 			dateCreated
+	// 		});
+
+	// 		await hostUser.save();
+	// 		const tempUser = { _id: hostUser._id, room: associated_room_id }
+	// 		const token = jwt.sign({ tempHost: tempUser }, process.env.SECRET, {
+	// 			expiresIn: '1d',
+	// 		});
+	// 		return res.status(200).json({ tempHost: tempUser, token });
+	// 	} catch (err) {
+	// 		console.log(err);
+	// 	}
+	// },
+
 	async resetPassword(req, res) {
 		const { body: { token, password } } = req;
 		const errors = validationResult(req);

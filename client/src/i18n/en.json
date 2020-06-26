@@ -25,8 +25,8 @@
     "register": {
         "create": "Create account",
         "creating": "Creating account...",
-        "join-title": "Join Eeter.tv",
-        "join-tagline": "...and start broadcasting today.",
+        "join-title": "Join Fitx Ninja",
+        "join-tagline": "...and let's get fit together.",
         "username": "Username",
         "pass": "Password (at least 8 characters)",
         "confirm-pass": "Confirm password",
@@ -348,7 +348,7 @@
     },
     "restrict": {
         "head": "Want to go live?",
-        "tagline": "Reach out to us or indicate your interest below, and we'll help you get live on Eeter.tv.",
+        "tagline": "Reach out to us or indicate your interest below, and we'll help you get live on FitX Ninja.",
         "action": "I WANT TO GO LIVE"
     },
     "admin": {

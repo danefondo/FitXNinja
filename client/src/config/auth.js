@@ -16,6 +16,19 @@ export default {
             return false;
         }
     },
+    checkTempToken() {
+        try {
+            if (localStorage.tempToken && jwtDecode(localStorage.tempToken)) {
+                // check expiry
+                const tempHost = jwtDecode(localStorage.tempToken).tempHost;
+                return tempHost;
+            } else {
+                return false;
+            }
+        } catch(error) {
+            return false;
+        }
+    },
     logout() {
         setAuth(null)
     }

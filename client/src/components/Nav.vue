@@ -40,9 +40,9 @@
 								li(v-if='user.superadmin')
 									router-link.entypo-archive.NavLinkX(to='/master') {{$t("admin.superadmin")}}
 									a.entypo-plus.OptionLink(href='#')
-								li
-									router-link.entypo-archive.NavLinkX(to='/manage-streams') {{$t("nav.manage-streams")}}
-									a.entypo-plus.OptionLink(href='#')
+								//- li
+								//- 	router-link.entypo-archive.NavLinkX(to='/manage-streams') {{$t("nav.manage-streams")}}
+								//- 	a.entypo-plus.OptionLink(href='#')
 								li
 									router-link.entypo-archive.NavLinkX(to='/settings') {{$t("nav.settings")}}
 									a.entypo-plus.OptionLink(href='#')
@@ -50,6 +50,7 @@
 									a.entypo-logout.NavLinkX(@click='logout') {{$t("nav.logout")}}
 			template(v-else='')
 				.stream_buttons
+					.go_live_button.goOnAir.white-button(@click='startWorkoutModal=true') Start a workout
 					router-link.go_live_button.login-nav.login-responsive(to='/login') {{$t("nav.login")}}
 					router-link.go_live_button(to='/register') {{$t("nav.register")}}
 		.stream_buttons.mobileSize(v-if='isAuthenticated')
@@ -60,6 +61,7 @@
 <script>
 import auth from "../config/auth";
 import axios from "axios";
+import { setTempToken } from "../config/axios";
 import ninjaIcon from "../assets/images/whiteninjalogo.png";
 
 export default {
@@ -93,13 +95,13 @@ export default {
     },
     ninjaImage() {
       return ninjaIcon;
-	},
+    }
   },
   methods: {
-	getYoutubeId(url) {
-  		url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-  		return url[2] !== undefined ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
-	},
+    getYoutubeId(url) {
+      url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+      return url[2] !== undefined ? url[2].split(/[^0-9a-z_-]/i)[0] : url[0];
+    },
     toggleDropdown() {
       this.isOpened = !this.isOpened;
     },
@@ -116,17 +118,19 @@ export default {
     },
     async startCustomWorkout() {
       try {
-		let roomData = {};
-		if (this.user && this.user._id) {
-			roomData.host_id = this.user._id;
-		}
+        let roomData = {};
+        if (this.user && this.user._id) {
+          roomData.host_id = this.user._id;
+        }
         roomData.video_url = this.custom_url;
         roomData.youtube_id = this.getYoutubeId(this.custom_url);
         roomData.date_created = new Date();
         const result = await axios.post(`workoutRooms/createNewRoom`, roomData);
-		console.log("res", result);
-		this.startWorkoutModal = false;
-		this.custom_url = '';
+        console.log("res", result);
+        this.startWorkoutModal = false;
+		this.custom_url = "";
+		setTempToken(result.data.tempToken);
+		localStorage.tempHost = JSON.stringify(result.data.tempHost);
         this.$router.push(`/rooms/${result.data.room._id}`);
       } catch (error) {
         console.log("error", error);
@@ -140,19 +144,26 @@ export default {
 </script>
 
 <style>
-
 .stream_input {
-	width: 275px;
+  width: 275px;
+}
+
+.white-button {
+	background-color: white !important;
+}
+
+.white-button:hover {
+	background: #ccc !important;
 }
 
 .neon-green {
-	margin-right: 12px;
-	color: #000 !important;
-	background-color: #00ffe7 !important;
+  margin-right: 12px;
+  color: #000 !important;
+  background-color: #00ffe7 !important;
 }
 
 .neon-green:hover {
-	background-color: #00ffe5a9 !important;
+  background-color: #00ffe5a9 !important;
 }
 
 .Dropdown-profile:hover {
