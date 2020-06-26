@@ -2,6 +2,31 @@
   <div class="footer_page_container">
     <AboutNav />
     <div class="footer_page">
+      <div class="frames">
+        <div class="frame">
+          <iframe
+            class="framevideo"
+            width="760"
+            height="427"
+            style="margin-bottom:40px !important;"
+            src="https://www.youtube.com/embed/ctVKbsPlHc0"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="frame">
+          <iframe
+            class="framevideo"
+            width="760"
+            height="427"
+            src="https://www.youtube.com/embed/7k7DmdowKaQ"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
       <p
         class="about_text"
       >The founders of FitX Ninja, Robert and Laima, took upon themselves a challenge to build a startup in 30 days to compete in TransferWise&rsquo;s 20Under20 program for young CEOs. The award sum is &pound;25,000 and the application deadline is 30th of June.</p>
@@ -36,13 +61,39 @@ export default {
 
 
 <style scoped>
+.framevideo {
+  border-radius: 30px;
+}
+
+.frame {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.frame {
+  position: relative;
+  width: 70%;
+  padding-bottom: 39.25%;
+  height: 0;
+  margin-bottom: 50px;
+}
+.frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 .about_text {
   margin-bottom: 15px;
   line-height: 23px;
+  padding: 0px 100px;
+  text-align: center;
 }
 
 p {
-  color: white !important;
+  color: black !important;
 }
 .footer_page_container {
   display: flex;
@@ -55,7 +106,7 @@ p {
   padding: 30px 0px;
   padding-bottom: 40px;
   font-size: 18px !important;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -69,7 +120,7 @@ p {
   border: 1px solid transparent;
 }
 .topNavigationLink__topBar {
-  color: #00ffe7;
+  color: black !important;
   font-weight: bold;
   padding: 10px 16px;
   display: inline-block;
@@ -82,7 +133,7 @@ p {
   flex-flow: row nowrap;
   align-items: center;
   padding: 0px 15px;
-  background-color: #111;
+  background-color: white !important;
   height: 60px;
 }
 .nav-container a {

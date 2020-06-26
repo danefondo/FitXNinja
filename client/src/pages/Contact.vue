@@ -8,7 +8,7 @@
           <a
             href="mailto:hello@fitx.ninja"
           >hello@fitx.ninja</a>, on 
-          <a href="https://www.facebook.com/FitXNinja" target="_blank">Facebook</a>, or 
+          <a href="https://www.facebook.com/FitXNinja" target="_blank">Facebook</a> or 
           <a href="https://www.instagram.com/fitxninja/" target="_blank">Instagram</a>.
         </span>
       </div>
@@ -36,11 +36,11 @@ export default {
 }
 
 p, span, div {
-  color: white !important;
+  color: black !important;
 }
 
 a {
-  color: #00ffe7 !important;
+  color: #00a796 !important;
 }
 
 .textTitle {

@@ -14,29 +14,6 @@
           </div>
         </div>
       </div>
-      <div class="frame">
-        <iframe
-          class="framevideo"
-          width="760"
-          height="427"
-          style="margin-bottom:40px !important;"
-          src="https://www.youtube.com/embed/ctVKbsPlHc0"
-          frameborder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-      </div>
-      <div class="frame">
-        <iframe
-          class="framevideo"
-          width="760"
-          height="427"
-          src="https://www.youtube.com/embed/7k7DmdowKaQ"
-          frameborder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-      </div>
     </div>
   </div>
 </template>
