@@ -12,7 +12,7 @@
 			.video-actions
 				.video-action-group
 					.video-start-workout(@click='startWorkout') Start workout
-				VideoOptions(v-if="video" :video="video" :user="user ? user : null")
+				VideoOptions(v-if="video" :video="video")
 				.video-action-group(v-if='user && user.admin')
 					.video-edit(@click='editVideo') {{$t("watch.edit")}}
 			.video-sidebar-details
@@ -78,7 +78,7 @@ export default {
       video: null,
       streamNotFound: false,
       isAuthenticated: false,
-      user: null
+      user: {}
     };
   },
   mounted() {

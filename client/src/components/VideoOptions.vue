@@ -14,7 +14,7 @@
         <li>
           <div
             v-if="user"
-            @click="copyLink()"
+            @click="addRemoveFromLibrary()"
             class="entypo-archive NavLinkX copylink"
           >{{inLibrary ? "Remove from library" : "Add to library"}}</div>
           <a class="entypo-plus OptionLink" href="#"></a>
@@ -22,9 +22,9 @@
         <li>
           <div
             v-if="user"
-            @click="copyLink()"
+            @click="addRemoveFromFavorites()"
             class="entypo-archive NavLinkX copylink"
-          >Add to favorites</div>
+          >{{inFavorites ? "Remove from favorites" : "Add to favorites"}}</div>
           <a class="entypo-plus OptionLink" href="#"></a>
         </li>
         <!-- <li>
@@ -52,19 +52,30 @@
 </template>
 
 <script>
+import axios from "axios";
+import auth from "../config/auth";
+
 export default {
   name: "VideoOptions",
-  props: ["video", "user"],
+  props: ["video"],
   data() {
     return {
       isOpened: false,
       linkText: this.$t("watch.copy"),
       inLibrary: false,
-      liked: false
+      inFavorites: false,
+      liked: false,
+      isAuthenticated: false,
+      user: {}
     };
   },
   mounted() {
     document.addEventListener("click", this.onClick);
+    if (auth.isAuthenticated()) {
+      this.user = auth.isAuthenticated();
+      this.isAuthenticated = true;
+      this.getUserData();
+    }
   },
   beforeDestroy() {
     document.removeEventListener("click", this.onClick);
@@ -82,6 +93,35 @@ export default {
         this.isOpened
       ) {
         this.toggleDropdown();
+      }
+    },
+    async getUserData() {
+      try {
+        const { data } = await axios.get(`/profile/${this.user._id}/getUserData/${this.video._id}`);
+        this.inLibrary = data.inLibrary;
+        this.inFavorites = data.inFavorites;
+      } catch (error) {
+        console.log("errFFAIL", error);
+      }
+    },
+    async addRemoveFromLibrary() {
+      try {
+        this.inLibrary = !this.inLibrary;
+        await axios.post(
+          `/profile/${this.user._id}/addRemoveFromLibrary/${this.video._id}`
+        );
+      } catch (error) {
+        console.log("err", error);
+      }
+    },
+    async addRemoveFromFavorites() {
+      try {
+        this.inFavorites = !this.inFavorites;
+        await axios.post(
+          `/profile/${this.user._id}/addRemoveFromFavorites/${this.video._id}`
+        );
+      } catch (error) {
+        console.log("err", error);
       }
     },
     copyLink() {
@@ -110,6 +150,11 @@ export default {
       let twitterLink = `https://twitter.com/home?status=${currentBase}/videos/${this.video._id}`;
       return twitterLink;
     }
+  },
+  watch: {
+    $route() {
+      this.getUserData();
+    }
   }
 };
 </script>
@@ -125,7 +170,7 @@ export default {
   line-height: 23px !important;
 }
 .specialOption:hover {
-    color: rgba(255, 166, 0, 0.712) !important;
+  color: rgba(255, 166, 0, 0.712) !important;
 }
 
 .Dropdown-nav {

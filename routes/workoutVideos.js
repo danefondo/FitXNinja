@@ -5,9 +5,12 @@ const router = express.Router();
 
 const workoutController = require('../controller/workouts');
 
+router.get('/getAll', workoutController.getAll);
+
 router.get('/:videoId', workoutController.showVideo);
 
 router.delete('/:videoId/deleteVideo', auth.ensureAuthenticated, workoutController.deleteVideo);
+
 
 
 module.exports = router;

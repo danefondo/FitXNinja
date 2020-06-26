@@ -1,1052 +1,1088 @@
-const { validationResult } = require('express-validator');
-let Stream = require('../models/stream');
-let WorkoutVideo = require('../models/workout');
-let User = require('../models/user');
-const streamUtils = require('../utils/stream')
-const moment = require('moment');
+const { validationResult } = require("express-validator");
+let Stream = require("../models/stream");
+let WorkoutVideo = require("../models/workout");
+let User = require("../models/user");
+const streamUtils = require("../utils/stream");
+const moment = require("moment");
 
 const workoutController = {
+  async getAll(req, res) {
+    try {
+      console.log("WAZ");
+      let videos = await WorkoutVideo.find({}).exec();
+      if (!videos) {
+        return res.status(404).json({
+          errors: "Videos not found.",
+        });
+      }
 
-    async addWorkoutVideo(req, res) {
-        try {
-            let video = new WorkoutVideo();
-            let video_data = req.body;
-            console.log("video data", video_data);
+      res.status(200).json({
+        videos: videos,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurredssssss",
+      });
+    }
+  },
 
+  async addWorkoutVideo(req, res) {
+    try {
+      let video = new WorkoutVideo();
+      let video_data = req.body;
+      console.log("video data", video_data);
 
-            video.name = video_data.name;
-            video.description = video_data.description;
-            let video_url = video_data.url
-            video.url = video_url;
-            let video_id = streamUtils.getYoutubeId(video_url);
-            video.video_id = video_id;
-            for (const w_type of video_data.types) {
-                video.types.push(w_type);
-            }
-            for (const w_style of video_data.styles) {
-                video.styles.push(w_style);
-            }
-            for (const w_muscle of video_data.muscles) {
-                video.muscles.push(w_muscle);
-            }
-            for (const w_goal of video_data.goals) {
-                video.goals.push(w_goal);
-            }
-            for (const w_sport of video_data.sports) {
-                video.sports.push(w_sport);
-            }
-            for (const w_level of video_data.levels) {
-                video.levels.push(w_level);
-            }
-            for (const w_equipment of video_data.equipment) {
-                video.equipment.push(w_equipment);
-            }
-            for (const w_location of video_data.location) {
-                video.location.push(w_location);
-            }
+      video.name = video_data.name;
+      video.description = video_data.description;
+      let video_url = video_data.url;
+      video.url = video_url;
+      let video_id = streamUtils.getYoutubeId(video_url);
+      video.video_id = video_id;
+      for (const w_type of video_data.types) {
+        video.types.push(w_type);
+      }
+      for (const w_style of video_data.styles) {
+        video.styles.push(w_style);
+      }
+      for (const w_muscle of video_data.muscles) {
+        video.muscles.push(w_muscle);
+      }
+      for (const w_goal of video_data.goals) {
+        video.goals.push(w_goal);
+      }
+      for (const w_sport of video_data.sports) {
+        video.sports.push(w_sport);
+      }
+      for (const w_level of video_data.levels) {
+        video.levels.push(w_level);
+      }
+      for (const w_equipment of video_data.equipment) {
+        video.equipment.push(w_equipment);
+      }
+      for (const w_location of video_data.location) {
+        video.location.push(w_location);
+      }
 
-            for (const w_duration of video_data.duration) {
-                video.duration.push(w_duration);
-            }
+      for (const w_duration of video_data.duration) {
+        video.duration.push(w_duration);
+      }
 
-            video.music = video_data.music;
-            
-            for (const w_song of video_data.songs) {
-                video.songs.push(w_song);
-            }
-            for (const w_specification of video_data.specifications) {
-                video.specifications.push(w_specification);
-            }
-            for (const w_teachers of video_data.teachers) {
-                video.teachers.push(w_teachers);
-            }
-            for (const w_organizations of video_data.organizations) {
-                video.organizations.push(w_organizations);
-            }
+      video.music = video_data.music;
 
-            video.public_status = video_data.public_status;
+      for (const w_song of video_data.songs) {
+        video.songs.push(w_song);
+      }
+      for (const w_specification of video_data.specifications) {
+        video.specifications.push(w_specification);
+      }
+      for (const w_teachers of video_data.teachers) {
+        video.teachers.push(w_teachers);
+      }
+      for (const w_organizations of video_data.organizations) {
+        video.organizations.push(w_organizations);
+      }
 
-            // let tags = stream_data.stream_tags;
-            // tags = JSON.parse(tags);
+      video.public_status = video_data.public_status;
 
+      // let tags = stream_data.stream_tags;
+      // tags = JSON.parse(tags);
 
-            await video.save();
-            console.log("vidyo", video);
+      await video.save();
+      console.log("vidyo", video);
 
-            res.json({
-                video: video
-            })
+      res.json({
+        video: video,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
 
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
+  async updateWorkoutVideo(req, res) {
+    try {
+      let video_data = req.body;
+
+      let vid_id = video_data.video_id;
+      let video = await WorkoutVideo.findById(vid_id);
+      if (!video) {
+        return res.status(404).json({
+          message: "Video not found",
+        });
+      }
+
+      video.name = video_data.name;
+      video.description = video_data.description;
+      let video_url = video_data.url;
+      video.url = video_url;
+      let video_id = streamUtils.getYoutubeId(video_url);
+      video.video_id = video_id;
+
+      // SETTING FIELDS TO UNDEFINED TO PREVENT DOUBLE ENTRIES DUE TO PUSHING RATHER THAN REPLACING VALUE
+
+      video.types = [];
+      for (const w_type of video_data.types) {
+        video.types.push(w_type);
+      }
+
+      video.styles = [];
+      for (const w_style of video_data.styles) {
+        video.styles.push(w_style);
+      }
+
+      video.muscles = [];
+      for (const w_muscle of video_data.muscles) {
+        video.muscles.push(w_muscle);
+      }
+
+      video.goals = [];
+      for (const w_goal of video_data.goals) {
+        video.goals.push(w_goal);
+      }
+
+      video.sports = [];
+      for (const w_sport of video_data.sports) {
+        video.sports.push(w_sport);
+      }
+
+      video.levels = [];
+      for (const w_level of video_data.levels) {
+        video.levels.push(w_level);
+      }
+
+      video.equipment = [];
+      for (const w_equipment of video_data.equipment) {
+        video.equipment.push(w_equipment);
+      }
+
+      video.location = [];
+      for (const w_location of video_data.location) {
+        video.location.push(w_location);
+      }
+
+      video.duration = [];
+      for (const w_duration of video_data.duration) {
+        video.duration.push(w_duration);
+      }
+
+      video.music = video_data.music;
+
+      video.songs = [];
+      for (const w_song of video_data.songs) {
+        video.songs.push(w_song);
+      }
+
+      video.specifications = [];
+      for (const w_specification of video_data.specifications) {
+        video.specifications.push(w_specification);
+      }
+
+      video.teachers = [];
+      for (const w_teachers of video_data.teachers) {
+        video.teachers.push(w_teachers);
+      }
+
+      video.organizations = [];
+      for (const w_organizations of video_data.organizations) {
+        video.organizations.push(w_organizations);
+      }
+
+      video.public_status = video_data.public_status;
+
+      // let tags = stream_data.stream_tags;
+      // tags = JSON.parse(tags);
+
+      await video.save();
+      console.log("vidyo", video);
+
+      res.json({
+        video: video,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+
+  async showVideo(req, res) {
+    try {
+      console.log("yoxxx");
+      let video_id = req.params.videoId;
+      console.log("yoxxxsss", video_id);
+
+      let video = await WorkoutVideo.findById(video_id);
+      if (!video) {
+        return res.status(404).json({
+          message: "Video not found",
+        });
+      }
+
+      let host_name = req.headers.host;
+
+      res.status(200).json({
+        video: video,
+        host_name: host_name,
+      });
+    } catch (error) {
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+
+  async deleteVideo(req, res) {
+    try {
+      let video_id = req.params.videoId;
+
+      if (!video_id) {
+        return res.status(404).json({
+          errors: "Video id missing.",
+        });
+      }
+
+      // REMOVE FROM PEOPLE'S LIKES & COLLECTIONS?
+
+      WorkoutVideo.deleteOne({ _id: video_id }).exec(function (err, removed) {
+        if (err) {
+          return console.log("Failed to delete video: ", err);
         }
-    },
+        console.log("Successfully deleted video.");
+      });
 
-    async updateWorkoutVideo(req, res) {
-        try {
-            let video_data = req.body;
+      res.status(200).json({
+        message: "Video permanently removed.",
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        message:
+          "An error occurred while deleting video, please try again later.",
+      });
+    }
+  },
 
-            let vid_id = video_data.video_id;
-            let video = await WorkoutVideo.findById(vid_id);
-            if (!video) {
-                return res.status(404).json({
-                    message: "Video not found"
-                });
-            }
+  async create_live_stream(req, res) {
+    try {
+      let stream = new Stream();
+      let stream_data = req.body;
 
-            video.name = video_data.name;
-            video.description = video_data.description;
-            let video_url = video_data.url
-            video.url = video_url;
-            let video_id = streamUtils.getYoutubeId(video_url);
-            video.video_id = video_id;
+      if (stream_data.thumbnail_key) {
+        stream.thumbnail_key = stream_data.thumbnail_key;
+      }
 
-            // SETTING FIELDS TO UNDEFINED TO PREVENT DOUBLE ENTRIES DUE TO PUSHING RATHER THAN REPLACING VALUE
+      if (stream_data.thumbnail_url) {
+        stream.thumbnail_url = stream_data.thumbnail_url;
+      }
 
-            video.types = [];
-            for (const w_type of video_data.types) {
-                video.types.push(w_type);
-            }
+      if (stream_data.thumbnail_name) {
+        stream.thumbnail_name = stream_data.thumbnail_name;
+      }
 
-            video.styles = [];
-            for (const w_style of video_data.styles) {
-                video.styles.push(w_style);
-            }
+      if (stream_data.thumbnail_id) {
+        stream.thumbnail_id = stream_data.thumbnail_id;
+      }
 
-            video.muscles = [];
-            for (const w_muscle of video_data.muscles) {
-                video.muscles.push(w_muscle);
-            }
+      stream.date_created = stream_data.date_created;
+      stream.stream_name = stream_data.stream_name;
+      stream.stream_description = stream_data.stream_description;
+      stream.stream_video_id = stream_data.stream_video_id;
 
-            video.goals = [];
-            for (const w_goal of video_data.goals) {
-                video.goals.push(w_goal);
-            }
+      let tags = stream_data.stream_tags;
+      tags = JSON.parse(tags);
 
-            video.sports = [];
-            for (const w_sport of video_data.sports) {
-                video.sports.push(w_sport);
-            }
+      for (const tag of tags) {
+        stream.stream_tags.push(tag);
+      }
 
-            video.levels = [];
-            for (const w_level of video_data.levels) {
-                video.levels.push(w_level);
-            }
+      console.log("user_id", req.user._id);
 
-            video.equipment = [];
-            for (const w_equipment of video_data.equipment) {
-                video.equipment.push(w_equipment);
-            }
+      stream.streamer_id = req.user._id;
+      stream.streamer = req.user._id;
+      stream.is_live = true;
 
-            video.location = [];
-            for (const w_location of video_data.location) {
-                video.location.push(w_location);
-            }
+      await stream.save();
+      let stream_id = stream._id;
 
-            video.duration = [];
-            for (const w_duration of video_data.duration) {
-                video.duration.push(w_duration);
-            }
+      let user;
+      user = await User.findById(req.user._id);
+      if (!user) {
+        return res.status(404).json({
+          errors: "User not found.",
+        });
+      }
+      user.is_live = true;
+      user.active_stream_id = stream._id;
+      await user.save();
 
-            video.music = video_data.music;
-            
-            video.songs = [];
-            for (const w_song of video_data.songs) {
-                video.songs.push(w_song);
-            }
+      res.json({
+        stream: stream,
+        stream_id: stream_id,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
 
-            video.specifications = [];
-            for (const w_specification of video_data.specifications) {
-                video.specifications.push(w_specification);
-            }
+  async fetchLiveStreams(req, res) {
+    let query = { is_live: true };
+    try {
+      let streams = await Stream.find(query).populate("streamer").exec();
+      if (!streams.length) {
+        return res.status(404).json({
+          message: "No live streams found",
+        });
+      }
+      res.status(200).json({
+        streams: streams,
+      });
+    } catch (error) {
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+  async fetchPastStreams(req, res) {
+    let query = {};
+    if (req.body.date) {
+      const date = req.body.date ? new Date(req.body.date) : new Date();
+      const anotherDate = new Date();
+      query = {
+        is_live: false,
+        is_scheduled: false,
+        scheduled_time: {
+          $gte: anotherDate.setDate(date.getDate() - 100),
+          $lte: date,
+        },
+      };
+    }
 
-            video.teachers = [];
-            for (const w_teachers of video_data.teachers) {
-                video.teachers.push(w_teachers);
-            }
+    try {
+      let streams = await Stream.find(query)
+        .populate("streamer")
+        .sort({ scheduled_time: -1 })
+        .exec();
+      if (!streams.length) {
+        return res.status(404).json({
+          message: "No live streams found",
+        });
+      }
+      res.status(200).json({
+        streams: streams,
+      });
+    } catch (error) {
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+  async fetchStreams(req, res) {
+    let query = { is_live: true };
+    if (req.query.scheduled) {
+      const date = req.query.date ? new Date(req.query.date) : new Date();
+      const anotherDate = new Date();
+      query = {
+        is_scheduled: true,
+        scheduled_time: {
+          $gte: date,
+          $lte: anotherDate.setDate(date.getDate() + 20),
+        },
+      };
+    }
+    try {
+      let streams = await Stream.find(query)
+        .populate("streamer")
+        .sort({ scheduled_time: 1 })
+        .exec();
+      let featured_streams = await Stream.find({ is_featured: true })
+        .populate("streamer")
+        .exec();
+      let featured = featured_streams[0];
+      if (!streams.length) {
+        return res.status(404).json({
+          message: "No stream found",
+        });
+      }
+      res.status(200).json({
+        streams: streams,
+        featured: featured,
+      });
+    } catch (error) {
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+  async getStreams(req, res) {
+    try {
+      let streams = await Stream.find({ is_live: true })
+        .populate("streamer")
+        .exec();
+      if (!streams) {
+        console.log("nooo streams");
+        return res.render("index", {
+          error: "Couldn't get streams",
+        });
+      }
+      // console.log("sttreams", streams);
 
-            video.organizations = [];
-            for (const w_organizations of video_data.organizations) {
-                video.organizations.push(w_organizations);
-            }
+      let featured_streams = await Stream.find({ is_featured: true })
+        .populate("streamer")
+        .exec();
+      if (!featured_streams) {
+        console.log("nooo streams");
+        return res.render("index", {
+          error: "Couldn't get featured streams",
+        });
+      }
+      let featured = featured_streams[0];
+      // console.log("feat", featured);
 
-            video.public_status = video_data.public_status;
+      res.render("index", {
+        streams: streams,
+        featured: featured,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
 
-            // let tags = stream_data.stream_tags;
-            // tags = JSON.parse(tags);
+  async getScheduledStreams(req, res) {
+    try {
+      let today = new Date();
+      let tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      let day3 = new Date();
+      day3.setDate(tomorrow.getDate() + 1);
+      let day4 = new Date();
+      day4.setDate(day3.getDate() + 1);
+      let day5 = new Date();
+      day5.setDate(day4.getDate() + 1);
 
+      let streams = await Stream.find({
+        is_scheduled: true,
+        scheduled_time: {
+          $gte: today,
+          $lte: day5,
+        },
+      })
+        .populate("streamer")
+        .sort({ scheduled_time: -1 })
+        .exec();
+      if (!streams) {
+        console.log("nooo streams");
+        return res.render("scheduled", {
+          error: "Couldn't get streams",
+        });
+      }
+      console.log("sttreams", streams);
 
-            await video.save();
-            console.log("vidyo", video);
+      let featured_streams = await Stream.find({ is_featured: true })
+        .populate("streamer")
+        .exec();
+      if (!featured_streams) {
+        console.log("Couldn't get featured streams");
+      }
+      let featured = featured_streams[0];
+      console.log("feat", featured);
 
-            res.json({
-                video: video
-            })
+      // let today = new Date();
+      // let today = moment().startOf('day')
 
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
+      // get all scheduled before date (date =  today + 4)
+
+      // for each stream, if stream.date == today, add
+      // for each stream if stream.date == today + 1, add
+
+      let datedStreams = {
+        today: [],
+        tomorrow: [],
+        next3: [],
+        next4: [],
+        next5: [],
+      };
+
+      function compareDates(date1, date2) {
+        let boolean =
+          Math.floor(date1.getTime() / 86400000) ==
+          Math.floor(date2.getTime() / 86400000);
+
+        return boolean;
+      }
+
+      for (i = 0; i < 5; i++) {
+        streams.forEach(function (stream) {
+          let stream_date = stream.scheduled_time;
+          compareDates(today, stream_date);
+          // if (stream.)
+        });
+      }
+
+      let data = {
+        streams,
+      };
+      if (featured) {
+        data.featured = featured;
+      }
+      res.render("scheduled", data);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+
+  async update_live_stream(req, res) {
+    try {
+      let stream = await Stream.findById(req.body.stream_id);
+      if (!stream) {
+        return res.status(404).json({
+          errors: "Stream not found.",
+        });
+      }
+
+      let stream_data = req.body;
+
+      //- DOING CHECKS BECAUSE IF YOU DO NOT, WHEN YOU UDPATE AND DO NOT GET ALL, IT SETS THE FIELD TO ZERO, SOME OF THESE FIELDS LOSE ORIGINAL VALUE THIS WAY, AS NOT ALL VALUES ARE RECEIVED.
+      if (stream_data.thumbnail_key) {
+        stream.thumbnail_key = stream_data.thumbnail_key;
+      }
+      if (stream_data.thumbnail_url) {
+        stream.thumbnail_url = stream_data.thumbnail_url;
+      }
+      if (stream_data.thumbnail_name) {
+        stream.thumbnail_name = stream_data.thumbnail_name;
+      }
+      if (stream_data.stream_name) {
+        stream.stream_name = stream_data.stream_name;
+      }
+      if (stream_data.stream_description) {
+        stream.stream_description = stream_data.stream_description;
+      }
+      if (stream_data.stream_video_link) {
+        stream.stream_video_link = stream_data.stream_video_link;
+        stream.platform_status = streamUtils.getPlatform(
+          stream_data.stream_video_link
+        );
+        stream.stream_video_id = streamUtils.getVideoId(
+          stream.platform_status,
+          stream_data.stream_video_link
+        );
+      }
+      if (stream_data.stream_tags) {
+        stream.stream_tags = stream_data.stream_tags;
+      }
+      if (stream_data.scheduled_time) {
+        stream.scheduled_time = stream_data.scheduled_time;
+      }
+      if (stream_data.public_status) {
+        stream.public_status = stream_data.public_status;
+      }
+
+      console.log("user_id", req.user._id);
+
+      await stream.save();
+
+      res.json({
+        stream: stream,
+      });
+    } catch (error) {
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+
+  async signUpForVideo(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log("errors");
+      return res.status(422).json({ errors: errors.array() });
+    }
+    try {
+      let stream_id = req.params.streamId;
+      let email = req.body.email;
+      let signUpId = req.body.email;
+      if (req.user && req.user._id) {
+        const user = await User.findById(req.user._id);
+        email = user.email;
+        signUpId = req.user._id;
+      } else {
+        // check email
+        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!email || !re.test(email)) {
+          return res.status(400).json({
+            errors: "Email is not valid",
+          });
         }
-    },
+      }
+      let stream = await Stream.findById(stream_id);
+      if (!stream) {
+        return res.status(404).json({
+          errors: "Stream not found.",
+        });
+      }
+      if (stream.waitlist_emails.includes(signUpId)) {
+        return res.status(404).json({
+          errors: "You have registered for this stream",
+        });
+      }
+      stream.waitlist_emails.push(signUpId);
+      await stream.save();
+      const link = `${req.protocol}://${req.get("host")}/watch/${stream._id}`;
+      mail.sendVideoSignUpEmail(email, stream.stream_name, link);
 
-    async showVideo(req, res) {
-        try {
-            console.log("yoxxx");
-            let video_id = req.params.videoId;
-            console.log("yoxxxsss", video_id);
+      res.json({
+        stream: stream,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
 
-            let video = await WorkoutVideo.findById(video_id);
-            if (!video) {
-                return res.status(404).json({
-                    message: "Video not found"
-                });
-            }
+  async endStream(req, res) {
+    try {
+      let stream = await Stream.findById(req.params.streamId);
+      if (!stream) {
+        return res.status(404).json({
+          errors: "Stream not found.",
+        });
+      }
 
-            let host_name = req.headers.host;
+      console.log("yo  made it");
+      if (stream.is_live) {
+        stream.is_live = false;
+        stream.was_live = true;
+        stream.ended_time = req.body.date ? req.body.date : new Date();
+      }
 
-            res.status(200).json({
-                video: video,
-                host_name: host_name
-            });
-        } catch (error) {
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
+      await stream.save();
+
+      let user;
+      user = await User.findById(req.user._id);
+      if (!user) {
+        return res.status(404).json({
+          errors: "User not found.",
+        });
+      }
+
+      if (user.is_live) {
+        user.is_live = false;
+        user.active_stream_id = undefined;
+        user.current_stream_url = undefined;
+        user.current_stream_thumbnail = undefined;
+        user.current_streams.pull(stream._id);
+      }
+
+      let previousBoolean = user.previous_streams.includes(stream._id);
+      if (!previousBoolean) {
+        user.previous_streams.push(stream._id);
+      }
+
+      await user.save();
+
+      res.json({
+        stream: stream,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+
+  async getStreamer(req, res) {
+    try {
+      let user_id = req.params.userId;
+
+      let user;
+      user = await User.findById(user_id)
+        .populate({
+          path: "previous_streams",
+          populate: {
+            path: "streamer",
+          },
+        })
+        .sort({ scheduled_time: 1 })
+        .populate({
+          path: "upcoming_streams",
+          populate: {
+            path: "streamer",
+          },
+        })
+        .sort({ scheduled_time: 1 })
+        .exec();
+      if (!user) {
+        return res.status(404).json({
+          error: "User not found.",
+        });
+      }
+
+      let stream;
+      let stream_id;
+      let video_id;
+      if (user.is_live && user.active_stream_id) {
+        stream_id = user.active_stream_id;
+
+        stream = await Stream.findById(stream_id);
+        if (!stream) {
+          return res.status(404).json({
+            error: "Stream not found.",
+          });
         }
-    },
+        video_id = stream.stream_video_id;
+      }
 
-	async deleteVideo(req, res) {
+      let streamer_followers_count = user.followers.length;
+      let streamer_following_count = user.following.length;
 
-		try {
-			let video_id = req.params.videoId;
-
-			if (!video_id) {
-				return res.status(404).json({
-					errors: "Video id missing."
-				});
-            }
-
-            // REMOVE FROM PEOPLE'S LIKES & COLLECTIONS?
-
-			WorkoutVideo.deleteOne({ _id: video_id }).exec(function (err, removed) {
-				if (err) {
-					return console.log("Failed to delete video: ", err);
-				}
-				console.log("Successfully deleted video.");
-            })
-
-			res.status(200).json({
-				message: "Video permanently removed."
-			})
-
-		} catch (err) {
-			console.log(err);
-			res.status(500).json({
-				message: 'An error occurred while deleting video, please try again later.'
-			});
-		}
-	},
-
-    async create_live_stream(req, res) {
-        try {
-            let stream = new Stream();
-            let stream_data = req.body;
-
-            if (stream_data.thumbnail_key) {
-                stream.thumbnail_key = stream_data.thumbnail_key;
-            }
-
-            if (stream_data.thumbnail_url) {
-                stream.thumbnail_url = stream_data.thumbnail_url;
-            }
-
-            if (stream_data.thumbnail_name) {
-                stream.thumbnail_name = stream_data.thumbnail_name;
-            }
-
-            if (stream_data.thumbnail_id) {
-                stream.thumbnail_id = stream_data.thumbnail_id;
-            }
-
-            stream.date_created = stream_data.date_created;
-            stream.stream_name = stream_data.stream_name;
-            stream.stream_description = stream_data.stream_description;
-            stream.stream_video_id = stream_data.stream_video_id;
-
-            let tags = stream_data.stream_tags;
-            tags = JSON.parse(tags);
-
-            for (const tag of tags) {
-                stream.stream_tags.push(tag);
-            }
-
-            console.log("user_id", req.user._id);
-
-            stream.streamer_id = req.user._id;
-            stream.streamer = req.user._id;
-            stream.is_live = true;
-
-            await stream.save();
-            let stream_id = stream._id;
-
-            let user;
-            user = await User.findById(req.user._id);
-            if (!user) {
-                return res.status(404).json({
-                    errors: "User not found."
-                });
-            }
-            user.is_live = true;
-            user.active_stream_id = stream._id;
-            await user.save();
-
-            res.json({
-                stream: stream,
-                stream_id: stream_id
-            })
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
-        }
-    },
-
-    async fetchLiveStreams(req, res) {
-        let query = { "is_live": true };
-        try {
-            let streams = await Stream.find(query).populate('streamer').exec();
-            if (!streams.length) {
-                return res.status(404).json({
-                    message: "No live streams found"
-                });
-            }
-            res.status(200).json({
-                streams: streams
-            });
-        } catch (error) {
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
-        }
-    }, 
-    async fetchPastStreams(req, res) {
-
-        let query = {};
-        if (req.body.date) {
-            const date = req.body.date ? new Date(req.body.date) : new Date();
-            const anotherDate = new Date();
-            query = {
-                is_live: false,
-                is_scheduled: false,
-                scheduled_time: {
-                    $gte: anotherDate.setDate(date.getDate() - 100),
-                    $lte: date,
-                }
-            }
+      let visitor;
+      let user_like_boolean = false;
+      let user_following_boolean = false;
+      if (req.user) {
+        visitor = await User.findById(req.user._id);
+        if (!visitor) {
+          return res.status(404).json({
+            errors: "User that seemed to be logged in was no longer found.",
+          });
         }
 
-        try {
-            let streams = await Stream.find(query).populate('streamer').sort({ scheduled_time: -1 }).exec();
-            if (!streams.length) {
-                return res.status(404).json({
-                    message: "No live streams found"
-                });
-            }
-            res.status(200).json({
-                streams: streams
-            });
-        } catch (error) {
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
+        if (user.is_live && stream_id) {
+          user_like_boolean = visitor.liked_streams_ids.includes(stream_id);
         }
-    },
-    async fetchStreams(req, res) {
-        let query = { "is_live": true }
-        if (req.query.scheduled) {
-            const date = req.query.date ? new Date(req.query.date) : new Date();
-            const anotherDate = new Date();
-            query = {
-                is_scheduled: true,
-                scheduled_time: {
-                    $gte: date,
-                    $lte: anotherDate.setDate(date.getDate() + 20),
-                }
-            }
+        user_following_boolean = visitor.following.includes(user_id);
+      }
+      //console.log("boolean", user_like_boolean);
+      //console.log("following", user_following_boolean);
+
+      let host_name = req.headers.host;
+
+      let streamer = user;
+      res.status(200).json({
+        video_id: video_id,
+        stream,
+        streamer,
+        user_like_boolean,
+        user_following_boolean,
+        host_name,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+
+  async updateLikes(req, res) {
+    try {
+      // if not user, then cancel (for oh so clever frontend check bypassers)
+      if (!req.user) {
+        return res.status(401).json({
+          errors: "No authenticated user present who could add a like",
+        });
+      }
+
+      let stream_id = req.params.streamId;
+
+      let stream = await Stream.findById(stream_id);
+      if (!stream) {
+        return res.status(404).json({
+          errors: "Stream not found.",
+        });
+      }
+
+      if (req.user._id == stream.streamer_id) {
+        return res.status(400).json({
+          errors: "Cannot like your own stream.",
+        });
+      }
+
+      // check if user has already liked it or not, based on that choose action
+
+      let user = await User.findById(req.user._id);
+      if (!user) {
+        return res.status(404).json({
+          errors: "User not found.",
+        });
+      }
+
+      let user_like_boolean = user.liked_streams_ids.includes(stream_id);
+
+      if (user_like_boolean == true) {
+        if (!stream.stream_likes_count) {
+          return res.status(200).end();
+        } else if (stream.stream_likes_count > 0) {
+          stream.stream_likes_count = stream.stream_likes_count - 1;
         }
-        try {
-            let streams = await Stream.find(query).populate('streamer').sort({ scheduled_time: 1 }).exec();
-            let featured_streams = await Stream.find({ "is_featured": true }).populate('streamer').exec();
-            let featured = featured_streams[0];
-            if (!streams.length) {
-                return res.status(404).json({
-                    message: "No stream found"
-                });
-            }
-            res.status(200).json({
-                streams: streams,
-                featured: featured
-            });
-        } catch (error) {
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
+
+        user.liked_streams_ids.pull(stream_id);
+      } else {
+        // if undefined and not even zero, make it one
+        if (!stream.stream_likes_count) {
+          stream.stream_likes_count = 1;
+        } else if (
+          stream.stream_likes_count == 0 ||
+          stream.stream_likes_count > 0
+        ) {
+          stream.stream_likes_count = stream.stream_likes_count + 1;
         }
-    },
-    async getStreams(req, res) {
-        try {
 
-            let streams = await Stream.find({ "is_live": true }).populate('streamer').exec();
-            if (!streams) {
-                console.log("nooo streams");
-                return res.render('index', {
-                    error: "Couldn't get streams"
-                });
-            }
-            // console.log("sttreams", streams);
+        user.liked_streams_ids.push(stream_id);
+      }
 
-            let featured_streams = await Stream.find({ "is_featured": true }).populate('streamer').exec();
-            if (!featured_streams) {
-                console.log("nooo streams");
-                return res.render('index', {
-                    error: "Couldn't get featured streams"
-                });
-            }
-            let featured = featured_streams[0];
-            // console.log("feat", featured);
+      await stream.save();
+      await user.save();
 
-            res.render('index', {
-                streams: streams,
-                featured: featured
-            });
+      let stream_likes_count = stream.stream_likes_count;
 
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
+      res.json({
+        stream: stream,
+        stream_likes_count,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+
+  async followUnfollow(req, res) {
+    try {
+      // if not user, then cancel (for oh so clever frontend check bypassers)
+      let streamer_id = req.params.streamerId;
+
+      if (req.user._id == streamer_id) {
+        return res.status(400).json({
+          errors: "Cannot follow yourself.",
+        });
+      }
+      // check if user has already liked it or not, based on that choose action
+      let user = await User.findById(req.user._id);
+      if (!user) {
+        return res.status(404).json({
+          errors: "User not found.",
+        });
+      }
+      let user_following_boolean = user.following.includes(streamer_id);
+      if (user_following_boolean == true) {
+        user.following.pull(streamer_id);
+      } else {
+        user.following.push(streamer_id);
+      }
+      await user.save();
+
+      let streamer = await User.findById(streamer_id);
+      if (!user) {
+        return res.status(404).json({
+          errors: "User not found.",
+        });
+      }
+      let streamer_followers_boolean = streamer.followers.includes(user._id);
+      if (streamer_followers_boolean == true) {
+        streamer.followers.pull(user._id);
+      } else {
+        streamer.followers.push(user._id);
+      }
+      await streamer.save();
+      // let stream_followers_count = stream.stream_followers_count;
+      res.json({
+        streamer: streamer,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+  async goLive(req, res) {
+    try {
+      let stream = await Stream.findById(req.params.streamId);
+      if (!stream) {
+        return res.status(404).json({
+          errors: "Stream not found.",
+        });
+      }
+
+      if (!stream.is_live) {
+        stream.is_live = true;
+        stream.is_scheduled = false;
+        stream.started_time = new Date();
+      }
+
+      await stream.save();
+
+      let user;
+      user = await User.findById(req.user._id);
+      if (!user) {
+        return res.status(404).json({
+          errors: "User not found.",
+        });
+      }
+      user.is_live = true;
+      user.active_stream_id = stream._id;
+      user.current_stream_url = stream.stream_video_link;
+      user.current_stream_thumbnail = stream.stream_thumbnail_url;
+      user.current_streams.push(stream._id);
+      user.upcoming_streams.pull(stream._id);
+      await user.save();
+
+      let emails = stream.waitlist_emails;
+      const link = `${req.protocol}://${req.get("host")}/watch/${stream._id}`;
+      streamUtils.sendGoLiveMails(emails, stream, link);
+
+      res.status(200).json({
+        stream: stream,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+  async schedule_live_stream(req, res) {
+    try {
+      let stream = new Stream({ ...req.body, stream_likes_count: 0 });
+
+      stream.streamer_id = req.user._id;
+      stream.streamer = req.user._id;
+      stream.platform_status = streamUtils.getPlatform(
+        req.body.stream_video_link
+      );
+      stream.stream_video_id = streamUtils.getVideoId(
+        stream.platform_status,
+        req.body.stream_video_link
+      );
+      await stream.save();
+      let stream_id = stream._id;
+
+      let user;
+      user = await User.findById(req.user._id);
+      if (!user) {
+        return res.status(404).json({
+          errors: "User not found.",
+        });
+      }
+      if (req.body.is_live) {
+        user.is_live = true;
+        user.active_stream_id = stream._id;
+      } else {
+        user.is_live = false;
+        user.active_stream_id = null;
+      }
+      user.upcoming_streams.push(stream_id);
+      await user.save();
+
+      res.json({
+        stream: stream,
+        stream_id: stream_id,
+        user: user,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+
+  async getAllUserStreams(req, res) {
+    try {
+      let userId = req.user._id;
+
+      let streams = await Stream.find({ streamer_id: userId })
+        .sort({ scheduled_time: -1 })
+        .exec();
+      if (!streams) {
+        console.log("nooo streams");
+        return res.status(404).json({
+          errors: "User not found.",
+        });
+      }
+
+      res.status(200).json({
+        streams: streams,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
+
+  async deleteStream(req, res) {
+    try {
+      let stream_id = req.params.streamId;
+
+      if (!stream_id) {
+        return res.status(404).json({
+          errors: "Stream id missing.",
+        });
+      }
+
+      let stream = await Stream.findById(stream_id);
+      if (!stream) {
+        return res.status(404).json({
+          errors:
+            "Stream you tried to delete was not found or the id is incorrect.",
+        });
+      }
+
+      if (stream.is_live) {
+        return res.status(404).json({
+          errors: "Cannot delete stream that is live",
+        });
+      }
+
+      let userId = stream.streamer_id;
+
+      Stream.deleteOne({ _id: stream_id }).exec(function (err, removed) {
+        if (err) {
+          return console.log("Failed to delete stream: ", err);
         }
-    },
-
-    async getScheduledStreams(req, res) {
-        try {
-
-            let today = new Date();
-            let tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            let day3 = new Date();
-            day3.setDate(tomorrow.getDate() + 1);
-            let day4 = new Date();
-            day4.setDate(day3.getDate() + 1);
-            let day5 = new Date();
-            day5.setDate(day4.getDate() + 1);
-
-            let streams = await Stream.find({
-                "is_scheduled": true,
-                scheduled_time: {
-                    $gte: today,
-                    $lte: day5
-                }
-            }).populate('streamer').sort({ scheduled_time: -1 }).exec();
-            if (!streams) {
-                console.log("nooo streams");
-                return res.render('scheduled', {
-                    error: "Couldn't get streams"
-                });
-            }
-            console.log("sttreams", streams);
-
-            let featured_streams = await Stream.find({ "is_featured": true }).populate('streamer').exec();
-            if (!featured_streams) {
-                console.log("Couldn't get featured streams");
-            }
-            let featured = featured_streams[0];
-            console.log("feat", featured);
-
-            // let today = new Date();
-            // let today = moment().startOf('day')
-
-            // get all scheduled before date (date =  today + 4)
-
-            // for each stream, if stream.date == today, add
-            // for each stream if stream.date == today + 1, add 
-
-            let datedStreams = {
-                today: [],
-                tomorrow: [],
-                next3: [],
-                next4: [],
-                next5: []
-            };
-
-            function compareDates(date1, date2) {
-                let boolean = Math.floor(date1.getTime() / 86400000) == Math.floor(date2.getTime() / 86400000);
-
-                return boolean;
-            }
-
-            for (i = 0; i < 5; i++) {
-                streams.forEach(function (stream) {
-                    let stream_date = stream.scheduled_time;
-                    compareDates(today, stream_date);
-                    // if (stream.)
-                })
-            }
-
-            let data = {
-                streams
-            };
-            if (featured) {
-                data.featured = featured
-            }
-            res.render('scheduled', data);
-
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
-        }
-    },
-
-    async update_live_stream(req, res) {
-        try {
-            let stream = await Stream.findById(req.body.stream_id);
-            if (!stream) {
-                return res.status(404).json({
-                    errors: "Stream not found."
-                });
-            }
-
-            let stream_data = req.body;
-
-            //- DOING CHECKS BECAUSE IF YOU DO NOT, WHEN YOU UDPATE AND DO NOT GET ALL, IT SETS THE FIELD TO ZERO, SOME OF THESE FIELDS LOSE ORIGINAL VALUE THIS WAY, AS NOT ALL VALUES ARE RECEIVED.
-            if (stream_data.thumbnail_key) {
-                stream.thumbnail_key = stream_data.thumbnail_key;
-            }
-            if (stream_data.thumbnail_url) {
-                stream.thumbnail_url = stream_data.thumbnail_url;
-            }
-            if (stream_data.thumbnail_name) {
-                stream.thumbnail_name = stream_data.thumbnail_name;
-            }
-            if (stream_data.stream_name) {
-                stream.stream_name = stream_data.stream_name;
-            }
-            if (stream_data.stream_description) {
-                stream.stream_description = stream_data.stream_description;
-            }
-            if (stream_data.stream_video_link) {
-                stream.stream_video_link = stream_data.stream_video_link;
-                stream.platform_status = streamUtils.getPlatform(stream_data.stream_video_link);
-                stream.stream_video_id = streamUtils.getVideoId(stream.platform_status, stream_data.stream_video_link);
-            }
-            if (stream_data.stream_tags) {
-                stream.stream_tags = stream_data.stream_tags;
-            }
-            if (stream_data.scheduled_time) {
-                stream.scheduled_time = stream_data.scheduled_time;
-            }
-            if (stream_data.public_status) {
-                stream.public_status = stream_data.public_status;
-            }
-        
-
-            console.log("user_id", req.user._id);
-
-
-            await stream.save();
-
-            res.json({
-                stream: stream
-            })
-        } catch (error) {
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
-        }
-    },
-
-    async signUpForVideo(req, res) {
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-			console.log('errors')
-			return res.status(422).json({ errors: errors.array() });
-		}
-        try {
-            let stream_id = req.params.streamId;
-            let email = req.body.email;
-            let signUpId = req.body.email;
-            if (req.user && req.user._id) {
-                const user = await User.findById(req.user._id);
-                email = user.email;
-                signUpId = req.user._id
-            } else {
-                // check email
-                const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                if (!email || !re.test(email)) {
-                    return res.status(400).json({
-                        errors: "Email is not valid"
-                    });
-                }
-            }
-            let stream = await Stream.findById(stream_id);
-            if (!stream) {
-                return res.status(404).json({
-                    errors: "Stream not found."
-                });
-            }
-            if (stream.waitlist_emails.includes(signUpId)) {
-                return res.status(404).json({
-                    errors: "You have registered for this stream"
-                });
-            }
-            stream.waitlist_emails.push(signUpId);
-            await stream.save();
-            const link = `${req.protocol}://${req.get('host')}/watch/${stream._id}`;
-            mail.sendVideoSignUpEmail(email, stream.stream_name, link);
-
-            res.json({
-                stream: stream
-            })
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
-        }
-    },
-
-    async endStream(req, res) {
-        try {
-            let stream = await Stream.findById(req.params.streamId);
-            if (!stream) {
-                return res.status(404).json({
-                    errors: "Stream not found."
-                });
-            }
-
-            console.log("yo  made it");
-            if (stream.is_live) {
-                stream.is_live = false;
-                stream.was_live = true;
-                stream.ended_time = req.body.date ? req.body.date : new Date();
-            }
-
-            await stream.save();
-
-            let user;
-            user = await User.findById(req.user._id);
-            if (!user) {
-                return res.status(404).json({
-                    errors: "User not found."
-                });
-            }
-
-            if (user.is_live) {
-                user.is_live = false;
-                user.active_stream_id = undefined;
-                user.current_stream_url = undefined;
-                user.current_stream_thumbnail = undefined;
-                user.current_streams.pull(stream._id);
-            }
-
-            let previousBoolean = user.previous_streams.includes(stream._id);
-            if (!previousBoolean) {
-                user.previous_streams.push(stream._id);
-            }
-
-            await user.save();
-
-            res.json({
-                stream: stream
-            })
-
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
-        }
-    },
-
-    async getStreamer(req, res) {
-        try {
-
-            let user_id = req.params.userId;
-
-            let user;
-            user = await User.findById(user_id).populate({
-                path: 'previous_streams',
-                populate: {
-                    path: 'streamer'}
-                }).sort({ scheduled_time: 1 }).populate({
-                    path: 'upcoming_streams',
-                    populate: {
-                        path: 'streamer'
-                    }
-                }).sort({ scheduled_time: 1 }).exec();
-                if (!user) {
-                    return res.status(404).json({
-                        error: "User not found."
-                    });
-                }
-
-            let stream;
-            let stream_id;
-            let video_id;
-            if (user.is_live && user.active_stream_id) {
-                stream_id = user.active_stream_id;
-
-                stream = await Stream.findById(stream_id);
-                if (!stream) {
-                    return res.status(404).json({
-                        error: "Stream not found."
-                    });
-                }
-                video_id = stream.stream_video_id;
-            }
-
-            let streamer_followers_count = user.followers.length;
-            let streamer_following_count = user.following.length;
-
-            let visitor;
-            let user_like_boolean = false;
-            let user_following_boolean = false;
-            if (req.user) {
-                visitor = await User.findById(req.user._id);
-                if (!visitor) {
-                    return res.status(404).json({
-                        errors: "User that seemed to be logged in was no longer found."
-                    });
-                }
-
-                if (user.is_live && stream_id) {
-                    user_like_boolean = visitor.liked_streams_ids.includes(stream_id);
-                }
-                user_following_boolean = visitor.following.includes(user_id);
-            }
-            //console.log("boolean", user_like_boolean);
-            //console.log("following", user_following_boolean);
-
-            let host_name = req.headers.host;
-
-            let streamer = user;
-            res.status(200).json({
-                video_id: video_id,
-                stream,
-                streamer,
-                user_like_boolean,
-                user_following_boolean,
-                host_name
-            });
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
-        }
-    },
-
-    async updateLikes(req, res) {
-        try {
-            // if not user, then cancel (for oh so clever frontend check bypassers)
-            if (!req.user) {
-                return res.status(401).json({
-                    errors: "No authenticated user present who could add a like"
-                });
-            }
-
-            let stream_id = req.params.streamId;
-
-            let stream = await Stream.findById(stream_id);
-            if (!stream) {
-                return res.status(404).json({
-                    errors: "Stream not found."
-                });
-            }
-
-            if (req.user._id == stream.streamer_id) {
-                return res.status(400).json({
-                    errors: "Cannot like your own stream."
-                });
-            }
-
-            // check if user has already liked it or not, based on that choose action
-
-            let user = await User.findById(req.user._id);
-            if (!user) {
-                return res.status(404).json({
-                    errors: "User not found."
-                });
-            }
-
-            let user_like_boolean = user.liked_streams_ids.includes(stream_id);
-
-            if (user_like_boolean == true) {
-
-                if (!stream.stream_likes_count) {
-                    return res.status(200).end();
-                } else if (stream.stream_likes_count > 0) {
-                    stream.stream_likes_count = stream.stream_likes_count - 1;
-                }
-
-                user.liked_streams_ids.pull(stream_id);
-
-            } else {
-                // if undefined and not even zero, make it one
-                if (!stream.stream_likes_count) {
-                    stream.stream_likes_count = 1;
-                } else if (stream.stream_likes_count == 0 || stream.stream_likes_count > 0) {
-                    stream.stream_likes_count = stream.stream_likes_count + 1;
-                }
-
-                user.liked_streams_ids.push(stream_id);
-            }
-
-            await stream.save();
-            await user.save();
-
-            let stream_likes_count = stream.stream_likes_count;
-
-            res.json({
-                stream: stream,
-                stream_likes_count
-            })
-
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
-        }
-    },
-
-    async followUnfollow(req, res) {
-        try {
-            // if not user, then cancel (for oh so clever frontend check bypassers)
-            let streamer_id = req.params.streamerId;
-
-            if (req.user._id == streamer_id) {
-                return res.status(400).json({
-                    errors: "Cannot follow yourself."
-                });
-            }
-            // check if user has already liked it or not, based on that choose action
-            let user = await User.findById(req.user._id);
-            if (!user) {
-                return res.status(404).json({
-                    errors: "User not found."
-                });
-            }
-            let user_following_boolean = user.following.includes(streamer_id);
-            if (user_following_boolean == true) {
-                user.following.pull(streamer_id);
-            } else {
-                user.following.push(streamer_id);
-            }
-            await user.save();
-
-            let streamer = await User.findById(streamer_id);
-            if (!user) {
-                return res.status(404).json({
-                    errors: "User not found."
-                });
-            }
-            let streamer_followers_boolean = streamer.followers.includes(user._id);
-            if (streamer_followers_boolean == true) {
-                streamer.followers.pull(user._id);
-            } else {
-                streamer.followers.push(user._id);
-            }
-            await streamer.save();
-            // let stream_followers_count = stream.stream_followers_count;
-            res.json({
-                streamer: streamer
-            })
-
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
-        }
-    },
-    async goLive(req, res) {
-        try {
-            let stream = await Stream.findById(req.params.streamId);
-            if (!stream) {
-                return res.status(404).json({
-                    errors: "Stream not found."
-                });
-            }
-
-            if (!stream.is_live) {
-                stream.is_live = true;
-                stream.is_scheduled = false;
-                stream.started_time = new Date();
-            }
-
-            await stream.save();
-
-            let user;
-            user = await User.findById(req.user._id);
-            if (!user) {
-                return res.status(404).json({
-                    errors: "User not found."
-                });
-            }
-            user.is_live = true;
-            user.active_stream_id = stream._id;
-            user.current_stream_url = stream.stream_video_link;
-            user.current_stream_thumbnail = stream.stream_thumbnail_url;
-            user.current_streams.push(stream._id);
-            user.upcoming_streams.pull(stream._id);
-            await user.save();
-            
-            let emails = stream.waitlist_emails;
-            const link = `${req.protocol}://${req.get('host')}/watch/${stream._id}`;
-            streamUtils.sendGoLiveMails(emails, stream, link);
-
-            res.status(200).json({
-                stream: stream
-            })
-
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
-        }
-    },
-    async schedule_live_stream(req, res) {
-        try {
-            let stream = new Stream({ ...req.body, stream_likes_count: 0 });
-
-            stream.streamer_id = req.user._id;
-            stream.streamer = req.user._id;
-            stream.platform_status = streamUtils.getPlatform(req.body.stream_video_link);
-            stream.stream_video_id = streamUtils.getVideoId(stream.platform_status, req.body.stream_video_link)
-            await stream.save();
-            let stream_id = stream._id;
-
-            let user;
-            user = await User.findById(req.user._id);
-            if (!user) {
-                return res.status(404).json({
-                    errors: "User not found."
-                });
-            }
-            if (req.body.is_live) {
-                user.is_live = true;
-                user.active_stream_id = stream._id;
-            } else {
-                user.is_live = false;
-                user.active_stream_id = null;
-            }
-            user.upcoming_streams.push(stream_id);
-            await user.save();
-
-            res.json({
-                stream: stream,
-                stream_id: stream_id,
-                user: user
-            })
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
-        }
-    },
-
-    async getAllUserStreams(req, res) {
-        try {
-
-            let userId = req.user._id;
-
-            let streams = await Stream.find({ "streamer_id": userId }).sort({ scheduled_time: -1 }).exec();
-            if (!streams) {
-                console.log("nooo streams");
-                return res.status(404).json({
-                    errors: "User not found."
-                });
-            }
-
-            res.status(200).json({
-                streams: streams,
-            });
-
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                errors: "An unknown error occurred"
-            });
-        }
-    },
-
-	async deleteStream(req, res) {
-
-		try {
-			let stream_id = req.params.streamId;
-
-			if (!stream_id) {
-				return res.status(404).json({
-					errors: "Stream id missing."
-				});
-            }
-            
-            let stream = await Stream.findById(stream_id);
-            if (!stream) {
-				return res.status(404).json({
-					errors: "Stream you tried to delete was not found or the id is incorrect."
-				});
-            }
-
-            if (stream.is_live) {
-				return res.status(404).json({
-					errors: "Cannot delete stream that is live"
-				});
-            }
-
-            let userId = stream.streamer_id;
-
-			Stream.deleteOne({ _id: stream_id }).exec(function (err, removed) {
-				if (err) {
-					return console.log("Failed to delete stream: ", err);
-				}
-				console.log("Successfully deleted stream.");
-
-            })
-            
-            let user = await User.findById(userId);
-            if (!user) {
-				return res.status(404).json({
-					errors: "Could not find user."
-				});
-            }
-            user.upcoming_streams.pull(stream_id);
-            user.previous_streams.pull(stream_id);
-            await user.save();
-
-			res.status(200).json({
-				message: "Removed."
-			})
-
-		} catch (err) {
-			console.log(err);
-			res.status(500).json({
-				message: 'An error occurred while deleting stream, please try again later.'
-			});
-		}
-	},
-
-}
+        console.log("Successfully deleted stream.");
+      });
+
+      let user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({
+          errors: "Could not find user.",
+        });
+      }
+      user.upcoming_streams.pull(stream_id);
+      user.previous_streams.pull(stream_id);
+      await user.save();
+
+      res.status(200).json({
+        message: "Removed.",
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        message:
+          "An error occurred while deleting stream, please try again later.",
+      });
+    }
+  },
+};
 
 module.exports = workoutController;

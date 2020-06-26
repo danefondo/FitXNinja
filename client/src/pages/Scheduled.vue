@@ -2,6 +2,18 @@
   <div class="contentArea">
     <div class="registration-block">
       <img class="fitxlogo" src="../assets/images/fitxbigblacklogo.png" />
+      <div class="discovery_section">
+        <div class="examplesSection__landingPage">
+          <div class="examplesContainer__landingPage">
+            <div class="examplesTitle__landingPage">Full body workouts</div>
+          </div>
+        </div>
+        <div v-if="workouts" class="streams">
+          <div class="streamGroup">
+            <WorkoutBox v-for="workout in workouts" :key="workout._id" :workout="workout" />
+          </div>
+        </div>
+      </div>
       <div class="frame">
         <iframe
           class="framevideo"
@@ -30,8 +42,29 @@
 </template>
 
 <script>
+import axios from "axios";
+import WorkoutBox from "../components/WorkoutBox";
+
 export default {
-  name: "Scheduled"
+  name: "Scheduled",
+  data() {
+    return {
+      workouts: {}
+    };
+  },
+  components: {
+    WorkoutBox
+  },
+  async mounted() {
+    try {
+      console.log("umxxxx");
+      const { data } = await axios.get(`/workoutVideos/getAll`);
+      console.log("ddd", data);
+      this.workouts = data.videos;
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
 };
 </script>
 

@@ -3,6 +3,7 @@ let Schema = mongoose.Schema;
 
 let Stream = require('./stream.js');
 let Collection = require('./collection.js');
+let Workout = require('./workout.js');
 
 // User Schema
 const UserSchema = new mongoose.Schema({
@@ -45,9 +46,9 @@ const UserSchema = new mongoose.Schema({
 	profile_image_name: String,
 	profile_image_url: String,
 	profile_image_key: String,
-	personal_library: [String],
+	personal_library: [{type: Schema.Types.ObjectId, ref: 'Workout'}],
 	personal_collections: [{type: Schema.Types.ObjectId, ref: 'Collection'}],
-	favorites: [String],
+	favorites: [{type: Schema.Types.ObjectId, ref: 'Workout'}],
 	admin: Boolean,
 	superadmin: Boolean
 });
