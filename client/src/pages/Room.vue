@@ -1,34 +1,38 @@
 <template>
   <NotFoundStream v-if="roomNotFound"></NotFoundStream>
   <div class="watch" v-else-if="room">
-    <iframe
-      class="live_player"
-      width="850"
-      height="540"
-      :src="videoUrl"
-      frameborder="0"
-      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen="allowfullscreen"
-    ></iframe>
-    <div class="video-sidebar">
-      <div class="video-actions">
-        <div class="video-action-group">
-          <div class="video-start-workout">Start</div>
-          <div class="video-invite">Invite friends</div>
-          <div class="video-return" v-if="$route.query.localvideo">Return to video</div>
-          <div class="video-return">Change video</div>
+    <div class="video-block">
+      <iframe
+        class="live_player"
+        width="850"
+        height="540"
+        :src="videoUrl"
+        frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen="allowfullscreen"
+      ></iframe>
+    </div>
+    <div class="sidebar-block">
+      <div class="video-sidebar">
+        <div class="video-actions">
+          <div class="video-action-group">
+            <div class="video-start-workout">Start</div>
+            <div class="video-invite">Invite friends</div>
+            <div class="video-return" v-if="$route.query.localvideo">Return to video</div>
+            <div class="video-return">Change video</div>
+          </div>
         </div>
       </div>
+      <iframe
+        v-if="room"
+        :src="conferenceSrc"
+        width="340px"
+        height="272px"
+        scrolling="auto"
+        allow="microphone; camera"
+      ></iframe>
+      <button v-on:click="sendMessage('hello')">Send Message</button>
     </div>
-    <iframe
-      v-if="room"
-      :src="conferenceSrc"
-      width="340px"
-      height="272px"
-      scrolling="auto"
-      allow="microphone; camera"
-    ></iframe>
-    <button v-on:click="sendMessage('hello')">Send Message</button>
   </div>
 </template>
 
@@ -64,8 +68,10 @@ export default {
     }
   },
   created: function() {
-    console.log("Starting connection to WebSocket Server");
-    this.connection = new WebSocket("wss://echo.websocket.org");
+	let currentBase = window.location.origin;
+	let baseURL = window.location.host + window.location.pathname;
+	console.log("Starting connection to WebSocket Server", currentBase);
+    this.connection = new WebSocket("wss://" + baseURL);
 
     this.connection.onmessage = function(event) {
       console.log(event);
@@ -88,8 +94,8 @@ export default {
         if (auth.checkTempToken()) {
           this.tempHost = auth.checkTempToken();
           if (this.tempHost._id == this.room.host_id) {
-			this.userIsHost = true;
-			this.userIsHost = true;
+            this.userIsHost = true;
+            this.userIsHost = true;
           }
         }
       } catch (error) {
@@ -115,7 +121,7 @@ export default {
     }
   }
 };
-</script>
+</script> 
 
 <style>
 .video-details {
