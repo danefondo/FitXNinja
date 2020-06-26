@@ -137,7 +137,7 @@ export default {
   display: inline-block;
 }
 .topNavigationLink__topBar:hover {
-  background-color: #f5f5f5;
+  background-color: #272727;
 }
 .nav-container {
   display: flex;
