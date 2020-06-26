@@ -47,40 +47,6 @@
 	margin-bottom: 5px;
 }
 
-.register-button {
-	margin-left: 2px;
-	margin-right: 20px;
-	border-radius: 4px;
-	padding: 12px;
-	font-weight: 600;
-	width: 170px;
-	text-align: left;
-/*	font-size: 17px;*/
-	font-size: 20px;
-	cursor: pointer;
-	transition: 85ms ease;
-	box-shadow: 3px 3px 0px 0px #120088bf;
-    border: none;
-	background-color: #120088;
-    color: white;
-	/* font-family: 'Lora', serif; */
-	font-family: 'Trebuchet MS', sans-serif;
-    box-sizing: border-box;
-    display: inline-block;
-}
-
-.register-button:hover {
-	transform: scale(1.01);
-    background-color: #100269;
-    color: white;
-	border-radius: 4px;
-}
-
-.register-button:disabled {
-	cursor: not-allowed;
-    background-color: #302a52 !important;
-}
-
 .form-groups {
 /*	border: 1px solid #eee;*/
 	border-radius: 3px;
@@ -112,14 +78,6 @@
 	border-radius: 3px !important;
 	background-color: #fff;
 	box-shadow: 4px 5px 0px 0px #e6e6e6;
-}
-
-.input__registration:focus {
-	border-left: 3px solid #120088;
-}
-
-.input__registration:focus::placeholder {
-	color: transparent;
 }
 
 .first-input {
@@ -203,31 +161,6 @@
 	margin-bottom: 20px !important;
 	font-size: 18px !important;
 	box-shadow: 4px 5px 0px 0px #e6e6e6;
-}
-
-.login-input:focus,
-.input__general:focus {
-	border-left: 3px solid #120088;
-}
-
-.login-button,
-.forgotPass-button,
-.button__resetPass,
-.button__generic {
-	width: 325px;
-	font-size: 18px !important;
-	transition: .2s ease-in-out !important;
-	margin-top: 5px !important;
-	padding: 10px !important;
-	background-color: #120088 !important;
-	box-shadow: 3px 3px 0px 0px #120088bf;
-}
-
-.login-button:hover,
-.forgotPass-button:hover,
-.button__resetPass:hover,
-.button__generic:hover {
-	background-color: #100269 !important;
 }
 
 .button__generic {

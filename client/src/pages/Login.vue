@@ -116,7 +116,7 @@ export default {
   box-shadow: 4px 5px 0px 0px #e6e6e6;
 }
 .login-input:focus {
-  border-left: 3px solid #120088;
+  border-left: 3px solid black;
 }
 .login-button {
   width: 325px;
@@ -124,11 +124,11 @@ export default {
   transition: 0.2s ease-in-out !important;
   margin-top: 5px !important;
   padding: 10px !important;
-  background-color: #120088 !important;
-  box-shadow: 3px 3px 0px 0px #120088bf;
+  background-color: black !important;
+  box-shadow: 3px 3px 0px 0px #0c0c0cbf;
 }
 .login-button:hover {
-  background-color: #100269 !important;
+  background-color: #171717 !important;
 }
 .login-title {
   font-size: 45px;

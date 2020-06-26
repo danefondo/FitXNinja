@@ -79,17 +79,6 @@ input {
   background-color: #fff;
   font-family: "Trebuchet MS", sans-serif;
 }
-input[type="submit"] {
-  background-color: #120088;
-  color: white;
-  font-family: "Trebuchet MS", sans-serif;
-  transition: 0.2s ease-in-out !important;
-}
-input[type="submit"]:hover {
-  background-color: #100269;
-  color: white;
-  border-radius: 3px;
-}
 a {
   color: #333;
   text-decoration: none;
@@ -136,7 +125,7 @@ div {
   box-shadow: 4px 5px 0px 0px #e6e6e6;
 }
 .login-input:focus {
-  border-left: 3px solid #120088;
+  border-left: 3px solid black;
 }
 .forgotPass-button {
   width: 325px;

@@ -95,19 +95,6 @@ h3 {
 	background-color: #f2f2f2;
 }
 */
-input[type="submit"] {
-	background-color: #120088;
-	color: white;
-  /* font-family: 'Lora', serif; */
-  font-family: 'Trebuchet MS', sans-serif;
-  transition: .2s ease-in-out !important;
-}
-
-input[type="submit"]:hover {
-	background-color: #100269;
-	color: white;
-	border-radius: 3px;
-}
 
 a {
 	color: #333;

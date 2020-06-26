@@ -99,17 +99,6 @@ input {
   background-color: #fff;
   font-family: "Trebuchet MS", sans-serif;
 }
-input[type="submit"] {
-  background-color: #120088;
-  color: white;
-  font-family: "Trebuchet MS", sans-serif;
-  transition: 0.2s ease-in-out !important;
-}
-input[type="submit"]:hover {
-  background-color: #100269;
-  color: white;
-  border-radius: 3px;
-}
 div {
   display: block;
 }

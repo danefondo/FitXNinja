@@ -599,13 +599,13 @@ h2 {
   font-weight: 600;
 }
 input[type="submit"] {
-  background-color: #120088;
+  background-color: black!important;
   color: white;
   font-family: "Trebuchet MS", sans-serif;
   transition: 0.2s ease-in-out !important;
 }
 input[type="submit"]:hover {
-  background-color: #100269;
+  background-color: #171717;
   color: white;
   border-radius: 3px;
 }

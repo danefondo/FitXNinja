@@ -191,9 +191,9 @@ export default {
   font-size: 20px;
   cursor: pointer;
   transition: 85ms ease;
-  box-shadow: 3px 3px 0px 0px #120088bf;
+  box-shadow: 3px 3px 0px 0px #0c0c0cbf;
   border: none;
-  background-color: #120088;
+  background-color: black;
   color: white;
   font-family: "Trebuchet MS", sans-serif;
   box-sizing: border-box;
@@ -201,7 +201,7 @@ export default {
 }
 .register-button:hover {
   transform: scale(1.01);
-  background-color: #100269;
+  background-color: #171717;
   color: white;
   border-radius: 4px;
 }
@@ -232,7 +232,7 @@ export default {
   box-shadow: 4px 5px 0px 0px #e6e6e6;
 }
 .input__registration:focus {
-  border-left: 3px solid #120088;
+  border-left: 3px solid black;
 }
 .input__registration:focus::placeholder {
   color: transparent;
