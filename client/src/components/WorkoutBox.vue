@@ -49,6 +49,12 @@ export default {
 </script>
 
 <style>
+.streamNameContainer {
+    width: unset;
+}
+.streamPreview {
+    border-radius: 3px;
+}
 .streamPreviewContainer {
   position: relative;
 }

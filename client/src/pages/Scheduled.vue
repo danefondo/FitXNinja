@@ -46,6 +46,14 @@ export default {
 </script>
 
 <style scoped>
+
+.examplesContainer__landingPage {
+  margin-bottom: unset;
+}
+.examplesTitle__landingPage {
+  color: black;
+  font-size: 55px;
+}
 .nav-container {
   background-color: #111 !important;
 }
