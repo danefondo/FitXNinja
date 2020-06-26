@@ -13,7 +13,7 @@
         </li>-->
         <li>
           <div
-            v-if="user"
+            v-if="isAuthenticated"
             @click="addRemoveFromLibrary()"
             class="entypo-archive NavLinkX copylink"
           >{{inLibrary ? "Remove from library" : "Add to library"}}</div>
@@ -21,7 +21,7 @@
         </li>
         <li>
           <div
-            v-if="user"
+            v-if="isAuthenticated"
             @click="addRemoveFromFavorites()"
             class="entypo-archive NavLinkX copylink"
           >{{inFavorites ? "Remove from favorites" : "Add to favorites"}}</div>

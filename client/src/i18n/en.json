@@ -214,8 +214,8 @@
     "successPage": {
         "welcome": "Welcome abord!",
         "tagline": "You're officially part of the club!",
-        "start-streaming": "Start streaming!",
-        "start-watching": "Watch streams!"
+        "start-streaming": "Discover workouts",
+        "start-watching": "Watch live workouts!"
     },
     "streamManager": {
         "no-streams-yet": "No streams yet?",

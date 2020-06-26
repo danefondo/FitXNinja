@@ -7,11 +7,8 @@
     <div class="HappyContainer">
       <img class="happy_image" src="../assets/images/success.png" />
     </div>
-    <router-link class="go_live_block" to="/golive">
+    <router-link class="go_live_block" to="/">
       <h1 class="start_streaming">{{$t("successPage.start-streaming")}}</h1>
-    </router-link>
-    <router-link class="watch_streams_now" to="/">
-      <h1 class="start_watching">{{$t("successPage.start-watching")}}</h1>
     </router-link>
   </div>
 </template>
@@ -42,7 +39,7 @@ h1.RegisterSuccess {
 }
 .go_live_block,
 .watch_streams_now {
-  background-color: #130089;
+  background-color: black;
   margin: 0px auto 0px auto;
   padding: 14px 30px;
   border-radius: 4px;
@@ -52,11 +49,11 @@ h1.RegisterSuccess {
   margin-bottom: 20px;
   text-align: center;
   width: 240px;
-  border: 1px solid #130089;
+  border: 1px solid black;
 }
 .watch_streams_now {
   background-color: transparent;
-  color: #130089;
+  color: black;
 }
 .go_live_block:hover,
 .watch_streams_now:hover {
