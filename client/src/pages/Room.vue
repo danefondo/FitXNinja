@@ -68,10 +68,9 @@ export default {
     }
   },
   created: function() {
-	let currentBase = window.location.origin;
 	let baseURL = window.location.host + window.location.pathname;
-	console.log("Starting connection to WebSocket Server", currentBase);
-    this.connection = new WebSocket("wss://" + baseURL);
+	console.log("Starting connection to WebSocket Server", baseURL);
+    this.connection = new WebSocket("wss://fitx.ninja" + window.location.pathname );
 
     this.connection.onmessage = function(event) {
       console.log(event);
