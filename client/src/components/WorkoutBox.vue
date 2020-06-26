@@ -9,6 +9,9 @@
       <div class="streamNameContainer">
         <div class="streamName">{{workout.name}}</div>
       </div>
+      <div class="streamDescContainer">
+        <div class="streamDesc" v-html="workout.description"></div>
+      </div>
       <!-- <div class="streamTags">
         <div v-for="(tag, index) in stream.stream_tags" :key="index" class="streamTag">{{tag}}</div>
       </div>-->
