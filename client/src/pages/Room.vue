@@ -6,14 +6,14 @@
       <button @click="playVideo">play</button>
       <button @click="pauseVideo">pause</button>
       <!-- <iframe
-        class="live_player"
+		class="live_player"
 		id="video"
-        width="850"
-        height="540"
-        :src="videoUrl"
-        frameborder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen="allowfullscreen"
+		width="850"
+		height="540"
+		:src="videoUrl"
+		frameborder="0"
+		allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+		allowfullscreen="allowfullscreen"
       ></iframe>-->
     </div>
     <div class="sidebar-block">
@@ -147,10 +147,10 @@ export default {
       await this.player.pauseVideo();
     },
     playing() {
-	  console.log("o/ we are watching!!!");
-	  //- SEND VIDEO MINUTES RIGHT NOW
-	  //- PLUS VIDEO MINUTES UNIFIER, IF CLICKED; BOTH PEOPLE GO TO SAME TIME OR TO ZERO
-	  //- SHARE HOST CONTROLS
+      console.log("o/ we are watching!!!");
+      //- SEND VIDEO MINUTES RIGHT NOW
+      //- PLUS VIDEO MINUTES UNIFIER, IF CLICKED; BOTH PEOPLE GO TO SAME TIME OR TO ZERO
+      //- SHARE HOST CONTROLS
       this.$socket.emit("play", "pĺay");
     },
     pingServer() {
