@@ -108,6 +108,7 @@ io.on("connection", function (socket) {
   });
 
   socket.on("play", function (data) {
+    console.log("yo made here");
     socket.broadcast.emit("playVideo", "play");
   });
 });
