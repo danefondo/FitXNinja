@@ -19,6 +19,8 @@ Vue.use(VueYoutube)
 const i18n = new VueI18n(i18nConfig);
 
 let connection = process.env.NODE_ENV === 'production' ? window.location.host : 'http://localhost:3000'
+console.log("cccc", connection)
+console.log("wwww", window.location.host)
 Vue.use(new VueSocketIO({
   connection,
 }));
