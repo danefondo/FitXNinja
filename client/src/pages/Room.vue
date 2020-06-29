@@ -2,15 +2,19 @@
   <NotFoundStream v-if="roomNotFound"></NotFoundStream>
   <div class="watch" v-else-if="room">
     <div class="video-block">
-      <iframe
+      <youtube :video-id="videoId" ref="youtube" @playing="playing"></youtube>
+      <button @click="playVideo">play</button>
+      <button @click="pauseVideo">pause</button>
+      <!-- <iframe
         class="live_player"
+		id="video"
         width="850"
         height="540"
         :src="videoUrl"
         frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen="allowfullscreen"
-      ></iframe>
+      ></iframe>-->
     </div>
     <div class="sidebar-block">
       <div class="video-sidebar">
@@ -31,7 +35,34 @@
         scrolling="auto"
         allow="microphone; camera"
       ></iframe>
-      <button v-on:click="sendMessage('hello')">Send Message</button>
+      <!-- <button v-on:click="sendMessage('hello')">Send Message</button> -->
+      <p v-if="isConnected">We're connected to the server!</p>
+      <p>Message from server: "{{socketMessage}}"</p>
+      <button @click="pingServer()">Ping Server</button>
+    </div>
+    <svg class="defs">
+      <defs>
+        <path
+          id="pause-button-shape"
+          d="M24,0C10.745,0,0,10.745,0,24s10.745,24,24,24s24-10.745,24-24S37.255,0,24,0z M21,33.064c0,2.201-1.688,4-3.75,4
+		s-3.75-1.799-3.75-4V14.934c0-2.199,1.688-4,3.75-4s3.75,1.801,3.75,4V33.064z M34.5,33.064c0,2.201-1.688,4-3.75,4
+		s-3.75-1.799-3.75-4V14.934c0-2.199,1.688-4,3.75-4s3.75,1.801,3.75,4V33.064z"
+        />
+        <path
+          id="play-button-shape"
+          d="M24,0C10.745,0,0,10.745,0,24s10.745,24,24,24s24-10.745,24-24S37.255,0,24,0z M31.672,26.828l-9.344,9.344
+		C20.771,37.729,19.5,37.2,19.5,35V13c0-2.2,1.271-2.729,2.828-1.172l9.344,9.344C33.229,22.729,33.229,25.271,31.672,26.828z"
+        />
+      </defs>
+    </svg>
+    <div class="buttons">
+      <!-- if we needed to change height/width we could use viewBox here -->
+      <svg class="button" id="play-button">
+        <use xlink:href="#play-button-shape" />
+      </svg>
+      <svg class="button" id="pause-button">
+        <use xlink:href="#pause-button-shape" />
+      </svg>
     </div>
   </div>
 </template>
@@ -40,6 +71,14 @@
 import axios from "axios";
 import auth from "../config/auth";
 import NotFoundStream from "../components/NotFoundStream";
+
+// https://developers.google.com/youtube/iframe_api_reference
+
+// var socket = io.connect();
+
+// socket.on("stream", function(data) {
+//   this.title = data.title;
+// });
 
 export default {
   name: "Room",
@@ -57,7 +96,12 @@ export default {
       tempHost: {},
       hostPresent: false,
       userIsHost: false,
-      connection: null
+      connection: null,
+      title: "initial yo",
+      isConnected: false,
+      socketMessage: "",
+      //   player: null,
+      videoId: null
     };
   },
   mounted() {
@@ -66,27 +110,56 @@ export default {
       this.user = auth.isAuthenticated();
       this.isAuthenticated = true;
     }
+    this.sockets.listener.subscribe("test", data => {
+      this.socketMessage = data;
+    });
+    this.sockets.listener.subscribe("playVideo", data => {
+      console.log("data", data);
+      this.playVideo();
+    });
+    // this.injectAPI();
   },
-  created: function() {
-	let baseURL = window.location.host + window.location.pathname;
-	console.log("Starting connection to WebSocket Server", baseURL);
-    this.connection = new WebSocket("wss://fitx.ninja" + window.location.pathname );
+  //   created: function() {
+  //     let baseURL = window.location.host + window.location.pathname;
+  //     console.log("Starting connection to WebSocket Server", baseURL);
+  //     this.connection = new WebSocket("wss://" + baseURL);
 
-    this.connection.onmessage = function(event) {
-      console.log(event);
-    };
+  //     this.connection.onopen = function(event) {
+  //       console.log(event);
+  //       console.log("Successfully connected to the echo websocket server...");
+  //     };
 
-    this.connection.onopen = function(event) {
-      console.log(event);
-      console.log("Successfully connected to the echo websocket server...");
-    };
-  },
+  //     // When data is received
+  //     this.connection.onmessage = function(event) {
+  //       console.log(event.data);
+  //     };
+
+  //     // A connection could not be made
+  //     this.connection.onerror = function(event) {
+  //       console.log(event);
+  //     };
+  //   },
   methods: {
+    async playVideo() {
+      await this.player.playVideo();
+    },
+    async pauseVideo() {
+      await this.player.pauseVideo();
+    },
+    playing() {
+      console.log("o/ we are watching!!!");
+      this.$socket.emit("play", "pĺay");
+    },
+    pingServer() {
+      //this.$socket.emit("pingServer", "PONG!");
+      this.$socket.emit("message", "hello");
+    },
     async getRoom() {
       try {
         const { data } = await axios.get(
           `/workoutRooms/${this.$route.params.id}`
         );
+        this.videoId = data.room.youtube_id;
         this.room = data.room;
         this.roomId = data.room._id;
         this.roomNotFound = false;
@@ -100,11 +173,39 @@ export default {
       } catch (error) {
         this.roomNotFound = true;
       }
-    },
-    sendMessage: function(message) {
-      console.log(this.connection);
-      this.connection.send(message);
     }
+    // onYouTubePlayerAPIReady() {
+    //   // create the global player from the specific iframe (#video)
+    //   this.player = new YT.Player("video", {
+    //     events: {
+    //       // call this function when player is ready to use
+    //       onReady: onPlayerReady
+    //     }
+    //   });
+    // },
+    // onPlayerReady(event) {
+    //   // bind events
+    //   var playButton = document.getElementById("play-button");
+    //   playButton.addEventListener("click", function() {
+    //     this.player.playVideo();
+    //   });
+
+    //   var pauseButton = document.getElementById("pause-button");
+    //   pauseButton.addEventListener("click", function() {
+    //     this.player.pauseVideo();
+    //   });
+    // },
+    // injectAPI() {
+    //   // Inject YouTube API script
+    //   var tag = document.createElement("script");
+    //   tag.src = "//www.youtube.com/player_api";
+    //   var firstScriptTag = document.getElementsByTagName("script")[0];
+    //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    // }
+    // sendMessage: function(message) {
+    //   console.log(this.connection);
+    //   this.connection.send(message);
+    // }
   },
   computed: {
     videoUrl() {
@@ -112,6 +213,9 @@ export default {
     },
     conferenceSrc() {
       return `https://tokbox.com/embed/embed/ot-embed.js?embedId=9dec12a2-922b-4d1c-8c36-a96eea192176&room=${this.room._id}&iframe=true`;
+    },
+    player() {
+      return this.$refs.youtube.player;
     }
   },
   watch: {

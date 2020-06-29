@@ -123,6 +123,15 @@
           </div>
           <div class="streams_container">
             <p class="upcoming_streams_title">{{$t("profile.next-streams")}}</p>
+            <div v-if="streams.length" class="manager-streams">
+              <StreamBar
+                v-for="stream in streams"
+                :key="stream._id"
+                :stream="stream"
+                :activetab="activetab"
+                @initiateGoLive="initiateGoLive"
+              />
+            </div>
             <div class="upcoming_streams_container">
               <div v-if="streamer.upcoming_streams.length" class="upcoming_streams">
                 <ProfileStream

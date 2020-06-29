@@ -14,6 +14,18 @@
           </div>
         </div>
       </div>
+      <div class="discovery_section">
+        <div class="examplesSection__landingPage">
+          <div class="examplesContainer__landingPage">
+            <div class="examplesTitle__landingPage">Cardio</div>
+          </div>
+        </div>
+        <div v-if="workouts" class="streams">
+          <div class="streamGroup">
+            <WorkoutBox v-for="workout in cardioWorkouts" :key="workout._id" :workout="workout" />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -26,7 +38,9 @@ export default {
   name: "Scheduled",
   data() {
     return {
-      workouts: {}
+      workouts: {},
+      cardioWorkouts: {},
+      warmUps: {}
     };
   },
   components: {
