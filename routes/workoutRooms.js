@@ -7,6 +7,8 @@ const roomController = require('../controller/rooms');
 
 router.post('/createNewRoom', roomController.createNewRoom);
 
+router.post('/:roomId/swapVideoUrl', roomController.swapVideoUrl);
+
 router.get('/:roomId', roomController.getRoom);
 
 

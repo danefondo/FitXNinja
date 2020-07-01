@@ -9,6 +9,45 @@ const moment = require('moment');
 
 const roomController = {
 
+    async swapVideoUrl(req, res) {
+        try {
+            let room_id = req.params.roomId;
+            console.log("EYYYYYY", room_id);
+            let room = await WorkoutRoom.findById(room_id);
+            if (!room) {
+                return res.status(404).json({
+                    message: "Room not found"
+                });
+            }
+
+            console.log("roomooo", room);
+            //- THIS IS NEW YOUTUBE VIDEO URL
+            console.log("bodyy", req.body);
+            let video_url = req.body.swap_url;
+            video_url = video_url.replace(/\s/g, '');
+            console.log("uurllll", video_url);
+            room.video_url = video_url;
+
+            //- THIS HAS NO WORKOUT VIDEO, THUS SET WORKOUT VIDEO ID TO UNDEFINED
+            room.video_id = undefined;
+
+            //- THIS IS NEW YOUTUBE VIDEO ID
+            let youtubeId = streamUtils.getYoutubeId(video_url);
+            room.youtube_id = youtubeId;
+
+            await room.save();
+            console.log("whaaadddupp", youtubeId);
+            res.status(200).json({
+                room,
+                youtubeId
+            });
+        } catch (error) {
+            res.status(500).json({
+                errors: "An unknown error occurred"
+            });
+        }
+    },
+
     async createNewRoom(req, res) {
         try {
 
@@ -47,12 +86,19 @@ const roomController = {
 
             }
 
+            //- THIS IS WORKOUT ID
             if (data.video_id) {
                 room.video_id = data.video_id;
             }
             
-            room.video_url = data.video_url;
+            //- THIS IS YOUTUBE URL
+            let video_url = data.video_url;
+            video_url = video_url.replace(/ /g, '');
+            room.video_url = video_url;
+
+            //- THIS IS YOUTUBE VIDEO ID
             room.youtube_id = data.youtube_id;
+
             room.date_created = data.date_created;
             
             await room.save();

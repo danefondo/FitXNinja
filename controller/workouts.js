@@ -36,6 +36,7 @@ const workoutController = {
       video.name = video_data.name;
       video.description = video_data.description;
       let video_url = video_data.url;
+      video_url = video_url.replace(/ /g, '');
       video.url = video_url;
       let video_id = streamUtils.getYoutubeId(video_url);
       video.video_id = video_id;

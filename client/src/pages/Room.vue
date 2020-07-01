@@ -1,89 +1,39 @@
-<template>
-  <NotFoundStream v-if="roomNotFound"></NotFoundStream>
-  <div class="watch" v-else-if="room">
-    <div class="video-block">
-      <youtube :video-id="videoId" ref="youtube" @playing="playing"></youtube>
-      <button @click="playVideo">play</button>
-      <button @click="pauseVideo">pause</button>
-      <!-- <iframe
-		class="live_player"
-		id="video"
-		width="850"
-		height="540"
-		:src="videoUrl"
-		frameborder="0"
-		allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-		allowfullscreen="allowfullscreen"
-      ></iframe>-->
-    </div>
-    <div class="sidebar-block">
-      <div class="video-sidebar">
-        <div class="video-actions">
-          <div class="video-action-group">
-            <div class="video-start-workout">Start</div>
-            <div class="video-invite">Invite friends</div>
-            <div class="video-return" v-if="$route.query.localvideo">Return to video</div>
-            <div class="video-return">Change video</div>
-          </div>
-        </div>
-      </div>
-      <iframe
-        v-if="room"
-        :src="conferenceSrc"
-        width="340px"
-        height="272px"
-        scrolling="auto"
-        allow="microphone; camera"
-      ></iframe>
-      <!-- <button v-on:click="sendMessage('hello')">Send Message</button> -->
-      <p v-if="isConnected">We're connected to the server!</p>
-      <p>Message from server: "{{socketMessage}}"</p>
-      <button @click="pingServer()">Ping Server</button>
-    </div>
-    <svg class="defs">
-      <defs>
-        <path
-          id="pause-button-shape"
-          d="M24,0C10.745,0,0,10.745,0,24s10.745,24,24,24s24-10.745,24-24S37.255,0,24,0z M21,33.064c0,2.201-1.688,4-3.75,4
-		s-3.75-1.799-3.75-4V14.934c0-2.199,1.688-4,3.75-4s3.75,1.801,3.75,4V33.064z M34.5,33.064c0,2.201-1.688,4-3.75,4
-		s-3.75-1.799-3.75-4V14.934c0-2.199,1.688-4,3.75-4s3.75,1.801,3.75,4V33.064z"
-        />
-        <path
-          id="play-button-shape"
-          d="M24,0C10.745,0,0,10.745,0,24s10.745,24,24,24s24-10.745,24-24S37.255,0,24,0z M31.672,26.828l-9.344,9.344
-		C20.771,37.729,19.5,37.2,19.5,35V13c0-2.2,1.271-2.729,2.828-1.172l9.344,9.344C33.229,22.729,33.229,25.271,31.672,26.828z"
-        />
-      </defs>
-    </svg>
-    <div class="buttons">
-      <!-- if we needed to change height/width we could use viewBox here -->
-      <svg class="button" id="play-button">
-        <use xlink:href="#play-button-shape" />
-      </svg>
-      <svg class="button" id="pause-button">
-        <use xlink:href="#pause-button-shape" />
-      </svg>
-    </div>
-  </div>
+<template lang="pug">
+	NotFoundStream(v-if='roomNotFound')
+	.special-container(v-else-if='room')
+		.watch
+			.host-bar
+				.is_host {{userIsHost ? 'You are the HOST!' : 'You are currently not a host.'}}
+			.watch-area
+				.video-core
+					.video-container
+						.video-block.video
+							youtube(:video-id='videoId', ref='youtube', width='840px' height='472px' :player-vars="playerVars" @playing='playing' @paused='paused' @ended='ended' @buffering='buffering')
+				.video-sidebar(style="margin-top:unset; padding-top:40px")
+					.video-actions
+						.video-action-group
+							.video-start-workout.wider(v-if="videoUnstarted" @click='playVideo') Start
+							.video-start-workout.wider(v-if="!videoPlaying && !videoUnstarted" @click='playVideo') Play
+							.video-start-workout.wider(v-if="videoPlaying" @click='pauseVideo') Pause
+							.video-control-workout.reset(v-if="!videoUnstarted && userIsHost" @click='resetVideo') Reset
+							.video-control-workout.set(v-if="!videoUnstarted && userIsHost" @click='setTheTime') Set time
+							.video-copy-link(@click="copyLink()") {{linkText}}
+					iframe(v-if='room', :src='conferenceSrc', width='340px', height='272px', scrolling='auto', allow='microphone; camera')
+					MoreWorkoutOptions(v-if="video && room" :video="video" :room="room" @emit_video_id="updateVideoId")
+					MoreWorkoutOptions(v-else-if="!video && room" :room="room" @emit_video_id="updateVideoId")
 </template>
 
 <script>
 import axios from "axios";
 import auth from "../config/auth";
 import NotFoundStream from "../components/NotFoundStream";
-
-// https://developers.google.com/youtube/iframe_api_reference
-
-// var socket = io.connect();
-
-// socket.on("stream", function(data) {
-//   this.title = data.title;
-// });
+import MoreWorkoutOptions from "../components/MoreWorkoutOptions";
 
 export default {
   name: "Room",
   components: {
-    NotFoundStream
+    NotFoundStream,
+    MoreWorkoutOptions
   },
   data() {
     return {
@@ -91,6 +41,7 @@ export default {
       room: null,
       roomId: null,
       roomNotFound: false,
+      streamNotFound: false,
       isAuthenticated: false,
       user: {},
       tempHost: {},
@@ -101,44 +52,59 @@ export default {
       isConnected: false,
       socketMessage: "",
       //   player: null,
-      videoId: null
+      videoId: null,
+      videoUnstarted: true,
+      videoPlaying: false,
+      videoPaused: false,
+      videoBuffering: false,
+      linkText: this.$t("watch.copy"),
+      playerVars: {
+        start: 0
+      }
     };
   },
   mounted() {
-    this.getRoom();
+    console.log("routess", this.$route);
     if (auth.isAuthenticated()) {
       this.user = auth.isAuthenticated();
       this.isAuthenticated = true;
+      this.getRoom();
+    } else {
+      this.getRoom();
     }
-    this.sockets.listener.subscribe("test", data => {
-      this.socketMessage = data;
-    });
+
     this.sockets.listener.subscribe("playVideo", data => {
-      console.log("data", data);
-      this.playVideo();
+      console.log("time", data);
+      this.player.playVideo();
+      if (!this.videoUnstarted) {
+        this.player.seekTo(data.playTime);
+      }
     });
-    // this.injectAPI();
+
+    this.sockets.listener.subscribe("pauseVideo", data => {
+      console.log("data", data);
+      this.pauseVideo();
+    });
+
+    this.sockets.listener.subscribe("resetVideo", data => {
+      console.log("data", data);
+      this.resetVideo();
+    });
+
+    this.sockets.listener.subscribe("setVideoTime", data => {
+      console.log("time", data);
+      this.setNewTime(data.playTime);
+    });
+
+    // this.sockets.listener.subscribe("bufferingVideo", data => {
+    //   console.log("data", data);
+    // });
+
+    this.sockets.listener.subscribe("reloadVideo", data => {
+      console.log("data", data);
+      this.reloadVideo();
+    });
   },
-  //   created: function() {
-  //     let baseURL = window.location.host + window.location.pathname;
-  //     console.log("Starting connection to WebSocket Server", baseURL);
-  //     this.connection = new WebSocket("wss://" + baseURL);
-
-  //     this.connection.onopen = function(event) {
-  //       console.log(event);
-  //       console.log("Successfully connected to the echo websocket server...");
-  //     };
-
-  //     // When data is received
-  //     this.connection.onmessage = function(event) {
-  //       console.log(event.data);
-  //     };
-
-  //     // A connection could not be made
-  //     this.connection.onerror = function(event) {
-  //       console.log(event);
-  //     };
-  //   },
   methods: {
     async playVideo() {
       await this.player.playVideo();
@@ -146,17 +112,99 @@ export default {
     async pauseVideo() {
       await this.player.pauseVideo();
     },
+    async resetVideo() {
+      await this.player.seekTo(0);
+
+      if (this.userIsHost) {
+        let roomData = {
+          room_id: this.roomId
+        };
+        this.$socket.emit("reset", roomData);
+      }
+
+      this.videoBuffering = false;
+    },
+    async setTheTime() {
+      let playTime = await this.player.getCurrentTime();
+      console.log("time", playTime);
+      if (this.userIsHost) {
+        let roomData = {
+          room_id: this.roomId,
+          playTime: playTime
+        };
+        this.$socket.emit("setTime", roomData);
+      }
+    },
+    async setNewTime(time) {
+      await this.player.seekTo(time);
+    },
+    async getTheTime() {
+      let playTime = await this.player.getCurrentTime();
+      let roomData = {
+        room_id: this.roomId,
+        playTime: playTime
+      };
+      this.$socket.emit("play", roomData);
+    },
     playing() {
       console.log("o/ we are watching!!!");
-      //- SEND VIDEO MINUTES RIGHT NOW
-      //- PLUS VIDEO MINUTES UNIFIER, IF CLICKED; BOTH PEOPLE GO TO SAME TIME OR TO ZERO
+      if (this.videoUnstarted) {
+        this.player.seekTo(0);
+      }
+      this.videoUnstarted = false;
+      this.videoPlaying = true;
+      this.videoPaused = false;
+      this.videoBuffering = false;
       //- SHARE HOST CONTROLS
-      this.$socket.emit("play", "pĺay");
+      if (this.userIsHost) {
+        if (!this.videoUnstarted) {
+          this.getTheTime();
+        } else {
+          let roomData = {
+            room_id: this.roomId,
+            playTime: 0
+          };
+          this.$socket.emit("play", roomData);
+        }
+      }
     },
-    pingServer() {
-      //this.$socket.emit("pingServer", "PONG!");
-      this.$socket.emit("message", "hello");
+    paused() {
+      console.log("o/ we are paused!!!");
+      this.videoPlaying = false;
+      this.videoPaused = true;
+      this.videoBuffering = false;
+      if (this.userIsHost) {
+        let roomData = {
+          room_id: this.roomId
+        };
+        this.$socket.emit("pause", roomData);
+      }
     },
+    ended() {
+      console.log("endeeed");
+    },
+    buffering() {
+      console.log("buufffeerin");
+      this.videoBuffering = true;
+    },
+    updateVideoId(youtubeId) {
+      console.log("eeve", youtubeId);
+      if (this.userIsHost) {
+        let roomData = {
+          room_id: this.roomId
+        };
+        this.$socket.emit("updateUrl", roomData);
+        this.reloadVideo();
+      }
+      // this.videoId = youtubeId;
+      // this.player.loadVideoById(this.videoId);
+    },
+    reloadVideo() {
+      location.reload();
+    },
+    // pingServer() {
+    //   this.$socket.emit("message", "hello");
+    // },
     async getRoom() {
       try {
         const { data } = await axios.get(
@@ -166,49 +214,59 @@ export default {
         this.room = data.room;
         this.roomId = data.room._id;
         this.roomNotFound = false;
+        if (this.room.video_id) {
+          //- In other case, it's a custom version, no workout video on our platform
+          this.getVideo();
+        }
         if (auth.checkTempToken()) {
           this.tempHost = auth.checkTempToken();
           if (this.tempHost._id == this.room.host_id) {
             this.userIsHost = true;
-            this.userIsHost = true;
           }
+        } else if (this.user._id == this.room.host_id) {
+          this.userIsHost = true;
         }
+        //- JOIN ROOM
+        let user_id;
+        let room_id = this.room._id;
+        if (this.tempHost) {
+          user_id = this.tempHost._id;
+        } else if (this.user) {
+          user_id = this.user._id;
+        }
+        let roomData = {
+          user_id: user_id,
+          room_id: room_id
+        };
+        this.$socket.emit("joinRoom", roomData);
       } catch (error) {
         this.roomNotFound = true;
       }
+    },
+    async getVideo() {
+      try {
+        const { data } = await axios.get(
+          `/workoutVideos/${this.room.video_id}`
+        );
+        this.video = data.video;
+        this.streamNotFound = false;
+      } catch (error) {
+        this.streamNotFound = true;
+      }
+    },
+    copyLink() {
+      var input = document.createElement("textarea");
+      input.innerHTML = window.location.href;
+      document.body.appendChild(input);
+      input.select();
+      var result = document.execCommand("copy");
+      document.body.removeChild(input);
+      this.linkText = this.$t("watch.copied");
+      setTimeout(() => {
+        this.linkText = this.$t("watch.copy");
+      }, 2000);
+      return result;
     }
-    // onYouTubePlayerAPIReady() {
-    //   // create the global player from the specific iframe (#video)
-    //   this.player = new YT.Player("video", {
-    //     events: {
-    //       // call this function when player is ready to use
-    //       onReady: onPlayerReady
-    //     }
-    //   });
-    // },
-    // onPlayerReady(event) {
-    //   // bind events
-    //   var playButton = document.getElementById("play-button");
-    //   playButton.addEventListener("click", function() {
-    //     this.player.playVideo();
-    //   });
-
-    //   var pauseButton = document.getElementById("pause-button");
-    //   pauseButton.addEventListener("click", function() {
-    //     this.player.pauseVideo();
-    //   });
-    // },
-    // injectAPI() {
-    //   // Inject YouTube API script
-    //   var tag = document.createElement("script");
-    //   tag.src = "//www.youtube.com/player_api";
-    //   var firstScriptTag = document.getElementsByTagName("script")[0];
-    //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    // }
-    // sendMessage: function(message) {
-    //   console.log(this.connection);
-    //   this.connection.send(message);
-    // }
   },
   computed: {
     videoUrl() {
@@ -230,6 +288,91 @@ export default {
 </script> 
 
 <style>
+iframe {
+  border-radius: 2px !important;
+}
+.host-bar {
+  text-align: center;
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 20px;
+  color: #969696;
+  font-size: 20px;
+  padding: 12px 0px;
+  background-color: #232324;
+  border-radius: 2px;
+  max-height: 20px !important;
+  height: 20px !important;
+}
+.video-copy-link,
+.video-more {
+  padding: 7px 10px;
+  font-size: 20px;
+  color: #969696;
+  width: 320px;
+  background-color: #232323;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 2px;
+}
+
+.video-copy-link:hover,
+.video-more:hover {
+  background-color: #1b1b1b;
+}
+
+.video-control-workout {
+  padding: 14px 10px;
+  font-size: 28px;
+  width: 148px;
+  font-weight: bold;
+  background-color: #04ffe7;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.video-control-workout:hover {
+  background-color: #00ffe5a9;
+}
+
+.reset {
+  background-color: #395bff;
+}
+
+.reset:hover {
+  background-color: #395affb9;
+}
+
+.set {
+  background-color: #2e33de;
+  margin-left: 4px;
+}
+
+.set:hover {
+  background-color: #2e34deb4;
+}
+
+.wider {
+  width: 320px;
+}
+
+.video-block {
+  padding-top: 40px;
+}
+
+.special-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 116px);
+  background-color: #121212;
+}
+
 .video-details {
   display: block;
 }
@@ -483,9 +626,11 @@ export default {
   background-color: #120088bd;
   transform: scale(1.02);
 }
-.watch {
+.watch,
+.watch-area {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   width: 100%;
   height: 100%;
   margin-bottom: 100px;

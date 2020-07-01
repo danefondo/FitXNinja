@@ -64,6 +64,7 @@
 <script>
 import axios from "axios";
 import auth from "../config/auth";
+import { setTempToken } from "../config/axios";
 import NotFoundStream from "../components/NotFoundStream";
 import VideoOptions from "../components/VideoOptions";
 
@@ -112,6 +113,8 @@ export default {
         roomData.youtube_id = this.video.video_id;
         roomData.date_created = new Date();
         const result = await axios.post(`workoutRooms/createNewRoom`, roomData);
+        setTempToken(result.data.tempToken);
+        localStorage.tempHost = JSON.stringify(result.data.tempHost);
         console.log("res", result);
         this.$router.push(`/rooms/${result.data.room._id}?localvideo=1`);
       } catch (error) {
@@ -133,43 +136,41 @@ export default {
 </script>
 
 <style>
-
 li.video-detail span {
-	line-height: 1.1;
+  line-height: 1.1;
 }
 ul.video-sidebar-detail-list {
-	padding: 0px 20px;
-	margin-top: 10px;
+  padding: 0px 20px;
+  margin-top: 10px;
 }
 ul.video-sidebar-detail-list li {
-	list-style-type: disc;
-	padding: 8px 0px;
-	font-size: 18px;
+  list-style-type: disc;
+  padding: 8px 0px;
+  font-size: 18px;
 }
 .with,
 .teacher {
-	display: inline-block;
+  display: inline-block;
 }
 
 .teacher {
-	margin-left: 5px;
-	font-weight: bold;
+  margin-left: 5px;
+  font-weight: bold;
 }
 
 span.value {
-	margin-left: 5px;
-	font-weight: bold;
+  margin-left: 5px;
+  font-weight: bold;
 }
 
-
 .video-sidebar-details {
-	max-width: 280px;
-	padding: 5px 10px;
-	margin-top: 15px;
+  max-width: 280px;
+  padding: 5px 10px;
+  margin-top: 15px;
 }
 
 .video-sidebar-detail {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 .video-intro {
   padding: 32px 0px;
@@ -203,6 +204,7 @@ span.value {
   text-align: center;
   cursor: pointer;
   margin-bottom: 10px;
+  border-radius: 2px;
 }
 
 .video-edit {
@@ -765,6 +767,7 @@ p {
   /* color: white; */
   white-space: nowrap;
   font-weight: bold;
+  border-radius: 2px;
 }
 
 .stream_edit_button:hover,

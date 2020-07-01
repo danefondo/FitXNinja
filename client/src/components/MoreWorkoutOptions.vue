@@ -1,54 +1,26 @@
-<template>
-  <div ref="dropdown" class="share-dropdown" :class="{'is-expanded': isOpened}">
-    <div class="share_options" @click="toggleDropdown()">{{isOpened ? "Close options": "Options"}}</div>
-    <nav class="Dropdown-nav SettingsNav share-links">
-      <ul class="Dropdown-group">
-        <!-- <li>
-          <a :href="buildFbShare" target="_blank" class="entypo-newspaper NavLinkX">Facebook</a>
-          <a class="entypo-plus OptionLink" href="#"></a>
-        </li>
-        <li>
-          <a :href="buildTwitterShare" target="_blank" class="entypo-archive NavLinkX">Twitter</a>
-          <a class="entypo-plus OptionLink" href="#"></a>
-        </li>-->
-        <li>
-          <div
-            v-if="isAuthenticated"
-            @click="addRemoveFromLibrary()"
-            class="entypo-archive NavLinkX copylink"
-          >{{inLibrary ? "Remove from library" : "Add to library"}}</div>
-          <a class="entypo-plus OptionLink" href="#"></a>
-        </li>
-        <li>
-          <div
-            v-if="isAuthenticated"
-            @click="addRemoveFromFavorites()"
-            class="entypo-archive NavLinkX copylink"
-          >{{inFavorites ? "Remove from favorites" : "Add to favorites"}}</div>
-          <a class="entypo-plus OptionLink" href="#"></a>
-        </li>
-        <!-- <li>
-          <div @click="copyLink()" class="entypo-archive NavLinkX copylink">Add to new collection</div>
-          <a class="entypo-plus OptionLink" href="#"></a>
-        </li>
-        <li>
-          <div @click="copyLink()" class="entypo-archive NavLinkX copylink">Add to existing collection</div>
-          <a class="entypo-plus OptionLink" href="#"></a>
-        </li>-->
-        <li>
-          <div @click="copyLink()" class="entypo-archive NavLinkX copylink">{{ linkText }}</div>
-          <a class="entypo-plus OptionLink" href="#"></a>
-        </li>
-        <li>
-          <router-link
-            v-if="!user"
-            to="/register"
-            class="entypo-archive NavLinkX copylink specialOption"
-          >Create an account to save & collect your favorite workouts</router-link>
-        </li>
-      </ul>
-    </nav>
-  </div>
+<template lang="pug">
+	.share-dropdown(ref='dropdown', :class="{'is-expanded': isOpened}")
+		.deleteStreamModal(v-if='changingVideo')
+			.deleteStreamModalBackground(@click='changingVideo=false')
+			.deleteStreamModalWrapper
+				.deleteStreamContentWrapper
+					.deleteStreamTextContainer
+						.deleteStreamModalTitle {{ $t("newworkout.change-video") }}
+						.deleteStreamModalBody {{ $t("newworkout.change-desc") }}
+					input(v-model="swap_url" class="stream_input stream_name" :placeholder="$t('newworkout.link-placeholder')" max-length="50")
+					.action-group
+						.button-filled.neon-green(@click='swapWorkoutVideo()') {{ $t("newworkout.change-action") }}
+						.cancelDeleteStream.button-outline(@click='changingVideo=false') {{ $t("editvideo.cancel-delete") }}
+		.share_options.wide_share(@click='toggleDropdown()') {{isOpened ? "Close more": "More"}}
+		nav.Dropdown-nav.SettingsNav.share-links.Dropdown-wide
+			ul.Dropdown-group
+				li
+					router-link.entypo-archive.NavLinkX.copylink(v-if='isLocalWorkout', :to='getLocation()') Return to video
+				li
+					.entypo-archive.NavLinkX.copylink(@click='changingVideo=true') Change video
+					a.entypo-plus.OptionLink(href='#')
+				li
+					router-link.entypo-archive.NavLinkX.copylink.specialOption(v-if='!user', to='/register') Create an account to save & collect your favorite workouts
 </template>
 
 <script>
@@ -56,8 +28,8 @@ import axios from "axios";
 import auth from "../config/auth";
 
 export default {
-  name: "VideoOptions",
-  props: ["video"],
+  name: "MoreWorkoutOptions",
+  props: ["video", "room"],
   data() {
     return {
       isOpened: false,
@@ -66,7 +38,10 @@ export default {
       inFavorites: false,
       liked: false,
       isAuthenticated: false,
-      user: {}
+      user: {},
+      changingVideo: false,
+      swap_url: "",
+      isLocalWorkout: false
     };
   },
   mounted() {
@@ -75,9 +50,10 @@ export default {
       this.user = auth.isAuthenticated();
       this.isAuthenticated = true;
       if (this.video) {
-          this.getUserData();
+        this.getUserData();
       }
     }
+    this.checkIfLocalWorkout();
   },
   beforeDestroy() {
     document.removeEventListener("click", this.onClick);
@@ -97,9 +73,16 @@ export default {
         this.toggleDropdown();
       }
     },
+    checkIfLocalWorkout() {
+      if (this.$route.query.localvideo && this.room.video_id && this.video) {
+        this.isLocalWorkout = true;
+      }
+    },
     async getUserData() {
       try {
-        const { data } = await axios.get(`/profile/${this.user._id}/getUserData/${this.video._id}`);
+        const { data } = await axios.get(
+          `/profile/${this.user._id}/getUserData/${this.video._id}`
+        );
         this.inLibrary = data.inLibrary;
         this.inFavorites = data.inFavorites;
       } catch (error) {
@@ -126,6 +109,22 @@ export default {
         console.log("err", error);
       }
     },
+    async swapWorkoutVideo() {
+      try {
+        let urlData = {};
+        urlData.swap_url = this.swap_url;
+        const { data } = await axios.post(
+          `/workoutRooms/${this.room._id}/swapVideoUrl`,
+          urlData
+        );
+        let youtubeId = data.youtubeId;
+        this.swap_url = "";
+        this.changingVideo = false;
+        this.$emit("emit_video_id", youtubeId);
+      } catch (error) {
+        console.log("err", error);
+      }
+    },
     copyLink() {
       var input = document.createElement("textarea");
       input.innerHTML = window.location.href;
@@ -138,6 +137,10 @@ export default {
         this.linkText = this.$t("watch.copy");
       }, 2000);
       return result;
+    },
+    getLocation() {
+      let location = `/videos/${this.video._id}`;
+      return location;
     }
   },
   computed: {
@@ -162,6 +165,7 @@ export default {
 </script>
 
 <style scoped>
+
 .specialOption {
   height: unset !important;
   background-color: #f9f9f9 !important;
@@ -178,6 +182,11 @@ export default {
 .Dropdown-nav {
   width: 290px;
   margin-top: 0px;
+}
+
+.Dropdown-wide {
+  width: 340px !important;
+  border-radius: 2px !important;
 }
 
 .copylink {
@@ -205,13 +214,29 @@ export default {
   margin-right: 15px;
   padding: 10px;
   overflow: hidden;
-  width: 270px;
+  width: 320px;
   margin-bottom: 5px;
   /*  min-width: 160px;*/
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
+}
+
+.wide_share {
+  width: 320px !important;
+  background-color: #232323 !important;
+  color: #969696 !important;
+  transition: unset !important;
+  font-size: 20px !important;
+  font-weight: unset !important;
+  border-radius: 2px !important;
+  padding: 7px 10px !important;
+  margin-top: 5px !important;
+}
+
+.wide_share:hover {
+  background-color: #1b1b1b !important;
 }
 
 .share_dropdown.is-expanded .MenuIcon-line:nth-child(1) {

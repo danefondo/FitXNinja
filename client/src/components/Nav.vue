@@ -21,7 +21,7 @@
 			template(v-if='isAuthenticated')
 				.stream_buttons.desktopSize
 					router-link.go_live_button.isOnAir(v-if='user.is_live && user.active_stream_id', :to="'/watch/' + user.active_stream_id") {{ $t("nav.is-live") }}
-					.go_live_button.goOnAir(@click='startWorkoutModal=true') Start a workout
+					.go_live_button.goOnAir(v-if="!isWorkoutRoom" @click='startWorkoutModal=true') Start a workout
 				.logout-container(:class="isAuthenticated ? 'authProfile' : 'notAuthProfile'")
 					.DropdownX(ref='dropdown', @click='toggleDropdown()', :class="{'is-expanded': isOpened}")
 						.Dropdown-profile
@@ -32,7 +32,7 @@
 						nav.Dropdown-nav.SettingsNav
 							ul.Dropdown-group
 								li.dropLive
-									.go_live_button.goOnAir(@click='startWorkoutModal=true') Start a workout
+									.go_live_button.goOnAir(v-if="!isWorkoutRoom" @click='startWorkoutModal=true') Start a workout
 									a.entypo-plus.OptionLink(href='#')
 								li
 									router-link.entypo-newspaper.NavLinkX(:to='myProfile') {{$t("nav.profile")}}
@@ -50,7 +50,7 @@
 									a.entypo-logout.NavLinkX(@click='logout') {{$t("nav.logout")}}
 			template(v-else='')
 				.stream_buttons
-					.go_live_button.goOnAir.white-button(@click='startWorkoutModal=true') Start a workout
+					.go_live_button.goOnAir.white-button(v-if="!isWorkoutRoom" @click='startWorkoutModal=true') Start a workout
 					router-link.go_live_button.login-nav.login-responsive(to='/login') {{$t("nav.login")}}
 					router-link.go_live_button(to='/register') {{$t("nav.register")}}
 		.stream_buttons.mobileSize(v-if='isAuthenticated')
@@ -70,7 +70,8 @@ export default {
     return {
       isOpened: false,
       startWorkoutModal: false,
-      custom_url: ""
+      custom_url: "",
+      isWorkoutRoom: false
     };
   },
   props: {
@@ -85,6 +86,7 @@ export default {
   },
   mounted() {
     document.addEventListener("click", this.onClick);
+    this.checkIfWorkoutRoom();
   },
   beforeDestroy() {
     document.removeEventListener("click", this.onClick);
@@ -121,20 +123,30 @@ export default {
         let roomData = {};
         if (this.user && this.user._id) {
           roomData.host_id = this.user._id;
-        }
-        roomData.video_url = this.custom_url;
-        roomData.youtube_id = this.getYoutubeId(this.custom_url);
+		}
+		let url = this.custom_url;
+		url = url.replace(/ /g, "");
+        roomData.video_url = url;
+        roomData.youtube_id = this.getYoutubeId(url);
         roomData.date_created = new Date();
         const result = await axios.post(`workoutRooms/createNewRoom`, roomData);
         console.log("res", result);
         this.startWorkoutModal = false;
-		this.custom_url = "";
-		setTempToken(result.data.tempToken);
-		localStorage.tempHost = JSON.stringify(result.data.tempHost);
+        this.custom_url = "";
+        setTempToken(result.data.tempToken);
+        localStorage.tempHost = JSON.stringify(result.data.tempHost);
         this.$router.push(`/rooms/${result.data.room._id}`);
       } catch (error) {
         console.log("error", error);
       }
+    },
+    checkIfWorkoutRoom() {
+      console.log("yoo", window.location.href);
+      if (window.location.href.indexOf("rooms") > -1) {
+        this.isWorkoutRoom = true;
+        return true;
+      }
+      return false;
     },
     logout() {
       auth.logout();
@@ -149,11 +161,11 @@ export default {
 }
 
 .white-button {
-	background-color: white !important;
+  background-color: white !important;
 }
 
 .white-button:hover {
-	background: #ccc !important;
+  background: #ccc !important;
 }
 
 .neon-green {

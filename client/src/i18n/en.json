@@ -314,7 +314,10 @@
         "music-title": "Has music?",
         "songs": "List any songs",
         "start-custom": "Start a workout from your chosen YouTube video.",
-        "start-workout": "Start workout"
+        "start-workout": "Start workout",
+        "change-video": "Change workout video",
+        "change-desc": "Insert the video URL of your chosen YouTube video.",
+        "change-action": "Change video"
     },
     "editstream": {
         "save": "Save changes",
