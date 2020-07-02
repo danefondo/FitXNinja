@@ -4,11 +4,12 @@
     <div class="footer_page">
       <div class="textTitle">Contact</div>
       <div class="textSection">
-        <span class="about_text">With all requests, ideas and suggestions, please write to us at 
+        <span class="about_text">
+          With all requests, ideas and suggestions, please write to us at
           <a
             href="mailto:hello@fitx.ninja"
-          >hello@fitx.ninja</a>, on 
-          <a href="https://www.facebook.com/FitXNinja" target="_blank">Facebook</a> or 
+          >hello@fitx.ninja</a>, on
+          <a href="https://www.facebook.com/FitXNinja" target="_blank">Facebook</a> or
           <a href="https://www.instagram.com/fitxninja/" target="_blank">Instagram</a>.
         </span>
       </div>
@@ -29,14 +30,16 @@ export default {
 
 
 <style scoped>
-
-.about_text, a {
+.about_text,
+a {
   margin-bottom: 15px;
   line-height: 23px;
 }
 
-p, span, div {
-  color: black !important;
+p,
+span,
+div {
+  color: #999 !important;
 }
 
 a {
@@ -46,7 +49,7 @@ a {
 .textTitle {
   font-size: 11pt;
   font-family: Arial;
-  color: white;
+  color: #999;
   background-color: transparent;
   font-weight: 700;
   font-style: normal;
@@ -139,9 +142,5 @@ a {
 .auto-side-margins {
   margin-left: auto;
   margin-right: auto;
-}
-.active-about {
-  background-color: #f7f7fb;
-  color: black !important;
 }
 </style>

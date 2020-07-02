@@ -43,28 +43,36 @@ export default {
 </script>
 
 <style scoped>
+.active-about {
+  background-color: #212121 !important;
+  color: #969696 !important;
+}
+
 .nav-container-about {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   padding: 0px 15px;
-  background-color: white;
+  background-color: #191919;
   height: 60px;
   padding-top: 0px;
+  border-radius: 2px;
 }
 
 .topNavigationLink__topBar__about {
-font-weight: bold;
-    padding: 10px 16px;
-    display: inline-block;
-border-radius: 4px;
-    margin: 0px 6px;
-    box-sizing: border-box;
-    margin-bottom: 0px;
-    border: 1px solid transparent;
+  font-weight: bold;
+  padding: 10px 16px;
+  display: inline-block;
+  border-radius: 2px;
+  margin: 0px 6px;
+  box-sizing: border-box;
+  margin-bottom: 0px;
+  border: 1px solid transparent;
+  color: #666;
 }
 
 .topNavigationLink__topBar__about:hover {
-  background-color: #f5f5f5;
+  background-color: #212121;
+  color: #969696;
 }
 </style>

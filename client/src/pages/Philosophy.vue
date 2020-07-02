@@ -118,8 +118,4 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-.active-about {
-  background-color: #f7f7fb;
-  color: black !important;
-}
 </style>

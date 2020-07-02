@@ -61,6 +61,7 @@ export default {
 
 
 <style scoped>
+
 .framevideo {
   border-radius: 30px;
 }
@@ -93,7 +94,7 @@ export default {
 }
 
 p {
-  color: black !important;
+  color: #999 !important;
 }
 .footer_page_container {
   display: flex;
@@ -160,9 +161,5 @@ p {
 .auto-side-margins {
   margin-left: auto;
   margin-right: auto;
-}
-.active-about {
-  background-color: #f7f7fb;
-  color: black !important;
 }
 </style>
