@@ -37,7 +37,7 @@
 
       <p
         class="about_text"
-      >To honor our name and vision, we also decided to challenge ourselves physically in those 30 days and taken upon an equivalently long Fitness Challenge to get into the best shape of our lives.</p>
+      >To honor our name and vision, we also decided to challenge ourselves physically in those 30 days and take upon an equivalently long Fitness Challenge to get into the best shape of our lives.</p>
 
       <p class="about_text">Follow us to join and support us in our journey! Will we make it?</p>
 
