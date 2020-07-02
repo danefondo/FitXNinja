@@ -1,64 +1,62 @@
 <template lang="pug">
 	NotFoundStream(v-if='streamNotFound')
 	.watch(v-else-if='video')
-		.video-core
-			.video-intro
-				.video-name {{video.name}}
-			.video-container
-				iframe.live_player(width='850', height='540', :src='videoUrl', frameborder='0', allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture', allowfullscreen='allowfullscreen')
-			.video-organizations
-				.organization(v-for='(organization, index) in video.organizations', :key='organization + index') {{organization}}
-		.video-sidebar
-			.video-actions
-				.video-action-group
-					.video-start-workout(@click='startWorkout') Start workout
-				VideoOptions(v-if="video" :video="video")
-				.video-action-group(v-if='user && user.admin')
-					.video-edit(@click='editVideo') {{$t("watch.edit")}}
-			.video-sidebar-details
-				.video-sidebar-detail
-					.video-name-small {{video.name}}
-				.video-sidebar-detail
-					span.with With
-					.teacher(v-if="video.teachers.length") {{video.teachers.join(', ')}}
-				.video-sidebar-detail
-					.video-description(v-html='video.description')
-				ul.video-sidebar-detail-list
-					li.video-detail(v-if="video.equipment.length")
-						span.with Equipment: 
-						span.value {{video.equipment.join(', ')}}
-					li.video-detail(v-if="video.goals.length")
-						span.with Goal: 
-						span.value {{video.goals.join(', ')}}
-					li.video-detail(v-if="video.location.length") 
-						span.with Location: 
-						span.value {{video.location.join(', ')}}
-					li.video-detail(v-if="video.levels.length") 
-						span.with Level: 
-						span.value {{video.levels.join(', ')}}
-					li.video-detail(v-if="video.duration.length")
-						span.with Duration: 
-						span.value {{video.duration.join(', ')}}
-					li.video-detail(v-if="video.muscles.length")
-						span.with Muscle groups: 
-						span.value {{video.muscles.join(', ')}}
-					li.video-detail(v-if="video.types.length")
-						span.with Type: 
-						span.value {{video.types.join(', ')}}
-					li.video-detail(v-if="video.styles.length")
-						span.with Style: 
-						span.value {{video.styles.join(', ')}}
-					li.video-detail(v-if="video.sports.length")
-						span.with Sport: 
-						span.value {{video.sports.join(', ')}}
-					li.video-detail(v-if="video.music.length")
-						span.with Has music: 
-						span.value(v-if="video.music == 'true'") Yes
-						span.value(v-else-if="video.music == 'false'") No
-					li.video-detail(v-if="video.specifications.length")
-						span.with Other specifications: 
-						span.value {{video.specifications.join(', ')}}
-
+		.watch-preview-area
+			.video-core
+				.video-container
+					iframe.live_player(width='850', height='540', :src='videoUrl', frameborder='0', allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture', allowfullscreen='allowfullscreen')
+				.video-organizations
+					.organization(v-for='(organization, index) in video.organizations', :key='organization + index') {{organization}}
+			.video-preview-sidebar
+				.video-actions
+					.video-action-group
+						.video-preview-start(@click='startWorkout') Start workout
+					VideoOptions(v-if="video" :video="video")
+					.video-action-group(v-if='user && user.admin')
+						.video-edit(@click='editVideo') {{$t("watch.edit")}}
+				.video-sidebar-details
+					.video-sidebar-detail
+						.video-name-small {{video.name}}
+					.video-sidebar-detail
+						span.with With
+						.teacher(v-if="video.teachers.length") {{video.teachers.join(', ')}}
+					.video-sidebar-detail
+						.video-description(v-html='video.description')
+					ul.video-sidebar-detail-list
+						li.video-detail(v-if="video.equipment.length")
+							span.with Equipment: 
+							span.value {{video.equipment.join(', ')}}
+						li.video-detail(v-if="video.goals.length")
+							span.with Goal: 
+							span.value {{video.goals.join(', ')}}
+						li.video-detail(v-if="video.location.length") 
+							span.with Location: 
+							span.value {{video.location.join(', ')}}
+						li.video-detail(v-if="video.levels.length") 
+							span.with Level: 
+							span.value {{video.levels.join(', ')}}
+						li.video-detail(v-if="video.duration.length")
+							span.with Duration: 
+							span.value {{video.duration.join(', ')}}
+						li.video-detail(v-if="video.muscles.length")
+							span.with Muscle groups: 
+							span.value {{video.muscles.join(', ')}}
+						li.video-detail(v-if="video.types.length")
+							span.with Type: 
+							span.value {{video.types.join(', ')}}
+						li.video-detail(v-if="video.styles.length")
+							span.with Style: 
+							span.value {{video.styles.join(', ')}}
+						li.video-detail(v-if="video.sports.length")
+							span.with Sport: 
+							span.value {{video.sports.join(', ')}}
+						li.video-detail(v-if="video.music.length")
+							span.with Has music: 
+							span.value(v-if="video.music == 'true'") Yes
+							span.value(v-else-if="video.music == 'false'") No
+						li.video-detail(v-if="video.specifications.length")
+							span.with Other specifications: 
+							span.value {{video.specifications.join(', ')}}
 </template>
 
 <script>
@@ -136,6 +134,26 @@ export default {
 </script>
 
 <style>
+.watch-preview-area {
+  background-color: #171717;
+  padding: 40px;
+  margin-top: 25px;
+  width: unset;
+  height: unset;
+  border-radius: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+
+.video-preview-sidebar {
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 75px;
+}
+
 li.video-detail span {
   line-height: 1.1;
 }
@@ -165,8 +183,11 @@ span.value {
 
 .video-sidebar-details {
   max-width: 280px;
-  padding: 5px 10px;
+  padding: 30px;
   margin-top: 15px;
+  background-color: #dedede;
+  border-radius: 2px;
+  color: #333;
 }
 
 .video-sidebar-detail {
@@ -207,28 +228,38 @@ span.value {
   border-radius: 2px;
 }
 
+.video-preview-start {
+  padding: 14px 0px;
+  font-size: 28px;
+  width: 340px;
+  font-weight: bold;
+  background-color: #04ffe7;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 2px;
+}
+
 .video-edit {
   font-size: 17px;
   display: inline-block;
-  background-color: #f7f7f7;
+  background-color: #292929;
+  color: #9e9e9e;
   text-align: center;
   transition: 0.2s ease;
   white-space: nowrap;
   font-weight: bold;
   cursor: pointer;
-  margin-right: 15px;
-  padding: 10px;
+  margin-right: 0px;
+  padding: 10px 0px;
   overflow: hidden;
-  width: 270px;
+  width: 340px;
   margin-bottom: 10px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-radius: 2px;
 }
 
 .video-edit:hover {
-  color: #aaa;
+    background-color: #353535;
 }
 
 .video-to-collection {

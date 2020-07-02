@@ -75,7 +75,7 @@ export default {
       this.user = auth.isAuthenticated();
       this.isAuthenticated = true;
       if (this.video) {
-          this.getUserData();
+        this.getUserData();
       }
     }
   },
@@ -99,7 +99,9 @@ export default {
     },
     async getUserData() {
       try {
-        const { data } = await axios.get(`/profile/${this.user._id}/getUserData/${this.video._id}`);
+        const { data } = await axios.get(
+          `/profile/${this.user._id}/getUserData/${this.video._id}`
+        );
         this.inLibrary = data.inLibrary;
         this.inFavorites = data.inFavorites;
       } catch (error) {
@@ -202,16 +204,23 @@ export default {
   /*  box-shadow: 3px 3px 0px 0px #eee;*/
   cursor: pointer;
   /*  margin-right: 10px;*/
-  margin-right: 15px;
-  padding: 10px;
+  margin-right: 0px;
+  padding: 10px 0px;
   overflow: hidden;
-  width: 270px;
+  width: 340px;
   margin-bottom: 5px;
   /*  min-width: 160px;*/
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
+  border-radius: 2px;
+  background-color: #292929;
+  color: #9e9e9e;
+}
+
+.share_options:hover {
+    background-color: #353535;
 }
 
 .share_dropdown.is-expanded .MenuIcon-line:nth-child(1) {
