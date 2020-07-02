@@ -1,7 +1,13 @@
 <template>
   <div class="contentArea">
     <div class="registration-block">
-      <img class="fitxlogo" src="../assets/images/fitxbigblacklogo.png" />
+      <!-- <img class="fitxlogo" src="../assets/images/fitxbigblacklogo.png" /> -->
+      <div class="landingTitleContainer cd-words-wrapper">
+        <div class="landingTitle">Exercise with friends.</div>
+        <div class="landingTitleColored">Because it's better together</div>
+        <div class="landingSubtitle">Co-workouts over video calls to the best YouTube workout videos</div>
+      </div>
+      <!-- <router-link to="/register" class="signupPageLink">{{$t("home.join")}}</router-link> -->
       <div class="discovery_section">
         <div class="examplesSection__landingPage">
           <div class="examplesContainer__landingPage">
@@ -60,6 +66,40 @@ export default {
 </script>
 
 <style scoped>
+.landingTitleContainer {
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+  padding-left: 0px;
+  padding-top: 110px;
+  padding-bottom: 110px;
+}
+.landingTitle {
+  font-size: 100px;
+  margin-bottom: 25px;
+  font-weight: 600;
+  max-width: 1050px;
+  display: inline-block;
+}
+
+.landingTitleColored {
+  font-size: 60px;
+  font-weight: 600;
+  max-width: 1050px;
+  display: inline-block;
+  background-color: #04ffe740;
+  margin-left: 18px;
+}
+
+.landingSubtitle {
+  font-size: 28px;
+  font-weight: 400;
+  color: #868686;
+  max-width: 800px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .examplesContainer__landingPage {
   margin-bottom: unset;
