@@ -123,9 +123,9 @@ export default {
         let roomData = {};
         if (this.user && this.user._id) {
           roomData.host_id = this.user._id;
-		}
-		let url = this.custom_url;
-		url = url.replace(/ /g, "");
+        }
+        let url = this.custom_url;
+        url = url.replace(/ /g, "");
         roomData.video_url = url;
         roomData.youtube_id = this.getYoutubeId(url);
         roomData.date_created = new Date();
@@ -145,11 +145,18 @@ export default {
       if (window.location.href.indexOf("rooms") > -1) {
         this.isWorkoutRoom = true;
         return true;
+      } else {
+        this.isWorkoutRoom = false;
+        return false;
       }
-      return false;
     },
     logout() {
       auth.logout();
+    }
+  },
+  watch: {
+    $route() {
+      this.checkIfWorkoutRoom();
     }
   }
 };

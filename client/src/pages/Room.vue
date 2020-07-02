@@ -19,8 +19,8 @@
 							.video-control-workout.set(v-if="!videoUnstarted && userIsHost" @click='setTheTime') Set time
 							.video-copy-link(@click="copyLink()") {{linkText}}
 					iframe(v-if='room', :src='conferenceSrc', width='340px', height='272px', scrolling='auto', allow='microphone; camera')
-					MoreWorkoutOptions(v-if="video && room" :video="video" :room="room" @emit_video_id="updateVideoId")
-					MoreWorkoutOptions(v-else-if="!video && room" :room="room" @emit_video_id="updateVideoId")
+					MoreWorkoutOptions(v-if="video && room && userIsHost" :video="video" :room="room" @emit_video_id="updateVideoId")
+					MoreWorkoutOptions(v-else-if="!video && room && userIsHost" :room="room" @emit_video_id="updateVideoId")
 </template>
 
 <script>
