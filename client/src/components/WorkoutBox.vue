@@ -1,16 +1,19 @@
 <template>
-  <router-link class="stream" :to="'/videos/'+workout._id">
+  <router-link class="workout" :to="'/videos/'+workout._id">
     <div class="streamPreviewContainer">
       <img class="streamPreview" :src="thumbnail" />
+      <div class="videoOverlay">
+        <!-- <div class="workoutName">{{workout.name}}</div> -->
+      </div>
       <div class="live"></div>
       <div class="viewerCount"></div>
     </div>
-    <div class="streamMetaContainer">
-      <div class="streamNameContainer">
-        <div class="streamName">{{workout.name}}</div>
+    <div class="workoutMetaContainer">
+      <div class="workoutNameContainer">
+        <div class="workoutName">{{workout.name}}</div>
       </div>
-      <div class="streamDescContainer">
-        <div class="streamDesc" v-html="workout.description"></div>
+      <div class="workoutDescContainer">
+        <div class="workoutDesc" v-html="workout.description"></div>
       </div>
       <!-- <div class="streamTags">
         <div v-for="(tag, index) in stream.stream_tags" :key="index" class="streamTag">{{tag}}</div>
@@ -39,7 +42,6 @@
 </template>
 
 <script>
-
 export default {
   name: "WorkoutBox",
   props: ["workout"],
@@ -47,19 +49,78 @@ export default {
     thumbnail() {
       return `https://img.youtube.com/vi/${this.workout.video_id}/hqdefault.jpg`;
     }
-  },
+  }
 };
 </script>
 
 <style>
-.streamNameContainer {
-    width: unset;
+.workout {
+  width: 445px;
+  margin: 30px 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  padding: 15px;
+  padding-bottom: 0px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: 0.1s ease-in-out;
 }
-.streamPreview {
-    border-radius: 3px;
+
+.workout:hover {
+  transform: scale(1.015);
+  background-color: #191919;
 }
+
+.workoutMetaContainer {
+  width: 100%;
+  max-width: 405px;
+  padding: 5px 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.workoutNameContainer {
+  padding: 8px 5px 5px 4px;
+  margin-bottom: 5px;
+  width: unset;
+}
+
+.workoutName {
+  font-size: 27px;
+  color: white;
+}
+
+.workoutDescContainer {
+  padding: 0px 5px;
+}
+
+.workoutDesc {
+  color: #666;
+}
+
+img.streamPreview {
+  min-height: 232.2px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
 .streamPreviewContainer {
   position: relative;
+  width: 420px;
+  height: 236.2px !important;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: transparent;
+  box-shadow: 3px 2px 11px 0px rgba(10, 0, 70, 0.42);
 }
 
 .streamPreviewMeta {
@@ -73,6 +134,13 @@ export default {
   justify-content: center;
   align-items: center;
   box-shadow: 3px 2px 11px 0px rgba(10, 0, 70, 0.42);
+}
+
+.streamGroup {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
 }
 
 .streamTime {

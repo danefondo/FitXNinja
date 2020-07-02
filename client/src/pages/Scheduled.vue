@@ -80,6 +80,7 @@ export default {
   font-weight: 600;
   max-width: 1050px;
   display: inline-block;
+  color: white;
 }
 
 .landingTitleColored {
@@ -87,14 +88,15 @@ export default {
   font-weight: 600;
   max-width: 1050px;
   display: inline-block;
-  background-color: #04ffe740;
+  /* background-color: #04ffe740; */
+  background-color: #04ffe7f5;
   margin-left: 18px;
 }
 
 .landingSubtitle {
   font-size: 28px;
   font-weight: 400;
-  color: #868686;
+  color: #afafaf;
   max-width: 800px;
   margin-top: 15px;
   margin-left: auto;
@@ -103,9 +105,11 @@ export default {
 
 .examplesContainer__landingPage {
   margin-bottom: unset;
+  width: 1362px;
+  margin: 0 auto;
 }
 .examplesTitle__landingPage {
-  color: black;
+  color: #bdbdbd;
   font-size: 55px;
 }
 .nav-container {
@@ -117,6 +121,7 @@ export default {
   justify-content: center;
   flex-direction: column;
   margin-top: 0px;
+  width: unset !important;
 }
 
 .fitxlogo {
@@ -128,6 +133,10 @@ export default {
 
 .container {
   background-color: #111 !important;
+}
+
+.streams {
+  max-width: unset !important;
 }
 
 .framevideo {
@@ -159,16 +168,6 @@ export default {
 .scheduled_stream_description span {
   background-color: transparent !important;
   color: inherit !important;
-}
-
-.stream {
-  padding-top: 20px;
-}
-
-.streamGroup {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 
 .dateGroups {
