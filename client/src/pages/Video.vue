@@ -185,7 +185,7 @@ span.value {
   max-width: 280px;
   padding: 30px;
   margin-top: 15px;
-  background-color: #dedede;
+  background-color: #f9f9f9;
   border-radius: 2px;
   color: #333;
 }

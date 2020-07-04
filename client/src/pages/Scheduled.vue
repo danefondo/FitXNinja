@@ -7,6 +7,11 @@
         <div class="landingTitleColored">Because it's better together</div>
         <div class="landingSubtitle">Co-workouts over video calls to the best YouTube workout videos</div>
       </div>
+      <!-- <div class="landingTitleContainer cd-words-wrapper">
+        <div class="landingTitle">First time?</div>
+        <div class="landingTitleColored">Here's how it works</div>
+        <div class="landingSubtitle">Co-workouts over video calls to the best YouTube workout videos</div>
+      </div> -->
       <!-- <router-link to="/register" class="signupPageLink">{{$t("home.join")}}</router-link> -->
       <div class="discovery_section">
         <div class="examplesSection__landingPage">
@@ -185,4 +190,24 @@ export default {
   font-weight: 600;
   color: #120088e3;
 }
+
+@media screen and (max-width: 1415px) and (min-width: 1280px) {
+  .examplesContainer__landingPage {
+    width: 1240px;
+  }
+}
+
+@media screen and (max-width: 1279px) and (min-width: 1185px) {
+  .examplesContainer__landingPage {
+    width: 1140px;
+  }
+}
+
+
+@media screen and (max-width: 1184px) and (min-width: 800px) {
+  .examplesContainer__landingPage {
+    width: 1100px;
+  }
+}
+
 </style>

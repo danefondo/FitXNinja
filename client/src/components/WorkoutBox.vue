@@ -1,6 +1,6 @@
 <template>
   <router-link class="workout" :to="'/videos/'+workout._id">
-    <div class="streamPreviewContainer">
+    <div class="workoutPreviewContainer">
       <img class="streamPreview" :src="thumbnail" />
       <div class="videoOverlay">
         <!-- <div class="workoutName">{{workout.name}}</div> -->
@@ -110,10 +110,10 @@ img.streamPreview {
   border-radius: 3px;
 }
 
-.streamPreviewContainer {
+.workoutPreviewContainer {
   position: relative;
   width: 420px;
-  height: 236.2px !important;
+  height: 236.2px;
   box-sizing: border-box;
   overflow: hidden;
   display: flex;
@@ -176,4 +176,47 @@ img.streamPreview {
   font-size: 20px;
   color: #292295c4;
 }
+
+@media screen and (max-width: 1415px) and (min-width: 1280px) {
+
+  .workout {
+    width: 400px;
+  }
+
+  .workoutPreviewContainer {
+    width: 375px;
+    height: 211px;
+
+  }
+
+}
+
+@media screen and (max-width: 1279px) and (min-width: 1185px) {
+
+  .workout {
+    width: 375px;
+    margin: 30px 5px;
+  }
+
+  .workoutPreviewContainer {
+    width: 350px;
+    height: 196px;
+
+  }
+
+}
+
+
+/* @media screen and (max-width: 1184px) and (min-width: 800px) {
+
+  .workout {
+    width: 375px;
+  }
+
+  .workoutPreviewContainer {
+    width: 350px;
+    height: 196px;
+
+  }
+} */
 </style>
