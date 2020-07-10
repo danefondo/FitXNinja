@@ -449,24 +449,6 @@ form.signin-form .submit {
 	color: #666;
 }
 
-.examplesSection__landingPage {
-	width: 100%;
-}
-
-.examplesContainer__landingPage {
-    width: 1116px;
-    margin: 0 auto;
-	margin-bottom: 30px;
-}
-
-.examplesTitle__landingPage {
-	font-size: 70px;
-    font-weight: 600;
-    color: #120088;
-    line-height: 60px;
-    padding: 5px;
-}
-
 .notifier__register {
     width: 390px;
     height: 200px;

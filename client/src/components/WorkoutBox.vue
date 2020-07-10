@@ -15,27 +15,12 @@
       <div class="workoutDescContainer">
         <div class="workoutDesc" v-html="workout.description"></div>
       </div>
-      <!-- <div class="streamTags">
-        <div v-for="(tag, index) in stream.stream_tags" :key="index" class="streamTag">{{tag}}</div>
-      </div>-->
       <div class="streamer_profile_container_discover">
-        <!-- <div class="streamer_profile_image_container">
-          <img class="streamer_profile_icon_discover" :src="profileImage" />
-        </div>-->
         <div class="streamerLevelContainer">
           <div class="streamerStar"></div>
           <div class="streamerLevel"></div>
           <div class="verifiedSign hidden"></div>
         </div>
-        <!-- <div class="streamer_name_container_discover">
-          <p
-            class="streamer_firstname_discover"
-          >{{stream.streamer.firstname || stream.streamer.username}}</p>
-          <p
-            v-if="stream.streamer.firstname && stream.streamer.lastname"
-            class="streamer_lastname_discover"
-          >{{ stream.streamer.lastname }}</p>
-        </div>-->
       </div>
     </div>
   </router-link>
@@ -120,7 +105,6 @@ img.streamPreview {
   justify-content: center;
   flex-direction: column;
   background-color: transparent;
-  box-shadow: 3px 2px 11px 0px rgba(10, 0, 70, 0.42);
 }
 
 .streamPreviewMeta {
@@ -178,7 +162,6 @@ img.streamPreview {
 }
 
 @media screen and (max-width: 1415px) and (min-width: 1280px) {
-
   .workout {
     width: 400px;
   }
@@ -186,13 +169,10 @@ img.streamPreview {
   .workoutPreviewContainer {
     width: 375px;
     height: 211px;
-
   }
-
 }
 
 @media screen and (max-width: 1279px) and (min-width: 1185px) {
-
   .workout {
     width: 375px;
     margin: 30px 5px;
@@ -201,22 +181,95 @@ img.streamPreview {
   .workoutPreviewContainer {
     width: 350px;
     height: 196px;
-
   }
-
 }
 
+@media screen and (max-width: 1184px) and (min-width: 950px) {
+  .examplesSection__landingPage {
+    max-width: 915px;
+    margin: 0 auto;
+  }
 
-/* @media screen and (max-width: 1184px) and (min-width: 800px) {
+  .examplesContainer__landingPage {
+    width: 100% !important;
+  }
 
+  .streams {
+    display: grid;
+  }
+
+  .streamGroup {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(475px, 475px));
+    min-width: 80%;
+  }
+}
+
+@media screen and (max-width: 949px) and (min-width: 800px) {
+  .examplesSection__landingPage {
+    max-width: 785px;
+    margin: 0 auto;
+  }
+
+  .examplesContainer__landingPage {
+    width: 100% !important;
+  }
+
+  .streams {
+    display: grid;
+  }
+
+  .streamGroup {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
+    min-width: 80%;
+  }
   .workout {
     width: 375px;
+    margin: 30px 5px;
   }
 
   .workoutPreviewContainer {
     width: 350px;
     height: 196px;
-
   }
-} */
+}
+
+@media screen and (max-width: 799px) {
+  .examplesSection__landingPage {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .examplesContainer__landingPage {
+    width: 100% !important;
+  }
+
+  .streams {
+    display: grid;
+  }
+
+  .streamGroup {
+    display: flex;
+    flex-direction: column;
+    min-width: 90%;
+  }
+  .workout {
+    width: 90%;
+    margin: 30px auto;
+  }
+
+  .workoutPreviewContainer {
+    width: 100%;
+    height: 56.24%;
+  }
+
+  img.streamPreview {
+    height: 56.24%;
+  }
+
+  .workoutMetaContainer {
+    max-width: 97%;
+  }
+}
 </style>

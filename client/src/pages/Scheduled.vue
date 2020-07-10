@@ -203,11 +203,26 @@ export default {
   }
 }
 
+@media screen and (max-width: 1184) and (min-width: 800px) {
+	.examplesSection__landingPage {
+		max-width: 915px;
+		margin: 0 auto;
+	}
 
-@media screen and (max-width: 1184px) and (min-width: 800px) {
-  .examplesContainer__landingPage {
-    width: 1100px;
-  }
+	.examplesContainer__landingPage {
+		width: 100%;
+	}
+
+	.streams {
+		display: grid;
+	}
+
+	.streamGroup {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(475px, 475px));
+		min-width: 80%;
+	}
 }
+
 
 </style>
