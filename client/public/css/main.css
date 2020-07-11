@@ -254,12 +254,6 @@ p {
   margin-right: 15px;
 }
 /*! CSS Used from: https://www.eeter.tv/css/streamPreviews.css */
-.streams {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  max-width: 1164px;
-}
 .stream {
   width: 350px;
   margin: 30px 17px;

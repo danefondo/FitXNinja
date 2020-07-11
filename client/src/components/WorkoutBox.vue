@@ -120,7 +120,7 @@ img.streamPreview {
   box-shadow: 3px 2px 11px 0px rgba(10, 0, 70, 0.42);
 }
 
-.streamGroup {
+.workoutGroup {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -163,113 +163,114 @@ img.streamPreview {
 
 @media screen and (max-width: 1415px) and (min-width: 1280px) {
   .workout {
-    width: 400px;
+    width: 400px !important;
   }
 
   .workoutPreviewContainer {
-    width: 375px;
-    height: 211px;
+    width: 375px !important;
+    height: 211px !important;
   }
 }
 
 @media screen and (max-width: 1279px) and (min-width: 1185px) {
   .workout {
-    width: 375px;
-    margin: 30px 5px;
+    width: 375px !important;
+    margin: 30px 5px !important;
   }
 
   .workoutPreviewContainer {
-    width: 350px;
-    height: 196px;
+    width: 350px !important;
+    height: 196px !important;
   }
 }
 
 @media screen and (max-width: 1184px) and (min-width: 950px) {
   .examplesSection__landingPage {
-    max-width: 915px;
-    margin: 0 auto;
+    max-width: 915px !important;
+    margin: 0 auto !important;
   }
 
   .examplesContainer__landingPage {
     width: 100% !important;
   }
 
-  .streams {
-    display: grid;
+  .workouts {
+    display: grid !important;
   }
 
-  .streamGroup {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(475px, 475px));
-    min-width: 80%;
+  .workoutGroup {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(475px, 475px)) !important;
+    min-width: 80% !important;
   }
 }
 
 @media screen and (max-width: 949px) and (min-width: 800px) {
   .examplesSection__landingPage {
-    max-width: 785px;
-    margin: 0 auto;
+    max-width: 785px !important;
+    margin: 0 auto !important;
   }
 
   .examplesContainer__landingPage {
     width: 100% !important;
   }
 
-  .streams {
-    display: grid;
+  .workouts {
+    display: grid !important;
   }
 
-  .streamGroup {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
-    min-width: 80%;
+  .workoutGroup {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 400px)) !important;
+    min-width: 80% !important;
   }
   .workout {
-    width: 375px;
-    margin: 30px 5px;
+    width: 375px !important;
+    margin: 30px 5px !important;
   }
 
   .workoutPreviewContainer {
-    width: 350px;
-    height: 196px;
+    width: 350px !important;
+    height: 196px !important;
   }
 }
 
 @media screen and (max-width: 799px) {
   .examplesSection__landingPage {
-    max-width: 90%;
-    margin: 0 auto;
+    max-width: 90vw !important;
+    margin: 0 auto !important;
   }
 
   .examplesContainer__landingPage {
-    width: 100% !important;
+    width: 100vw !important;
   }
 
-  .streams {
-    display: grid;
+  .workouts {
+    display: grid !important;
   }
 
-  .streamGroup {
-    display: flex;
-    flex-direction: column;
-    min-width: 90%;
+  .workoutGroup {
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 100vw !important;
   }
   .workout {
-    width: 90%;
-    margin: 30px auto;
+    width: 100vw !important;
+    margin: 30px auto !important;
   }
 
   .workoutPreviewContainer {
-    width: 100%;
-    height: 56.24%;
+    width: 100vw !important;
+    height: 56.24vw !important;
   }
 
   img.streamPreview {
-    height: 56.24%;
+    height: 56.24vw !important;
+    border-radius: unset !important;
   }
 
   .workoutMetaContainer {
-    max-width: 97%;
+    max-width: 97vw !important;
   }
 }
 </style>

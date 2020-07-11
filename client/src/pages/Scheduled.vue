@@ -19,8 +19,8 @@
             <div class="examplesTitle__landingPage">Full body workouts</div>
           </div>
         </div>
-        <div v-if="workouts" class="streams">
-          <div class="streamGroup">
+        <div v-if="workouts" class="workouts">
+          <div class="workoutGroup">
             <WorkoutBox v-for="workout in workouts" :key="workout._id" :workout="workout" />
           </div>
         </div>
@@ -31,8 +31,8 @@
             <div class="examplesTitle__landingPage">Cardio</div>
           </div>
         </div>
-        <div v-if="workouts" class="streams">
-          <div class="streamGroup">
+        <div v-if="workouts" class="workouts">
+          <div class="workoutGroup">
             <WorkoutBox v-for="workout in cardioWorkouts" :key="workout._id" :workout="workout" />
           </div>
         </div>
@@ -71,6 +71,18 @@ export default {
 </script>
 
 <style scoped>
+.workouts {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 1164px;
+}
+.workoutGroup {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
 .landingTitleContainer {
   margin: auto;
   text-align: center;
@@ -140,7 +152,7 @@ export default {
   background-color: #111 !important;
 }
 
-.streams {
+.workouts {
   max-width: unset !important;
 }
 
@@ -213,11 +225,11 @@ export default {
 		width: 100%;
 	}
 
-	.streams {
+	.workouts {
 		display: grid;
 	}
 
-	.streamGroup {
+	.workoutGroup {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(475px, 475px));
 		min-width: 80%;
