@@ -256,7 +256,7 @@ img.streamPreview {
   }
   .workout {
     width: 100vw !important;
-	margin: 20px auto 30px auto !important;
+	margin: 15px auto 15px auto !important;
 	padding: 0px !important;
   }
 
