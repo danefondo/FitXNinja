@@ -237,7 +237,7 @@ img.streamPreview {
 
 @media screen and (max-width: 799px) {
   .examplesSection__landingPage {
-    max-width: 90vw !important;
+    max-width: 100vw !important;
     margin: 0 auto !important;
   }
 
@@ -256,7 +256,8 @@ img.streamPreview {
   }
   .workout {
     width: 100vw !important;
-    margin: 30px auto !important;
+	margin: 20px auto 30px auto !important;
+	padding: 0px !important;
   }
 
   .workoutPreviewContainer {
@@ -270,7 +271,7 @@ img.streamPreview {
   }
 
   .workoutMetaContainer {
-    max-width: 97vw !important;
+    max-width: 94vw !important;
   }
 }
 </style>

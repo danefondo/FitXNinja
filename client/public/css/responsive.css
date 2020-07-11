@@ -958,7 +958,7 @@
   .examplesSection__landingPage {
     display: flex !important;
     justify-content: center !important;
-    margin: 0 auto !important;
+    /* margin: 0 auto !important; */
     text-align: center !important;
     width: 100vw !important;
   }
@@ -976,7 +976,6 @@
     width: unset !important;
     text-align: unset !important;
     font-weight: 600 !important;
-    color: #120088 !important;
     line-height: 60px !important;
     padding: 5px !important;
   }
