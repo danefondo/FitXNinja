@@ -236,6 +236,19 @@ img.streamPreview {
 }
 
 @media screen and (max-width: 799px) {
+  .landingTitleContainer {
+    padding-top: 0vh !important;
+  }
+  .landingTitle {
+    font-size: 50px !important;
+    max-width: 100vw !important;
+    width: 100vw !important;
+  }
+  .landingTitleColored {
+    font-size: 27px !important;
+    max-width: 100vw !important;
+    width: 80vw !important;
+  }
   .examplesSection__landingPage {
     max-width: 100vw !important;
     margin: 0 auto !important;
@@ -256,8 +269,8 @@ img.streamPreview {
   }
   .workout {
     width: 100vw !important;
-	margin: 15px auto 15px auto !important;
-	padding: 0px !important;
+    margin: 20px auto 20px auto !important;
+    padding: 0px !important;
   }
 
   .workoutPreviewContainer {
