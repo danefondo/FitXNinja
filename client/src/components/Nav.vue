@@ -198,6 +198,7 @@ export default {
 
 .fitxlogosmall {
   width: 32px;
+  height: 32px;
   padding: 0px 15px;
 }
 .dropLive {

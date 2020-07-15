@@ -4,7 +4,7 @@
 		.watch-preview-area
 			.video-core
 				.video-container
-					iframe.live_player(width='850', height='540', :src='videoUrl', frameborder='0', allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture', allowfullscreen='allowfullscreen')
+					iframe.live_player(:src='videoUrl', frameborder='0', allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture', allowfullscreen='allowfullscreen')
 				.video-organizations
 					.organization(v-for='(organization, index) in video.organizations', :key='organization + index') {{organization}}
 			.video-preview-sidebar
@@ -134,6 +134,25 @@ export default {
 </script>
 
 <style>
+.video-core {
+  width: calc(100vw - 20px);
+}
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+.video-container iframe,
+.video-container object,
+.video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 .watch-preview-area {
   background-color: #171717;
   padding: 40px;
@@ -259,7 +278,7 @@ span.value {
 }
 
 .video-edit:hover {
-    background-color: #353535;
+  background-color: #353535;
 }
 
 .video-to-collection {
