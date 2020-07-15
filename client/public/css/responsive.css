@@ -873,7 +873,8 @@
     box-sizing: border-box !important;
     border: 1px solid transparent !important;
     display: inline-block !important;
-    background-color: #00ffe7 !important;
+    /* background-color: #00ffe7 !important; */
+    background-color: #fff !important;
     cursor: pointer !important;
     text-align: right !important;
     padding: 7px 4px !important;
@@ -884,17 +885,24 @@
   }
 
   .go_live_button:hover {
-    background-color: #00ffe5a9 !important;
+    /* background-color: #00ffe5a9 !important; */
+    background-color: #eee !important;
   }
 
   .login-nav:hover {
-    color: black !important;
-    background-color: #f5f5f5 !important;
+    color: white !important;
+    background-color: #333 !important;
   }
 
   .login-responsive {
-    background-color: white !important;
-    color: #130088 !important;
+    /* background-color: white !important; */
+    background-color: transparent !important;
+    /* color: black !important; */
+    color: white !important;
+  }
+  
+  .login-responsive:hover {
+    color: white !important;
   }
 
   .registration-block {
@@ -933,7 +941,7 @@
   }
 
   .landingSubtitle {
-    max-width: 100vw !important;
+    max-width: 90vw !important;
     font-size: 18px !important;
     line-height: 25px !important;
     text-align: center !important;
@@ -1089,7 +1097,7 @@
   }
 
   .authNav .title-container {
-    width: 50vw !important;
+    width: 65vw !important;
     justify-content: left !important;
   }
 
@@ -1098,13 +1106,19 @@
   }
 
   .authNav .navlinks-container {
-    width: 50vw !important;
+    /* width: 50vw !important; */
+    width: 35vw !important;
   }
 
   .authProfile {
     margin-left: 0px !important;
     padding-right: 15px !important;
-    width: 50vw !important;
+    /* width: 50vw !important; */
+    width: 35vw !important;
+  }
+
+  .Dropdown-profile path {
+    fill: white !important;
   }
 
   .dropLive {

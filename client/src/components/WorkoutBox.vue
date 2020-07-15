@@ -245,7 +245,7 @@ img.streamPreview {
     width: 100vw !important;
   }
   .landingTitleColored {
-    font-size: 27px !important;
+    font-size: 25px !important;
     max-width: 100vw !important;
     width: 80vw !important;
   }

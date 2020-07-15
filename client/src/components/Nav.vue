@@ -11,16 +11,23 @@
 					.action-group
 						.button-filled.neon-green(@click='startCustomWorkout') {{ $t("newworkout.start-workout") }}
 						.cancelDeleteStream.button-outline(@click='startWorkoutModal=false') {{ $t("editvideo.cancel-delete") }}
+		.go_live_button.white-button.mobileSize.mobileStartWorkoutAuth(v-if="!isWorkoutRoom && !isAuthenticated" @click='startWorkoutModal=true') Start a workout
 		.title-container
-			router-link(to='/')
+			router-link(to='/' v-if="isAuthenticated")
 				img.fitxlogosmall(:src='ninjaImage')
-			// <router-link class="title-btn" to="/">FitX Ninja</router-link>
+			router-link.mobileSize(to='/' v-if="!isAuthenticated" style="width: 100vw; justify-content: center;")
+				img.fitxlogosmall(:src='ninjaImage')
+			router-link.desktopSize(to='/' v-if="!isAuthenticated")
+				img.fitxlogosmall(:src='ninjaImage')
+			.topNavigationBar.mobileSize
+				router-link.topNavigationLink__topBar.whiteText(to='/scheduled') Discover
+				router-link.topNavigationLink__topBar.whiteText(to='/discover') Browse
 		.navlinks-container
-			router-link.topNavigationLink__topBar.desktopSize(to='/scheduled') Discover
-			router-link.topNavigationLink__topBar(to='/discover') Browse
+			.topNavigationBar.desktopSize
+				router-link.topNavigationLink__topBar(to='/scheduled') Discover
+				router-link.topNavigationLink__topBar(to='/discover') Browse
 			template(v-if='isAuthenticated')
 				.stream_buttons.desktopSize
-					router-link.go_live_button.isOnAir(v-if='user.is_live && user.active_stream_id', :to="'/watch/' + user.active_stream_id") {{ $t("nav.is-live") }}
 					.go_live_button.goOnAir(v-if="!isWorkoutRoom" @click='startWorkoutModal=true') Start a workout
 				.logout-container(:class="isAuthenticated ? 'authProfile' : 'notAuthProfile'")
 					.DropdownX(ref='dropdown', @click='toggleDropdown()', :class="{'is-expanded': isOpened}")
@@ -40,9 +47,6 @@
 								li(v-if='user.superadmin')
 									router-link.entypo-archive.NavLinkX(to='/master') {{$t("admin.superadmin")}}
 									a.entypo-plus.OptionLink(href='#')
-								//- li
-								//- 	router-link.entypo-archive.NavLinkX(to='/manage-streams') {{$t("nav.manage-streams")}}
-								//- 	a.entypo-plus.OptionLink(href='#')
 								li
 									router-link.entypo-archive.NavLinkX(to='/settings') {{$t("nav.settings")}}
 									a.entypo-plus.OptionLink(href='#')
@@ -50,12 +54,11 @@
 									a.entypo-logout.NavLinkX(@click='logout') {{$t("nav.logout")}}
 			template(v-else='')
 				.stream_buttons
-					.go_live_button.goOnAir.white-button(v-if="!isWorkoutRoom" @click='startWorkoutModal=true') Start a workout
+					.go_live_button.white-button.desktopSize(v-if="!isWorkoutRoom" @click='startWorkoutModal=true') Start a workout
 					router-link.go_live_button.login-nav.login-responsive(to='/login') {{$t("nav.login")}}
 					router-link.go_live_button(to='/register') {{$t("nav.register")}}
-		.stream_buttons.mobileSize(v-if='isAuthenticated')
-			router-link.go_live_button.isOnAir(v-if='user.is_live && user.active_stream_id', :to="'/watch/' + user.active_stream_id") {{ $t("nav.is-live") }}
-			router-link.go_live_button.goOnAir(v-if='!user.is_live', to='/golive') {{ $t("nav.go-live") }}
+				//- .go_live_button.white-button.mobileSize.mobileStartWorkout(v-if="!isWorkoutRoom" @click='startWorkoutModal=true') Start a workout
+		.go_live_button.white-button.mobileSize.mobileStartWorkoutAuth(v-if="!isWorkoutRoom && isAuthenticated" @click='startWorkoutModal=true') Start a workout
 </template>
 
 <script>
@@ -163,6 +166,10 @@ export default {
 </script>
 
 <style>
+.topNavigationBar {
+  display: flex;
+  justify-content: center;
+}
 .stream_input {
   width: 275px;
 }
@@ -191,6 +198,7 @@ export default {
 
 .fitxlogosmall {
   width: 32px;
+  padding: 0px 15px;
 }
 .dropLive {
   display: none;
@@ -198,10 +206,6 @@ export default {
   color: white;
   font-weight: 600;
   border-radius: 2px;
-}
-
-.mobileSize {
-  display: none;
 }
 
 .DropdownX.is-expanded nav {
@@ -223,5 +227,33 @@ export default {
 .login-nav:hover {
   color: black !important;
   background-color: #f5f5f5;
+}
+
+.login-responsive:hover {
+  color: white !important;
+}
+
+.mobileStartWorkout,
+.mobileStartWorkoutAuth {
+  justify-content: center;
+  color: white !important;
+  background-color: #4e00d8 !important;
+  margin-top: 12px !important;
+  width: 100vw !important;
+}
+.mobileStartWorkout:hover,
+.mobileStartWorkoutAuth:hover {
+  background-color: #4e00d8c9 !important;
+}
+
+.mobileStartWorkoutAuth {
+  margin-top: 0px !important;
+}
+
+.whiteText {
+  color: white !important;
+}
+.mobileSize {
+  display: none;
 }
 </style>
