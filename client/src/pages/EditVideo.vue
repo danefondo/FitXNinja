@@ -87,6 +87,15 @@
     .stream_input_container(v-if="music == 'true'")
       .stream_input_title {{ $t("newworkout.songs") }}
       v-select(multiple taggable v-model="songs")
+    .schedule_stream_section
+      .stream_input_title Selected for landing page?
+      .switch-field
+        input#radio-six(type="radio" v-model="isForLanding" name="switch-three" value="true")
+        label(for="radio-six") Yes
+        input#radio-seven(type="radio" v-model="isForLanding" name="switch-three" value="false")
+        label(for="radio-seven") No
+      .inputErrorContainer
+        .inputErrorText
     .scheduleErrorContainer(v-if="scheduleError")
       .scheduleErrorText {{ $t("golive.fill-in") }}
     .stream_delete_section
@@ -185,7 +194,8 @@ export default {
       organizations: [],
       workoutOrganizationOptions: [],
       url: "",
-      video: {}
+      video: {},
+      isForLanding: "false",
     };
   },
   mounted() {
@@ -224,6 +234,7 @@ export default {
         this.teachers = video.teachers;
         this.organizations = video.organizations;
         this.url = video.url;
+        this.isForLanding = video.isForLanding;
       } catch (error) {
         this.streamNotFound = true;
       }
@@ -249,7 +260,8 @@ export default {
           teachers: this.teachers,
           organizations: this.organizations,
           public_status: this.public_status,
-          video_id: this.video._id
+          video_id: this.video._id,
+          isForLanding: this.isForLanding,
         };
 
         await axios.post(`dashboard/updateWorkoutVideo`, videoData);

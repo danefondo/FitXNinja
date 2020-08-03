@@ -211,7 +211,7 @@ export default {
   /*  box-shadow: 3px 3px 0px 0px #eee;*/
   cursor: pointer;
   /*  margin-right: 10px;*/
-  margin-right: 15px;
+  margin-right: 0px;
   padding: 10px;
   overflow: hidden;
   width: 320px;
@@ -252,6 +252,6 @@ export default {
 
 .share-links {
   position: absolute;
-  right: 15px;
+  right: 0px;
 }
 </style>

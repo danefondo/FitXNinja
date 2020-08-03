@@ -117,6 +117,7 @@ export default {
   align-items: center;
   margin: 0 auto;
   margin-bottom: 60px;
+  background-color: white;
 }
 
 .manager-header {

@@ -157,6 +157,7 @@ let workoutRooms = require("./routes/workoutRooms");
 let workoutVideos = require("./routes/workoutVideos");
 let features = require("./routes/features");
 let admin = require("./routes/admin");
+let videoChat = require("./routes/videoChat");
 app.use("/accounts", accounts);
 app.use(
   "/dashboard",
@@ -169,6 +170,7 @@ app.use("/workoutRooms", workoutRooms);
 app.use("/workoutVideos", workoutVideos);
 app.use("/features", features);
 app.use("/admin", admin);
+app.use("/videoChat", videoChat);
 
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "client/dist/index.html"));

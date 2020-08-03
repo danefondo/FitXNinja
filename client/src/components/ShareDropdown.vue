@@ -109,7 +109,7 @@ export default {
   /*  box-shadow: 3px 3px 0px 0px #eee;*/
   cursor: pointer;
   /*  margin-right: 10px;*/
-  margin-right: 15px;
+  margin-right: 0px;
   overflow: hidden;
   /*  min-width: 160px;*/
   border-top-left-radius: 4px;

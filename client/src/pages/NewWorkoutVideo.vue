@@ -1,5 +1,5 @@
 <template lang="pug">
-  .contentArea(v-if="user && user.admin")
+  .contentAreaWhite(v-if="user && user.admin")
     .generalErrorContainer(v-if="error")
       .generalErrorText {{ $t("form.wrong") }}
     .stream_input_container
@@ -74,6 +74,15 @@
     .stream_input_container(v-if="music == 'true'")
       .stream_input_title {{ $t("newworkout.songs") }}
       v-select(multiple taggable v-model="songs")
+    .schedule_stream_section
+      .stream_input_title Selected for landing page?
+      .switch-field
+        input#radio-six(type="radio" v-model="isForLanding" name="switch-three" value="true")
+        label(for="radio-six") Yes
+        input#radio-seven(type="radio" v-model="isForLanding" name="switch-three" value="false")
+        label(for="radio-seven") No
+      .inputErrorContainer
+        .inputErrorText
     .go_live(@click="submit('live')" :disabled="submitting" ) {{ submitting === 'live' ? $t('newworkout.addingworkout') : $t('newworkout.addworkout') }}
     .scheduleErrorContainer(v-if="scheduleError")
       .scheduleErrorText {{ $t("golive.fill-in") }}
@@ -167,6 +176,7 @@ export default {
       organizations: [],
       workoutOrganizationOptions: [],
       url: "",
+      isForLanding: "false",
     };
   },
   mounted() {
@@ -203,7 +213,8 @@ export default {
           specifications: this.specifications,
           teachers: this.teachers,
           organizations: this.organizations,
-          public_status: this.public_status
+          public_status: this.public_status,
+          isForLanding: this.isForLanding,
         }
         const result = await axios.post(
           `dashboard/addWorkoutVideo`,
@@ -222,7 +233,10 @@ export default {
 </script>
 
 <style>
-
+.contentAreaWhite {
+  background-color: white;
+  margin: 0px auto 50px auto;
+}
 .vs__actions {
   display: none !important;
 }

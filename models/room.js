@@ -27,7 +27,9 @@ const WorkoutRoomSchema = new mongoose.Schema({
     teachers: [String],
     organizations: [String],
     expected_results: [String],
-    public_status: String
+    public_status: String,
+    session_id: String,
+    session_tokens: [String]
 });
 
 //- When adding teacher/organization, just add the id to the list here and later populate

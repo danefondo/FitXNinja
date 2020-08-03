@@ -135,7 +135,7 @@ export default {
 
 <style>
 .video-core {
-  width: calc(100vw - 20px);
+  width: calc(60vw - 20px);
 }
 .video-container {
   position: relative;
@@ -810,7 +810,7 @@ p {
   display: inline-block;
   background-color: #f7f7f7;
   border-radius: 3px;
-  margin-right: 15px;
+  margin-right: 0px;
   text-align: center;
   transition: 0.2s ease;
   cursor: pointer;

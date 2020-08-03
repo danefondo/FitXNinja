@@ -236,6 +236,6 @@ export default {
 
 .share-links {
   position: absolute;
-  right: 15px;
+  right: 0px;
 }
 </style>

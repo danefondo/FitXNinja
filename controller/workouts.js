@@ -6,6 +6,35 @@ const streamUtils = require("../utils/stream");
 const moment = require("moment");
 
 const workoutController = {
+
+  // var query = dbSchemas.SomeValue.find({}).select('name -_id');
+
+  async getVideosByParameter(req, res) {
+    try {
+
+
+      console.log("bod", req.body);
+      let fieldName = req.body.fieldName;
+      let fieldValue = req.body.fieldValue
+
+      let videos = await WorkoutVideo.find({[fieldName]:fieldValue}).exec();
+      if (!videos) {
+        return res.status(404).json({
+          errors: "Videos not found.",
+        });
+      }
+      // console.log("vids", videos);
+      res.status(200).json({
+        videos: videos
+      });
+
+    } catch(error) {
+      console.log(error);
+      res.status(500).json({
+        errors: "An unknown error occurred",
+      });
+    }
+  },
   async getAll(req, res) {
     try {
       console.log("WAZ");
@@ -17,12 +46,12 @@ const workoutController = {
       }
 
       res.status(200).json({
-        videos: videos,
+        videos: videos
       });
     } catch (error) {
       console.log(error);
       res.status(500).json({
-        errors: "An unknown error occurredssssss",
+        errors: "An unknown error occurred",
       });
     }
   },
@@ -85,6 +114,8 @@ const workoutController = {
       }
 
       video.public_status = video_data.public_status;
+
+      video.isForLanding = video_data.isForLanding;
 
       // let tags = stream_data.stream_tags;
       // tags = JSON.parse(tags);

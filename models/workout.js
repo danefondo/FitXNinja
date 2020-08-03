@@ -26,7 +26,8 @@ const WorkoutVideoSchema = new mongoose.Schema({
     video_id: String,
     creator_account_id: String,
     currently_doing_workout_count: Number,
-    public_status: String
+    public_status: String,
+    isForLanding: String
 });
 
 //- When adding teacher/organization, just add the id to the list here and later populate
